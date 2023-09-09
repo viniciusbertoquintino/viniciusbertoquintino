@@ -6,6 +6,15 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=viniciusbertoquintino&label=Profile%20views&color=0e75b6&style=flat" alt="viniciusbertoquintino" /> </p>
 
+## About me 🕵🏾‍♂️
+
+- [x] 🎓 I'm graduating in Systems Analysis and Development.
+- [x] 🍀 I’m looking to collaborate on diverses projects in the future.
+- [x] 📫 How to reach me: viniciusbertoquintino@gmail.com
+
+
+
+
 <!--
 **viniciusbertoquintino/viniciusbertoquintino** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
