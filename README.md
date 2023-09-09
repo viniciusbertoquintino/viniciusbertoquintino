@@ -1,5 +1,3 @@
-### Hi there 👋
-
 <h1 align="center">Hello world, I'm Vinícius!</h1>
 
 ![Badge nascido no Brasil](https://img.shields.io/badge/MADE%20IN-BRAZIL-green.svg)
