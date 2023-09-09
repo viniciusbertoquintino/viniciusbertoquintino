@@ -11,6 +11,7 @@
 - [x] 🎓 I'm graduating in Systems Analysis and Development.
 - [x] 🍀 I’m looking to collaborate on diverses projects in the future.
 - [x] 📫 How to reach me: viniciusbertoquintino@gmail.com
+- [X] 🌱 I am currently learning data analysis using AI and natural language processing.
 
 
 
