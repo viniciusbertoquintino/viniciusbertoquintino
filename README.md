@@ -1,8 +1,10 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" alt="animated" />
+</p>
 <h1 align="center">Hello world, I'm Vinícius!</h1>
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=viniciusbertoquintino&label=Profile%20views&color=0e75b6&style=flat" alt="viniciusbertoquintino" /> </p>
 
 ![Badge nascido no Brasil](https://img.shields.io/badge/MADE%20IN-BRAZIL-green.svg)
-
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=viniciusbertoquintino&label=Profile%20views&color=0e75b6&style=flat" alt="viniciusbertoquintino" /> </p>
 
 ## About me 🕵🏾‍♂️
 
