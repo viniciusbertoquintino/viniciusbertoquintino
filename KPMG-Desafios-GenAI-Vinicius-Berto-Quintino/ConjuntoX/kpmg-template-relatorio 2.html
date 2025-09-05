@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>KPMG — Template de Relatório de Desafio (GenAI)</title>
+  <style>
+    :root{
+      --kpmg-blue:#00338D; --kpmg-medium-blue:#005EB8; --kpmg-light-blue:#0091DA;
+      --ink-900:#0E0F14; --ink-700:#2C2F36; --ink-500:#4B4F57; --ink-300:#7B818C; --ink-100:#E8ECF3; --paper:#FFFFFF;
+      --radius-xl:14px; --radius-lg:10px; --radius-md:8px;
+      --shadow:0 10px 24px rgba(0,0,0,.06), 0 2px 6px rgba(0,0,0,.05);
+      --container:960px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:#FFFFFF; color:var(--ink-900);
+      font-family:"KPMG Font","Univers","Arial","Helvetica",sans-serif; line-height:1.48;
+    }
+    header{
+      border-bottom:4px solid var(--kpmg-light-blue);
+      background:linear-gradient(135deg, var(--kpmg-blue), var(--kpmg-medium-blue)); color:#fff;
+      padding:22px 0 18px;
+    }
+    .header-inner{max-width:var(--container); margin:0 auto; padding:0 18px; display:flex; align-items:center; gap:18px}
+    .header-inner img{height:40px}
+    .header-title{margin:0; font-size:22px; font-weight:700; letter-spacing:.2px}
+    .shell{max-width:var(--container); margin:0 auto; padding:22px 18px 60px}
+    h2{color:var(--kpmg-blue); margin:22px 0 10px; font-size:18px}
+    h3{color:var(--kpmg-blue); font-size:16px; margin:18px 0 8px}
+    .meta, .note{font-size:13px; color:var(--ink-700)}
+    .card{background:#fff; border:1px solid #EEF1F7; border-radius:12px; padding:16px; box-shadow:var(--shadow); margin:14px 0}
+    .twocol{display:grid; gap:16px} @media(min-width:840px){ .twocol{grid-template-columns:1fr 1fr} }
+    .kv{display:grid; grid-template-columns:180px 1fr; gap:8px; margin:8px 0}
+    .kv label{font-size:13px; color:var(--ink-500)}
+    input[type="text"], textarea{
+      width:100%; border:1px solid #DDE5F1; border-radius:10px; padding:10px 12px; font:inherit; background:#FBFDFF
+    }
+    textarea{min-height:120px}
+    .table{width:100%; border-collapse:collapse; font-size:14px}
+    .table th, .table td{border:1px solid #E8ECF3; padding:10px 12px; vertical-align:top}
+    .table th{background:#F5F8FF; color:var(--kpmg-blue); text-align:left}
+    .pill{display:inline-block; padding:4px 8px; border-radius:999px; font-size:12px; background:#EEF4FF; color:var(--kpmg-blue); border:1px solid #DDE7FF}
+    .footer{margin-top:40px; font-size:12px; color:var(--ink-500)}
+    .toc{font-size:14px; line-height:1.4}
+    .btn-print{display:inline-block; background:var(--kpmg-blue); color:#fff; border:none; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700}
+    @media print{
+      .btn-print{display:none}
+      a{text-decoration:none}
+      .card{box-shadow:none; page-break-inside: avoid}
+      header{position:static}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/KPMG_blue_logo.svg" alt="KPMG" />
+      <div>
+        <h1 class="header-title">Template de Relatório — Desafios de GenAI (Agentes · Multiagentes · Workflows)</h1>
+        <div class="meta">Use este template para qualquer conjunto A–E. Ao finalizar, exporte para PDF.</div>
+      </div>
+      <div style="margin-left:auto">
+        <button class="btn-print" onclick="window.print()">Exportar para PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <!-- 0. CAPA / METADADOS -->
+    <section class="card">
+      <h2>Metadados do Relatório</h2>
+      <div class="twocol">
+        <div class="kv"><label>Nome do(a) consultor(a)</label><input type="text" placeholder="Seu nome completo"/></div>
+        <div class="kv"><label>Data</label><input type="text" placeholder="AAAA-MM-DD"/></div>
+        <div class="kv"><label>Conjunto escolhido</label><input type="text" placeholder="A · B · C · D · E"/></div>
+        <div class="kv"><label>Desafios incluídos</label><input type="text" placeholder="Ex.: A1, A2, A3"/></div>
+        <div class="kv"><label>Resumo executivo (1–2 frases)</label><input type="text" placeholder="Problema → solução → impacto esperado"/></div>
+      </div>
+    </section>
+
+    <!-- 1. RESUMO EXECUTIVO -->
+    <section class="card">
+      <h2>1) Resumo Executivo</h2>
+      <p class="note">Conte a história de forma executiva: contexto de negócio, hipótese de valor, solução proposta e principais resultados.</p>
+      <textarea placeholder="Escreva aqui o resumo executivo (≤½ página)."></textarea>
+    </section>
+
+    <!-- 2. MODELAGEM DO PROBLEMA -->
+    <section class="card">
+      <h2>2) Modelagem do Problema</h2>
+      <div class="twocol">
+        <div>
+          <h3>2.1 Atores & Dados</h3>
+          <textarea placeholder="Quem são os atores (usuários/sistemas) e quais dados/artefatos entram/saem?"></textarea>
+        </div>
+        <div>
+          <h3>2.2 Requisitos & Métricas de Sucesso</h3>
+          <textarea placeholder="Critérios de aceite, SLAs, métricas (ex.: acurácia, TMA, violação de janela <5%, etc.)."></textarea>
+        </div>
+      </div>
+      <div class="twocol">
+        <div>
+          <h3>2.3 Assunções & Riscos</h3>
+          <textarea placeholder="Principais riscos (ex.: deriva de modelo, quotas, dados faltantes) e mitigações."></textarea>
+        </div>
+        <div>
+          <h3>2.4 Decisão de Arquitetura</h3>
+          <textarea placeholder="Por que Agente vs Multiagentes vs Workflow como abordagem primária?"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ARQUITETURA DA SOLUÇÃO -->
+    <section class="card">
+      <h2>3) Arquitetura da Solução</h2>
+      <p class="note">Inclua um diagrama (pode colar imagem/base64 ou descrever por texto). Liste componentes, contratos e trade-offs.</p>
+      <textarea placeholder="Descreva a arquitetura (componentes, dados, fluxos, contratos, decisões e trade-offs)."></textarea>
+    </section>
+
+    <!-- 4. PROMPTS & FERRAMENTAS -->
+    <section class="card">
+      <h2>4) Prompts & Ferramentas</h2>
+      <div class="card" style="padding:0">
+        <table class="table">
+          <thead>
+            <tr><th>Tipo</th><th>Conteúdo (versão atual)</th><th>Objetivo</th><th>Notas de iteração</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="pill">System</span></td><td><textarea placeholder="Instruções de sistema (políticas, persona, estilo)…"></textarea></td><td><textarea placeholder="O que se pretende com este prompt?"></textarea></td><td><textarea placeholder="Quais mudanças foram feitas e por quê?"></textarea></td></tr>
+            <tr><td><span class="pill">User</span></td><td><textarea placeholder="Exemplos de inputs do usuário…"></textarea></td><td><textarea placeholder="Objetivo do usuário"></textarea></td><td><textarea placeholder="Ajustes testados"></textarea></td></tr>
+            <tr><td><span class="pill">Tool</span></td><td><textarea placeholder="Formato/contrato da ferramenta (inputs/outputs)…"></textarea></td><td><textarea placeholder="Quando a ferramenta é chamada?"></textarea></td><td><textarea placeholder="Validação de erros, timeouts, etc."></textarea></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>4.1 Bibliotecas & Padrões Python</h3>
+      <textarea placeholder="Quais libs e padrões? O que foi descartado e por quê?"></textarea>
+    </section>
+
+    <!-- 5. EXECUÇÃO & OBSERVABILIDADE -->
+    <section class="card">
+      <h2>5) Execução & Observabilidade</h2>
+      <div class="twocol">
+        <div>
+          <h3>5.1 Logs & Métricas</h3>
+          <textarea placeholder="Quais eventos/labels/IDs você loga? Quais métricas de sucesso e de confiabilidade?"></textarea>
+        </div>
+        <div>
+          <h3>5.2 Confiabilidade</h3>
+          <textarea placeholder="Idempotência, retries, DLQ, circuit breaker, reprocesso."></textarea>
+        </div>
+      </div>
+      <h3>5.3 Testes</h3>
+      <textarea placeholder="Casos de teste mínimos (≥3), critérios de aprovação e resultados."></textarea>
+    </section>
+
+    <!-- 6. RESPOSTAS ÀS PERGUNTAS COMUNS -->
+    <section class="card">
+      <h2>6) Respostas — Perguntas Comuns</h2>
+      <ol>
+        <li><textarea placeholder="Modelagem do problema: hipóteses, riscos, métricas…"></textarea></li>
+        <li><textarea placeholder="Justificativa da abordagem (Agente/Multiagentes/Workflow)…"></textarea></li>
+        <li><textarea placeholder="Prompts e evidências de iteração (≥2 versões)…"></textarea></li>
+        <li><textarea placeholder="Bibliotecas/padrões adotados e descartados…"></textarea></li>
+        <li><textarea placeholder="Ferramentas adequadas por tipo de problema…"></textarea></li>
+        <li><textarea placeholder="Observabilidade e idempotência…"></textarea></li>
+        <li><textarea placeholder="Roadmap: quick win + passo estruturante…"></textarea></li>
+      </ol>
+    </section>
+
+    <!-- 7. RESPOSTAS — PERGUNTAS ESPECÍFICAS DO DESAFIO -->
+    <section class="card">
+      <h2>7) Respostas — Perguntas Específicas do Desafio</h2>
+      <p class="note">Copie do enunciado as perguntas específicas do(s) desafio(s) e responda abaixo.</p>
+      <textarea placeholder="Respostas específicas (Agentes) — ex.: estrutura, memórias, ferramentas…"></textarea>
+      <textarea placeholder="Respostas específicas (Multiagentes) — ex.: coordenação, state, timeouts…"></textarea>
+      <textarea placeholder="Respostas específicas (Workflows) — ex.: variáveis, branching, erros…"></textarea>
+    </section>
+
+    <!-- 8. RESULTADOS & PRÓXIMOS PASSOS -->
+    <section class="card">
+      <h2>8) Resultados, Limitações e Próximos Passos</h2>
+      <div class="twocol">
+        <div>
+          <h3>8.1 Resultados</h3>
+          <textarea placeholder="Resultados quantitativos/qualitativos (com tabelas/prints, se aplicável)."></textarea>
+        </div>
+        <div>
+          <h3>8.2 Limitações & Riscos Remanescentes</h3>
+          <textarea placeholder="O que não foi resolvido e por quê; riscos abertos."></textarea>
+        </div>
+      </div>
+      <h3>8.3 Próximos Passos</h3>
+      <textarea placeholder="Backlog priorizado: curto, médio e longo prazo."></textarea>
+    </section>
+
+    <!-- APÊNDICE -->
+    <section class="card">
+      <h2>Apêndice</h2>
+      <h3>A. Artefatos</h3>
+      <textarea placeholder="Links para datasets, PDFs, configs, etc."></textarea>
+      <h3>B. Evidências de Execução</h3>
+      <textarea placeholder="Hashes de execução, IDs de run, amostras de logs."></textarea>
+    </section>
+
+    <div class="footer">
+      <strong>KPMG</strong> — Este template é orientado a impressão/PDF. Para manter consistência visual, utilize as cores e fontes padrão KPMG. Logo referenciada de fonte pública e oficial (ver licença/trademark da marca).
+    </div>
+  </main>
+</body>
+</html>
