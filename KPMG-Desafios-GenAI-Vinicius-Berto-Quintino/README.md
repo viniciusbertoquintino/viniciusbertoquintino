@@ -1,0 +1,1 @@
+# Desafios---GenAI---Vinicius-Berto-Quintino
