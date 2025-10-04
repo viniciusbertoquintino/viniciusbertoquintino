@@ -1,0 +1,32 @@
+# Política de Reembolso - Extraído em 2025-10-02 19:37:42
+
+Política de Reembolso
+
+1) Requisitos
+
+Causa da devolução: arrependimento (máximo de 7 dias).
+Causa da devolução: defeito (máximo de 30 dias).
+
+2) Avaliação da Devolução
+
+A análise será feita a partir de evidências (imagem ou conjunto de imagens no caso de defeito),
+tempo de compra e/ou relato do cliente. O tempo para os requisitos é contado a partir de data
+de recebimento do produto.
+
+3) Restrições
+
+Se o valor final (descontando imposto de 15%) for maior que R$ 1.000,00, exige
+aprovação do Financeiro.
+Se o cliente enviar evidências totalmente desconexas (por exemplo, vídeo ou imagens
+que não têm relação com o produto), deve ser enviado um e-mail ao cliente
+informando que a evidência é inválida, explicando o motivo e solicitando evidência
+válida.
+
+4) Prazos e Procedimentos
+
+O cliente deve preencher o formulário de reembolso no site.
+Após receber a confirmação do recebimento por e-mail, deve aguardar até 3 dias para
+a confirmação da possibilidade de reembolso.
+Após a confirmação, o reembolso será realizado em até 5 dias úteis via PIX.
+
+© 2025 Mercado Livre — Política de Reembolso Simulada
