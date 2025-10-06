@@ -1,0 +1,858 @@
+{
+  "name": "a3_ok",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "When clicking ‘Execute workflow’",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2736,
+        448
+      ],
+      "id": "93394034-b789-48b3-977d-3805f2d5123c"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "# Gera apenas 1 caso (primeiro da lista)\ncases = [\n    {\"request_id\": \"req-003\", \"amount\": 1500.00},  # rota financeira\n    {\"request_id\": \"req-002\", \"amount\": 500.00},   # auto-aprovação\n    {\"request_id\": \"req-001\", \"amount\": 100.00},   # auto-aprovação\n    {\"request_id\": \"req-001\", \"amount\": 100.00}    # duplicado\n]\n\n# Escolha o índice desejado (0 = primeiro, 1 = segundo, etc.)\nselected_case = cases[1]\n\nreturn [{\"json\": selected_case}]"
+      },
+      "name": "gera casos de teste (Python)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2560,
+        432
+      ],
+      "id": "dc1d5028-b421-4494-b456-96ae51eafd38"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    data = dict(item.json or {})\n    err = None\n    rid = str(data.get('request_id', '')).strip()\n    if not rid:\n        err = 'request_id ausente'\n    elif 'amount' not in data:\n        err = 'amount ausente'\n    else:\n        try:\n            amt = float(data['amount'])\n            if amt <= 0:\n                err = 'amount deve ser > 0'\n            else:\n                data['amount'] = amt\n        except Exception:\n            err = 'amount inválido (não numérico)'\n    data['valid'] = (err is None)\n    if err:\n        data['error'] = err\n    item.json = data\nreturn items\n"
+      },
+      "name": "valida dados (Python)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2352,
+        432
+      ],
+      "id": "68f3a475-296e-40d6-ade8-e800df2627bd"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "7a58c18f-3fb8-4e04-b3f8-1217c810abe4",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "247454f8-aeea-4cc5-a729-c7e94c3b7380",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "IF: dados válidos?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -2016,
+        432
+      ],
+      "id": "0fea9ad6-48ae-4f2d-8767-34a9b5c5ba73"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['status'] = 'skipped'\n    d['status_reason'] = 'idempotência: request_id duplicado nesta carga'\n    item.json = d\nreturn items\n"
+      },
+      "name": "notifica duplicado (Python)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1424,
+        288
+      ],
+      "id": "36962790-53a8-43d0-9a82-5ae91ac34634"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "29d2b950-acca-4b77-be96-5c12f3b68b36",
+              "leftValue": "={{ $json.valor_liquido }}",
+              "rightValue": 1000,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "IF: valor liquido > 1000",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -1328,
+        464
+      ],
+      "id": "7576a1e9-cacd-407e-a11d-cdad2af3b861"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['approved'] = True\n    d['approval_channel'] = 'auto'\n    d['status'] = 'approved'\n    d['attempt'] = int(d.get('attempt', 0))\n    item.json = d\nreturn items\n"
+      },
+      "name": "auto-aprovacao (Python)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1056,
+        592
+      ],
+      "id": "5896764c-9b58-4cd3-b1c6-8762e620c611"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "\nimport random\n\nDEFAULT_FAIL_RATE = 0.3  # 30% de chance de falha\n\nitems = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n\n    # Determina sucesso: forçado (force_success) ou aleatório (fail_rate)\n    if \"force_success\" in d:\n        # Interpretação robusta caso venha string (\"true\"/\"false\")\n        fs = d.get(\"force_success\")\n        if isinstance(fs, str):\n            success = fs.strip().lower() in (\"1\", \"true\", \"yes\", \"y\", \"on\")\n        else:\n            success = bool(fs)\n    else:\n        fail_rate = float(d.get(\"fail_rate\", DEFAULT_FAIL_RATE))\n        success = random.random() >= fail_rate  # <- importante: usar >= (não &gt;=)\n\n    # Mantém attempt como está (não incrementa)\n    attempt = int(d.get(\"attempt\", 0))\n    rid = str(d.get(\"request_id\", \"\")).strip()\n\n    d[\"refund_success\"] = success\n    d[\"refund_id\"] = f\"rf-{rid}-{attempt + 1}\" if rid else f\"rf-na-{attempt + 1}\"\n    d[\"provider\"] = \"mock-gateway\"\n    d[\"provider_latency_ms\"] = int(50 + random.random() * 120)\n\n    item.json = d\n\n# ✅ Retorna os itens modificados\nreturn items\n"
+      },
+      "name": "executa estorno: integracao externa (Python)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -816,
+        592
+      ],
+      "id": "3ff1c89f-2b16-476b-979a-984cde03324f"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "8563db94-99c1-4f45-b93d-fabe5cba86f5",
+              "leftValue": "={{ $json.refund_success }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "IF: estorno com sucesso",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -576,
+        592
+      ],
+      "id": "9f483e47-b78f-4189-9688-0f3a22969a1b"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          },
+          "conditions": [
+            {
+              "id": "aa786632-2c99-4fa0-8725-090c951fb87d",
+              "leftValue": "={{ $json.attempt }}",
+              "rightValue": 2,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "IF: tentativa >= 2?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        720
+      ],
+      "id": "43e4d305-2d82-41c7-bb2d-e156e3c1b549"
+    },
+    {
+      "parameters": {
+        "amount": "={{$json.backoffSeconds}}",
+        "unit": "seconds"
+      },
+      "name": "exponencial backoff + jitter (Wait)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        384,
+        656
+      ],
+      "id": "555886f7-9f2c-4ed4-b8c3-a79038156e71",
+      "webhookId": "be6c0680-bb45-4164-b835-38e4816856c1"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from datetime import datetime, timezone\nitems = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['approved'] = None\n    d['approval_channel'] = 'financeiro'\n    d['approval_requested_at'] = datetime.now(timezone.utc).isoformat()\n    d['attempt'] = int(d.get('attempt', 0))\n    item.json = d\nreturn items\n"
+      },
+      "name": "solicita aprovacao financeiro (Python)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        112
+      ],
+      "id": "934c1f15-5b1d-4efd-b66f-065601ec8c86"
+    },
+    {
+      "parameters": {
+        "amount": 5,
+        "unit": "seconds"
+      },
+      "name": "espera SLA financeiro (Wait)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        -832,
+        112
+      ],
+      "id": "5f19f61d-5db1-4734-999f-adc8e1da24e5",
+      "webhookId": "87b409dc-0fe6-4975-92b2-6e57147d76ba"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "import random\n\nitems = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n\n    # Escolhe aleatoriamente com probabilidades iguais\n    resp = random.choice(['aprovado', 'rejeitado', 'timeout'])\n\n    d['financeiro_resposta'] = resp\n    d['approved'] = (resp == 'aprovado')\n    item.json = d\n\nreturn items"
+      },
+      "name": "decide resposta financeiro (simulador) (Python)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -592,
+        96
+      ],
+      "id": "d126941b-7a41-470d-bddd-844dba799818"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "1a180f90-40d1-4cbf-8c10-f66c66aedad6",
+                    "leftValue": "={{ $json.approved }}",
+                    "rightValue": "",
+                    "operator": {
+                      "type": "boolean",
+                      "operation": "true",
+                      "singleValue": true
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "00096e02-2dbf-4e8a-957a-01c2b35fb250",
+                    "leftValue": "={{ $json.financeiro_resposta }}",
+                    "rightValue": "rejeitado",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 1
+                },
+                "conditions": [
+                  {
+                    "id": "8ba7c5de-003b-478a-8a98-eae2fd246a67",
+                    "leftValue": "={{ $json.financeiro_resposta }}",
+                    "rightValue": "timeout",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Switch: Resposta",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        -400,
+        96
+      ],
+      "id": "1f145d89-32d1-47ca-ab59-990b367f3046"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    msg = 'Estorno ' + str(d.get('refund_id')) + ' concluído com sucesso.'\n    d['notification'] = { 'to': 'cliente@example.com', 'message': msg }\n    d['notified'] = True\n    item.json = d\nreturn items\n"
+      },
+      "name": "notifica clientes (sucesso)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -64,
+        496
+      ],
+      "id": "ec5ae0e3-647d-4047-a57b-6af82a286916"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from datetime import datetime, timezone\nitems = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['conciliated'] = True\n    d['conciliated_at'] = datetime.now(timezone.utc).isoformat()\n    item.json = d\nreturn items\n"
+      },
+      "name": "conciliação contábil",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        496
+      ],
+      "id": "a146530c-22e3-4f95-8008-e73ef4428573"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['status'] = 'pending'\n    d['notification'] = { 'to': 'cliente@example.com', 'message': 'Sua solicitação está em análise (SLA excedido). Escalada para nível 2.' }\n    d['notified'] = True\n    item.json = d\nreturn items\n"
+      },
+      "name": "notifica clientes (timeout)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        160,
+        176
+      ],
+      "id": "765ad61d-dfe8-4120-8450-bf6c757fc44c"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "from datetime import datetime, timezone\nitems = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['sla_violado'] = True\n    d['escalado_para'] = 'Equipe Financeiro - Nível 2'\n    d['escalado_em'] = datetime.now(timezone.utc).isoformat()\n    item.json = d\nreturn items\n"
+      },
+      "name": "escala aprovacao / SLA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        208
+      ],
+      "id": "52e81deb-facb-4608-802b-8c81b6f6ed65"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['status'] = 'rejected'\n    d['notification'] = { 'to': 'cliente@example.com', 'message': 'Sua solicitação foi rejeitada pelo Financeiro.' }\n    d['notified'] = True\n    item.json = d\nreturn items\n"
+      },
+      "name": "notifica clientes (rejeitado)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "9a1e634d-a331-422f-8581-b9f0d1b74814"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['status'] = 'DLQ: pendente manual'\n    d['next_action'] = 'Investigar: estorno falhou após tentativas'\n    item.json = d\nreturn items\n"
+      },
+      "name": "DLQ: pendente manual",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        112,
+        864
+      ],
+      "id": "75291c7d-e0c0-4704-8a00-068759affdd2"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "import random\nBASE = 5\nitems = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    attempt = int(d.get('attempt', 1))\n    backoff = BASE * (2 ** (attempt - 1)) + random.randint(0, 3)\n    d['backoffSeconds'] = int(backoff)\n    item.json = d\nreturn items\n"
+      },
+      "name": "calcula backoff",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        144,
+        656
+      ],
+      "id": "2233fddf-ff7d-40aa-890c-2041c7871e01"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    d['attempt'] = int(d.get('attempt', 0)) + 1\n    item.json = d\nreturn items\n"
+      },
+      "name": "incrementa tentativa",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        704
+      ],
+      "id": "ee440e62-3fe3-4c7b-9562-a6ed5197f0d1"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "python",
+        "pythonCode": "\nitem = _input.item\nd = dict(item.json or {})\nrid = str(d.get('request_id') or '').strip()\n\nd['duplicate'] = (rid == 'req-001')\n\nitem.json = d\nreturn item\n"
+      },
+      "name": "checa idempotencia: request_id (Python)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1824,
+        512
+      ],
+      "id": "9e6bfe03-90bb-45de-9a46-51e123ba8dd1"
+    },
+    {
+      "parameters": {
+        "language": "python",
+        "pythonCode": "items = _input.all()\nfor item in items:\n    d = dict(item.json or {})\n    item.json = {\n        'request_id': d.get('request_id'),\n        'status': 'invalid',\n        'error': d.get('error')\n    }\nreturn items\n"
+      },
+      "name": "notifica erro - dados invalidos.",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1792,
+        288
+      ],
+      "id": "40ab56de-c3c7-47c2-862b-931d68a5ee7d"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "language": "python",
+        "pythonCode": "\nTAXA = 0.15  # 15%\n\nitem = _input.item\nd = dict(item.json or {})\n\nif d.get(\"valid\"):\n    bruto = float(d.get(\"amount\", 0))\n    d[\"valor_liquido\"] = round(bruto * (1 - TAXA), 2)\nelse:\n    d[\"valor_liquido\"] = None\n\nitem.json = d\nreturn item\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2176,
+        448
+      ],
+      "id": "bd532b2c-f5f7-45df-a3a2-fe28b39f82aa",
+      "name": "calcula valor liquido (Python)"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6ccef014-7c8b-46b2-a290-38af8dff94a2",
+              "leftValue": "={{ $json.duplicate }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -1648,
+        464
+      ],
+      "id": "5d352b77-8e1c-48b0-9536-acff19790106",
+      "name": "IF: é dupllicado"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "gera casos de teste (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gera casos de teste (Python)": {
+      "main": [
+        [
+          {
+            "node": "valida dados (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "valida dados (Python)": {
+      "main": [
+        [
+          {
+            "node": "calcula valor liquido (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: dados válidos?": {
+      "main": [
+        [
+          {
+            "node": "checa idempotencia: request_id (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "notifica erro - dados invalidos.",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: valor liquido > 1000": {
+      "main": [
+        [
+          {
+            "node": "solicita aprovacao financeiro (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "auto-aprovacao (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "auto-aprovacao (Python)": {
+      "main": [
+        [
+          {
+            "node": "executa estorno: integracao externa (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "executa estorno: integracao externa (Python)": {
+      "main": [
+        [
+          {
+            "node": "IF: estorno com sucesso",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: estorno com sucesso": {
+      "main": [
+        [
+          {
+            "node": "conciliação contábil",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "incrementa tentativa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: tentativa >= 2?": {
+      "main": [
+        [
+          {
+            "node": "DLQ: pendente manual",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "calcula backoff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "exponencial backoff + jitter (Wait)": {
+      "main": [
+        [
+          {
+            "node": "executa estorno: integracao externa (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "solicita aprovacao financeiro (Python)": {
+      "main": [
+        [
+          {
+            "node": "espera SLA financeiro (Wait)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "espera SLA financeiro (Wait)": {
+      "main": [
+        [
+          {
+            "node": "decide resposta financeiro (simulador) (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "decide resposta financeiro (simulador) (Python)": {
+      "main": [
+        [
+          {
+            "node": "Switch: Resposta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch: Resposta": {
+      "main": [
+        [
+          {
+            "node": "executa estorno: integracao externa (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "notifica clientes (rejeitado)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "escala aprovacao / SLA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "conciliação contábil": {
+      "main": [
+        [
+          {
+            "node": "notifica clientes (sucesso)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "escala aprovacao / SLA": {
+      "main": [
+        [
+          {
+            "node": "notifica clientes (timeout)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calcula backoff": {
+      "main": [
+        [
+          {
+            "node": "exponencial backoff + jitter (Wait)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "incrementa tentativa": {
+      "main": [
+        [
+          {
+            "node": "IF: tentativa >= 2?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "checa idempotencia: request_id (Python)": {
+      "main": [
+        [
+          {
+            "node": "IF: é dupllicado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "calcula valor liquido (Python)": {
+      "main": [
+        [
+          {
+            "node": "IF: dados válidos?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: é dupllicado": {
+      "main": [
+        [
+          {
+            "node": "notifica duplicado (Python)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "IF: valor liquido > 1000",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d0349bad-7d0d-4a87-aff5-3c657c291bf8",
+  "meta": {
+    "instanceId": "20700ad0e2c8d619e1e7f90bba68d440d79816242e6f87f9d7c866ce8cf77230"
+  },
+  "id": "WM8CKRZyd5Pv0iDS",
+  "tags": []
+}
