@@ -41,7 +41,6 @@ redator = Agent(
     name="Redator",
     
     # Modelo de IA usando Azure OpenAI (configurado no .env)
-    # Usa as variáveis: AZURE_OPENAI_ENDPOINT, AZURE_OPENAI_API_KEY, etc.
     
     model= chat_model,
     
