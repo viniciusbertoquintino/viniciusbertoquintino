@@ -33,9 +33,9 @@
 │   ENVIRONMENT   │    │     MEMORY      │    │    TOOLS        │
 │                 │    │                 │    │                 │
 │ • SQLite DB     │    │ • Curto Prazo   │    │ • compute_refund│
-│ • LanceDB       │    │   (Buffer 10)   │    │   (Cálculo)     │
+│ • LanceDB       │    │   	   	 │    │   (Cálculo)     │
 │ • PDF Knowledge │    │ • Sessão        │    │ • RAG Search    │
-│ • Azure OpenAI  │    │   (Histórico)   │    │   (Knowledge)   │
+│ • Azure OpenAI  │    │   	         │    │   (Knowledge)   │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
          └───────────────────────┼───────────────────────┘
@@ -59,25 +59,6 @@
 ```
 
 ### **Sistema de Memória**
-
-**Tipos Considerados:**
-
-1. **Memória Episódica**: Lembra eventos específicos da conversa
-2. **Memória Semântica**: Conhecimento geral sobre reembolsos
-3. **Memória de Trabalho**: Contexto imediato da conversa
-4. **Memória de Longo Prazo**: Histórico persistente
-
-**Escolha Implementada:**
-
-```python
-class MemoriaAgente:
-    def __init__(self, limite_curto_prazo: int = 10):
-        # Memória de curto prazo: só as últimas N mensagens
-        self.memoria_curto_prazo: List[Dict] = []
-  
-        # Memória de sessão: TODAS as mensagens (histórico completo)
-        self.memoria_sessao: List[Dict] = []
-```
 
 **Por que essa escolha:**
 

@@ -14,8 +14,10 @@ from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.lancedb import LanceDb
 from agno.db.sqlite.sqlite import SqliteDb
 
-# Importa o sistema de memória
-from memoria import MemoriaAgente
+# Sistema de memória integrado com Agno
+from agno.memory.v2.db.sqlite import SqliteMemoryDb
+from agno.memory.v2.memory import Memory
+from agno.memory.v2.manager import MemoryManager
 
 
 # ========================================
@@ -70,8 +72,7 @@ async def load_knowledge_base(kb: Knowledge):
     try:
         await kb.add_content_async(
             name="politica_reembolso",
-            path="politica_reembolso_v1.0.pdf",   # nome EXATO do arquivo
-            reader=PDFReader(),                   # o Agno abre o PDF e cuida do chunking
+            path="politica_reembolso_v1.0.pdf",   
             metadata={"tipo": "politica", "fonte": "local"},
         )
         print("✅ Knowledge Base carregada com sucesso!")
@@ -80,13 +81,52 @@ async def load_knowledge_base(kb: Knowledge):
 
 
 # ========================================
-# Agente com Knowledge (RAG)
+# Sistema de Memória Simples
+# ========================================
+def criar_memoria():
+    """
+    Cria o sistema de memória do agente.
+    Bem simples - só configura a memória do usuário.
+    """
+    # 1) Banco de dados para memórias
+    memory_db = SqliteMemoryDb(
+        table_name="memorias_reembolso", 
+        db_file="../tmp/agent_data.db"
+    )
+    
+    # 2) Sistema de memória
+    memory = Memory(
+        db=memory_db,
+        memory_manager=MemoryManager(
+            memory_capture_instructions="""
+            Colete informações importantes sobre o usuário:
+            - Nome e dados pessoais
+            - Solicitações de reembolso feitas
+            - Valores e tipos de despesas
+            - Preferências e histórico
+            """,
+            model=AzureOpenAI(
+                temperature=0.3, 
+                azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"), 
+                azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"), 
+                api_key=os.getenv("AZURE_OPENAI_API_KEY"), 
+                api_version=os.getenv("AZURE_OPENAI_API_VERSION")
+            )
+        )
+    )
+    
+    print("✅ Sistema de memória criado!")
+    return memory
+
+
+# ========================================
+# Agente com Knowledge (RAG) + Memória
 # ========================================
 def criar_agente():
     """
     Cria um Agent do Agno com:
-      - Knowledge (RAG) em cima de arquivo PDF:
-        politica_reembolso_v1.0.pdf
+      - Knowledge (RAG) em cima de arquivo PDF
+      - Sistema de memória integrado
       - Modelo Azure OpenAI (chat)
       - Ferramenta compute_refund
     """
@@ -101,7 +141,6 @@ def criar_agente():
         vector_db=LanceDb(
             table_name="reembolso_kb",
             uri="../tmp/lancedb",
-            # search_type=LanceDb.SearchType.hybrid,
             embedder=embedding_provider
         ),
         max_results=2,
@@ -110,10 +149,13 @@ def criar_agente():
     # 2) Carrega conteúdo na Knowledge Base
     asyncio.run(load_knowledge_base(kb))
     
-    # Set up SQL storage for the agent's data
+    # 3) Banco de dados para o agente
     db = SqliteDb(db_file="../tmp/agent_data.db")
 
-    # 3) Modelo de chat (Azure) — id = deployment do Azure
+    # 4) Sistema de memória
+    memory = criar_memoria()
+
+    # 5) Modelo de chat (Azure)
     chat_model = AzureOpenAI(
         temperature=0.3, 
         azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"), 
@@ -122,69 +164,65 @@ def criar_agente():
         api_version=os.getenv("AZURE_OPENAI_API_VERSION")
     )
 
-    # 4) Instruções
+    # 6) Instruções
     instructions = """
     Você é um assistente de políticas de reembolso.
     Regras:
-    - Responda SOMENTE com base nos trechos recuperados da base de conhecimento kb (RAG).
-    - Cite o trecho/assunto quando possível.
+    - Responda com base nos trechos da base de conhecimento (RAG).
+    - Use suas memórias sobre o usuário para personalizar respostas.
     - Se precisar calcular, use a ferramenta compute_refund.
-    - Se a resposta não estiver na política, diga que não encontrou.
     - Seja claro, educado e use emojis quando fizer sentido.
     """
 
-    # 5) Cria o Agent com RAG habilitado
+    # 7) Cria o Agent com RAG + Memória
     agente = Agent(
         model=chat_model,
         name="Assistente de Reembolso",
         instructions=instructions,
         db=db,
-        # >>> RAG
+        memory=memory,                     # Sistema de memória integrado
+        
+        # RAG
         knowledge=kb,
-        search_knowledge=True,            # adiciona a ferramenta de busca na KB
-        add_knowledge_to_context=True,    # injeta os trechos recuperados no contexto
+        search_knowledge=True,
+        add_knowledge_to_context=True,
 
         # Ferramentas
         tools=[compute_refund],
 
+        # Configurações de memória
+        enable_user_memories=True,         # Ativa memórias do usuário
+        enable_session_summaries=True,     # Ativa resumos de sessão
+        add_history_to_messages=True,      # Adiciona histórico às mensagens
+        num_history_responses=5,           # Últimas 5 respostas no contexto
+
         markdown=True,
-        # show_tool_calls=True,             # útil para depurar
     )
     return agente
 
 
-def processar_pergunta(agente, pergunta: str, memoria: MemoriaAgente = None):
+def processar_pergunta(agente, pergunta: str, user_id: str = "usuario_padrao"):
     """
-    Processa uma pergunta usando o agente com memória.
+    Processa uma pergunta usando o agente com memória integrada.
     
     Args:
         agente: O agente de IA
         pergunta: A pergunta do usuário
-        memoria: (opcional) Objeto de memória para contexto
+        user_id: ID do usuário para memória personalizada
     
     Returns:
         A resposta do agente
     """
     try:
-        # Se tiver memória, adiciona o contexto ao prompt
-        if memoria:
-            # Obtém o contexto das últimas conversas
-            contexto = memoria.obter_contexto_curto_prazo()
-            
-            # Monta o prompt com contexto
-            prompt_completo = f"{contexto}\n\n👤 Usuário: {pergunta}"
-        else:
-            # Sem memória, usa a pergunta diretamente
-            prompt_completo = pergunta
+        # O agente automaticamente:
+        # 1. Consulta memórias do usuário
+        # 2. Adiciona histórico da sessão
+        # 3. Processa a pergunta
+        # 4. Atualiza memórias se necessário
+        # 5. Salva na sessão
         
-        # Processa com o agente
-        resposta = agente.run(prompt_completo)
+        resposta = agente.run(pergunta, user_id=user_id)
         texto_resposta = getattr(resposta, "content", str(resposta))
-        
-        # Salva na memória (se disponível)
-        if memoria:
-            memoria.adicionar_mensagem("usuario", pergunta)
-            memoria.adicionar_mensagem("assistente", texto_resposta)
         
         return texto_resposta
         
@@ -192,14 +230,58 @@ def processar_pergunta(agente, pergunta: str, memoria: MemoriaAgente = None):
         return f"❌ Erro ao processar pergunta: {e}"
 
 
+def mostrar_memorias_usuario(agente, user_id: str = "usuario_padrao"):
+    """
+    Mostra as memórias do usuário de forma simples.
+    """
+    try:
+        memorias = agente.memory.get_user_memories(user_id=user_id)
+        
+        print(f"\n🧠 **Memórias do usuário {user_id}:**")
+        if memorias:
+            for i, memoria in enumerate(memorias, 1):
+                print(f"   {i}. {memoria}")
+        else:
+            print("   Nenhuma memória encontrada.")
+            
+    except Exception as e:
+        print(f"❌ Erro ao mostrar memórias: {e}")
+
+
+def mostrar_estatisticas(agente, user_id: str = "usuario_padrao"):
+    """
+    Mostra estatísticas simples do sistema.
+    """
+    try:
+        print("\n📊 **Estatísticas do Sistema:**")
+        
+        # Memórias do usuário
+        memorias = agente.memory.get_user_memories(user_id=user_id)
+        print(f"   • Memórias do usuário: {len(memorias)}")
+        
+        # Histórico da sessão
+        mensagens = agente.get_messages_for_session()
+        print(f"   • Mensagens na sessão: {len(mensagens)}")
+        
+    except Exception as e:
+        print(f"❌ Erro ao mostrar estatísticas: {e}")
+
+
 if __name__ == "__main__":
     try:
-        print("🚀 Iniciando agente de reembolso...")
+        print("🚀 Iniciando agente de reembolso com memória integrada...")
         agente = criar_agente()
         
-        # Cria a memória com buffer de 5 mensagens
-        memoria = MemoriaAgente(limite_curto_prazo=10)
-        print("\n")
+        # ID do usuário (pode ser personalizado)
+        user_id = "usuario_padrao"
+        print(f"👤 Usuário: {user_id}")
+        print("\n" + "=" * 50)
+        print("💡 Comandos especiais:")
+        print("   • 'memorias' - Ver memórias do usuário")
+        print("   • 'stats' - Ver estatísticas")
+        print("   • 'teste' - Modo teste automático")
+        print("   • 'sair' - Sair do programa")
+        print("=" * 50 + "\n")
 
         while True:
             pergunta = input("💬 Digite uma pergunta: ")
@@ -207,45 +289,49 @@ if __name__ == "__main__":
             # Comandos especiais
             if pergunta == "exit" or pergunta == "sair":
                 print("👋 Saindo...")
-                # Salva a sessão antes de sair
-                memoria.salvar_sessao("ultima_sessao.json")
                 break
             
-            if pergunta == "stats" or pergunta == "estatisticas":
-                memoria.mostrar_estatisticas()
+            if pergunta == "memorias":
+                mostrar_memorias_usuario(agente, user_id)
                 continue
             
-            if pergunta == "limpar":
-                memoria.limpar_tudo()
+            if pergunta == "stats" or pergunta == "estatisticas":
+                mostrar_estatisticas(agente, user_id)
                 continue
 
             if pergunta == "test" or pergunta == "teste":
                 print("\n" + "=" * 60)
-                print("💬 MODO TESTE - Conversação com memória")
+                print("💬 MODO TESTE - Conversação com memória integrada")
                 print("=" * 60 + "\n")
 
-                pergunta1 = "Quais despesas são reembolsáveis e qual o prazo para solicitação?"
+                pergunta1 = "Olá! Meu nome é João Silva e trabalho na empresa TechCorp."
                 print(f"❓ Pergunta 1: {pergunta1}")
-                resposta1 = processar_pergunta(agente, pergunta1, memoria)
+                resposta1 = processar_pergunta(agente, pergunta1, user_id)
                 print(f"🤖 Resposta: {resposta1}\n")
 
-                pergunta2 = "Calcule o reembolso de R$ 1.250,00"
+                pergunta2 = "Quais despesas são reembolsáveis e qual o prazo para solicitação?"
                 print(f"❓ Pergunta 2: {pergunta2}")
-                resposta2 = processar_pergunta(agente, pergunta2, memoria)
+                resposta2 = processar_pergunta(agente, pergunta2, user_id)
                 print(f"🤖 Resposta: {resposta2}\n")
-                
-                pergunta3 = "E qual era o prazo mesmo?"  # Testa a memória!
-                print(f"❓ Pergunta 3 (testando memória): {pergunta3}")
-                resposta3 = processar_pergunta(agente, pergunta3, memoria)
+
+                pergunta3 = "Calcule o reembolso de R$ 1.250,00"
+                print(f"❓ Pergunta 3: {pergunta3}")
+                resposta3 = processar_pergunta(agente, pergunta3, user_id)
                 print(f"🤖 Resposta: {resposta3}\n")
                 
-                # Mostra estatísticas
-                memoria.mostrar_estatisticas()
+                pergunta4 = "Qual é o meu nome mesmo?"  # Testa a memória!
+                print(f"❓ Pergunta 4 (testando memória): {pergunta4}")
+                resposta4 = processar_pergunta(agente, pergunta4, user_id)
+                print(f"🤖 Resposta: {resposta4}\n")
+                
+                # Mostra estatísticas e memórias
+                mostrar_estatisticas(agente, user_id)
+                mostrar_memorias_usuario(agente, user_id)
                 
                 break
             
-            # Processa pergunta normal com memória
-            resposta = processar_pergunta(agente, pergunta, memoria)
+            # Processa pergunta normal com memória integrada
+            resposta = processar_pergunta(agente, pergunta, user_id)
             print(f"\n🤖 Resposta: {resposta}\n")
 
     except Exception as e:

@@ -1,6 +1,6 @@
-# 💰 Agente de Reembolso com Memória V2
+# 💰 Agente de Reembolso com Memória Integrada
 
-> Assistente inteligente de políticas de reembolso usando RAG, Azure OpenAI e Sistema de Memória
+> Assistente inteligente de políticas de reembolso usando RAG, Sistema de Memória.
 
 ## 🎯 O que é este projeto?
 
@@ -9,32 +9,37 @@ Um agente conversacional que:
 - ✅ Responde perguntas sobre política de reembolso
 - ✅ Calcula valores de reembolso automaticamente
 - ✅ Usa RAG (Retrieval Augmented Generation) com base de conhecimento
-- ✅ **TEM MEMÓRIA!** Lembra das conversas anteriores
+- ✅ Memoria Integrada (Memorias do Usuário e de Sessão)
 - ✅ Interface CLI e Web (Streamlit)
 
-## 🧠 Sistema de Memória
+## 🧠 Sistema de Memória Integrado
 
 ### Diferenciais:
 
-1. **Memória de Curto Prazo (Buffer)**
+1. **Memórias do Usuário**
 
-   - Guarda as últimas 10 mensagens
-   - Contexto rápido para o agente
-   - Eficiente e econômico
-2. **Memória de Sessão**
+   - Aprende sobre preferências e dados pessoais
+   - Busca semântica inteligente
+   - Persistência automática em SQLite
+2. **Histórico de Sessões**
 
-   - Histórico completo da conversa
-   - Exportável em JSON
-   - Persistente entre execuções
+   - Todas as conversas salvas automaticamente
+   - Consulta por sessão ou usuário
+   - Backup automático
+3. **Resumos de Sessão**
+
+   - Contexto condensado de conversas longas
+   - Geração automática de resumos
+   - Mantém informações importantes
 
 ### Exemplo:
 
-```
-Você: "Qual o prazo para reembolso?"
-Bot: "O prazo é de 30 dias após a compra."
+```text
+Você: "Olá! Meu nome é João Silva e trabalho na TechCorp."
+Bot: "Olá João! Como posso ajudá-lo com reembolsos?"
 
-Você: "E qual era o prazo mesmo?" 
-Bot: "Como mencionei, 30 dias após a compra." ✅ LEMBROU!
+Você: "Qual é o meu nome mesmo?" 
+Bot: "Seu nome é João Silva, da empresa TechCorp." ✅ LEMBROU!
 ```
 
 ## 🚀 Início Rápido
@@ -67,15 +72,11 @@ python agente_reembolso.py
 streamlit run app.py
 ```
 
-|  |  |
-| - | - |
-|  |  |
-
 ## 🎓 Tutoriais Práticos
 
 ## 🛠️ Arquitetura
 
-```
+```text
 ┌─────────────┐
 │  Usuário    │
 └──────┬──────┘
@@ -86,31 +87,48 @@ streamlit run app.py
 │  (app.py)        │
 └────────┬─────────┘
          │
-    ┌────┴────┐
-    ↓         ↓
-┌────────┐ ┌──────────────┐
-│Memória │ │   Agente     │
-│        │ │   (Agno)     │
-│Buffer  │ │              │
-│Sessão  │ │   ┌────────┐ │
-└────────┘ │   │  RAG   │ │
-           │   │  KB    │ │
-           │   │  LLM   │ │
-           │   └────────┘ │
-           └──────────────┘
+         ↓
+┌─────────────────────────────┐
+│      Agente (Agno)          │
+│                             │
+│  ┌─────────────────────────┐│
+│  │    Sistema de Memória   ││ ← Integrado!
+│  │                         ││
+│  │  • Memórias do Usuário  ││
+│  │  • Histórico Sessões    ││
+│  │  • Resumos Automáticos  ││
+│  └─────────────────────────┘│
+│                             │
+│  ┌─────────────────────────┐│
+│  │         RAG             ││
+│  │                         ││
+│  │  • Knowledge Base       ││
+│  │  • Vector DB (LanceDB)  ││
+│  │  • Azure Embeddings     ││
+│  └─────────────────────────┘│
+│                             │
+│  ┌─────────────────────────┐│
+│  │         LLM             ││
+│  │                         ││
+│  │  • Azure OpenAI (GPT-4) ││
+│  │  • Ferramentas          ││
+│  └─────────────────────────┘│
+└─────────────────────────────┘
 ```
 
 ## 📦 Estrutura de Arquivos
 
-```
-a1/
-├── agente_reembolso.py          # Agente principal com memória
-├── memoria.py                    # Sistema de memória
+```text
+final/
+├── agente_reembolso.py          # Agente principal com memória integrada
 ├── app.py                        # Interface Streamlit
 ├── requirements.txt              # Dependências
 ├── politica_reembolso_v1.0.pdf   # Base de conhecimento
 ├── politica_reembolso_v1.0.txt   # Base de conhecimento (Fallback)
 ├── README.md                     # Este arquivo
+└── tmp/                         # Dados temporários (SQLite, LanceDB)
+    ├── agent_data.db            # Banco de dados do agente
+    └── lancedb/                 # Vector database
 ```
 
 ## 💡 Funcionalidades
@@ -125,11 +143,12 @@ a1/
 
 - `compute_refund()`: Calcula reembolso com impostos e teto
 
-### 3. Memória
+### 3. Memória Integrada
 
-- Buffer de curto prazo (10 mensagens)
-- Sessão completa (ilimitada)
-- Exportação em JSON
+- **Memórias do usuário**: Aprende preferências e dados pessoais
+- **Histórico de sessões**: Todas as conversas salvas automaticamente
+- **Resumos automáticos**: Contexto condensado de conversas longas
+- **Persistência robusta**: SQLite com backup automático
 
 ### 4. Interface
 
@@ -141,12 +160,12 @@ a1/
 
 ### Terminal:
 
-| Comando    | Ação                           |
-| ---------- | -------------------------------- |
-| `teste`  | Executa teste automático        |
-| `stats`  | Mostra estatísticas da memória |
-| `limpar` | Reseta memória                  |
-| `sair`   | Sai e salva sessão              |
+| Comando      | Ação                          |
+| ------------ | ------------------------------- |
+| `teste`    | Executa teste automático       |
+| `memorias` | Mostra memórias do usuário    |
+| `stats`    | Mostra estatísticas do sistema |
+| `sair`     | Sai do programa                 |
 
 ### Streamlit:
 
@@ -164,31 +183,44 @@ python agente_reembolso.py
 
 ## 🔧 Personalização
 
-### Mudar tamanho do buffer:
+### Mudar configurações de memória:
 
 ```python
-# Em agente_reembolso.py, linha 206:
-memoria = MemoriaAgente(limite_curto_prazo=10)  # Padrão
-
-# Altere para:
-memoria = MemoriaAgente(limite_curto_prazo=15)  # Maior (podendo ser um valor maior)
+# Em agente_reembolso.py, linha 194-197:
+enable_user_memories=True,         # Ativa memórias do usuário
+enable_session_summaries=True,     # Ativa resumos de sessão
+add_history_to_messages=True,      # Adiciona histórico às mensagens
+num_history_responses=5,           # Últimas 5 respostas no contexto
 ```
 
 ### Mudar temperatura do modelo:
 
 ```python
-# Em agente_reembolso.py, linha 120:
+# Em agente_reembolso.py, linha 159:
 chat_model = AzureOpenAI(
     temperature=0.3,  # ← Ajuste aqui (0.0 = mais determinístico, 1.0 = mais criativo)
     ...
 )
 ```
 
+### Personalizar instruções de memória:
+
+```python
+# Em agente_reembolso.py, linha 101-107:
+memory_capture_instructions="""
+Colete informações importantes sobre o usuário:
+- Nome e dados pessoais
+- Solicitações de reembolso feitas
+- Valores e tipos de despesas
+- Preferências e histórico
+"""
+```
+
 ## 📊 Exemplos de Uso
 
 ### Exemplo 1: Pergunta sobre política
 
-```
+```text
 Você: "Devolução por arrependimento?"
 
 Bot: "A política de reembolso para devolução por arrependimento estabelece que o prazo máximo para solicitar a devolução é de 7 dias a partir da data de recebimento do produto. O cliente deve preencher o formulário de reembolso no site e, após receber a confirmação do recebimento por e-mail, aguardar até 3 dias para a confirmação da possibilidade de reembolso. Após a confirmação, o reembolso será realizado em até 5 dias úteis via PIX. 😊"
@@ -196,7 +228,7 @@ Bot: "A política de reembolso para devolução por arrependimento estabelece qu
 
 ### Exemplo 2: Cálculo de reembolso
 
-```
+```text
 Você: "Calcule o reembolso de R$ 1.250,00"
 
 Bot: "
@@ -208,14 +240,20 @@ Valor final: R$ 1062.5
 "
 ```
 
-### Exemplo 3: Memória contextual
+### Exemplo 3: Memória integrada
 
-```
-Você: "Qual o prazo para reembolso?"
-Bot: "30 dias após a compra."
+```text
+Você: "Olá! Meu nome é João Silva e trabalho na TechCorp."
+Bot: "Olá João! Como posso ajudá-lo com reembolsos na TechCorp?"
 
-Você: "E se passar desse prazo?"
-Bot: "Caso ultrapasse os 30 dias mencionados anteriormente..." ✅
+Você: "Qual é o meu nome mesmo?"
+Bot: "Seu nome é João Silva, da empresa TechCorp." ✅ LEMBROU!
+
+Você: "Calcule o reembolso de R$ 1.250,00"
+Bot: "💰 Cálculo de Reembolso para João Silva..."
+
+Você: "Qual era o valor que calculei?"
+Bot: "Você solicitou o cálculo para R$ 1.250,00..." ✅ LEMBROU!
 ```
 
 ## 🔍 Tecnologias Utilizadas
@@ -231,12 +269,25 @@ Bot: "Caso ultrapasse os 30 dias mencionados anteriormente..." ✅
 
 Melhorias são bem-vindas! Algumas ideias:
 
-- [ ] Busca semântica na memória de sessão
-- [ ] Resumo automático de conversas longas
+- [X] ~~Busca semântica na memória de sessão~~ ✅ **Implementado!**
+- [X] ~~Resumo automático de conversas longas~~ ✅ **Implementado!**
 - [ ] Categorização de perguntas
 - [ ] Feedback do usuário
 - [ ] Testes unitários
 - [ ] CI/CD
+- [ ] Interface web melhorada
+- [ ] Suporte a múltiplos usuários
+
+## 🔄 Mudanças Recentes
+
+### V2.0 - Memória Integrada com Agno
+
+- ✅ **Removida dependência** do arquivo `memoria.py`
+- ✅ **Sistema de memória integrado** diretamente no Agno
+- ✅ **3 tipos de memória**: Usuário, Sessão e Resumos
+- ✅ **Persistência robusta** em SQLite
+- ✅ **Código 5x mais simples** (30 vs. 169 linhas)
+- ✅ **Funcionalidades automáticas** sem configuração manual
 
 ---
 
