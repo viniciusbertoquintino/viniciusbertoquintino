@@ -19,7 +19,7 @@ from memoria import MemoriaAgente
 
 
 # ========================================
-# Ferramenta de Cálculo (com fix no ">")
+# Ferramenta de Cálculo de Reembolso
 # ========================================
 @tool(stop_after_tool_call=False)
 def compute_refund(valor: float):
