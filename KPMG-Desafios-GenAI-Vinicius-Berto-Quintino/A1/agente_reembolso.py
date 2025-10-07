@@ -3,11 +3,6 @@ import sys
 import asyncio
 from dotenv import load_dotenv
 
-# Configura encoding UTF-8 para Windows
-if sys.platform == 'win32':
-    sys.stdout.reconfigure(encoding='utf-8')
-    sys.stderr.reconfigure(encoding='utf-8')
-
 load_dotenv()
 
 from agno.agent import Agent
