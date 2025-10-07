@@ -33,9 +33,9 @@
 │   ENVIRONMENT   │    │     MEMORY      │    │    TOOLS        │
 │                 │    │                 │    │                 │
 │ • SQLite DB     │    │ • Curto Prazo   │    │ • compute_refund│
-│ • LanceDB       │    │   	   	 │    │   (Cálculo)     │
+│ • LanceDB       │    │   	   	         │    │   (Cálculo)     │
 │ • PDF Knowledge │    │ • Sessão        │    │ • RAG Search    │
-│ • Azure OpenAI  │    │   	         │    │   (Knowledge)   │
+│ • Azure OpenAI  │    │   	             │    │   (Knowledge)   │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
          └───────────────────────┼───────────────────────┘
