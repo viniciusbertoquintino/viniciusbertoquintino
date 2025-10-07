@@ -222,3 +222,5 @@ O Crítico pode dizer:
 3. **Interface web**: Criar dashboard para visualizar o processo
 4. **Métricas**: Contar quantos problemas foram corrigido
 5.
+
+**Desenvolvido com bastante dedicação, algumas madrugadas viradas e muito café (risos). Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
