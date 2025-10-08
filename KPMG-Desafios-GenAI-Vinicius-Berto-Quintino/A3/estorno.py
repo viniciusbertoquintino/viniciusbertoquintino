@@ -1,219 +1,382 @@
 
+# Importações necessárias
 import json
 import time
-import uuid
 from datetime import datetime
 
-
-# "Banco de dados" em memória (dicionário)
 estornos = {}
 
+def gerar_id_estorno():
+    # Gera um ID único para cada estorno
+    # Usa a data/hora atual para criar um ID único
+    agora = datetime.now()
+    return f"EST_{agora.strftime('%Y%m%d_%H%M%S')}"
 
-def gerar_request_id():
-    return f"REQ_{uuid.uuid4().hex[:6].upper()}"
-
-
-def criar_estorno(request_id, amount, customer_id, reason=""):
-    if request_id in estornos:
-        print("[IDEMPOTENCIA] Estorno já existe, retornando existente.")
-        return estornos[request_id]
-
-    estorno = {
-        "request_id": request_id,
-        "amount": float(amount),
-        "customer_id": customer_id,
-        "reason": reason,
-        "status": "pending",
-        "retry_count": 0,
-        "error": "",
-        "approver": "",
-        "created_at": datetime.now().isoformat(timespec="seconds"),
+def criar_estorno(valor, cliente_id, motivo=""):
+    
+    # Gera um ID único para este estorno
+    estorno_id = gerar_id_estorno()
+    
+    # Cria o registro do estorno
+    novo_estorno = {
+        "id": estorno_id,
+        "valor": float(valor),
+        "cliente": cliente_id,
+        "motivo": motivo,
+        "status": "pendente",  # pendente, aprovado, processando, concluido, erro
+        "data_criacao": datetime.now().strftime("%d/%m/%Y %H:%M"),
+        "aprovador": "",
+        "erro": ""
     }
-    estornos[request_id] = estorno
-    print(f"[CRIADO] {request_id} - R$ {amount:.2f}")
-
-    # Processamento automático para valores <= 1000
-    if amount <= 1000:
-        processar_estorno(request_id)
+    
+    # Salva no banco de dados
+    estornos[estorno_id] = novo_estorno
+    
+    print(f"✅ Estorno criado: {estorno_id}")
+    print(f"   Valor: R$ {valor:.2f}")
+    print(f"   Cliente: {cliente_id}")
+    
+    # Se o valor for pequeno (até R$ 1000), processa automaticamente
+    if valor <= 1000:
+        print("   💰 Valor baixo - processando automaticamente...")
+        processar_estorno(estorno_id)
     else:
-        print("[APROVACAO] Valor > R$ 1000, precisa de aprovação")
-    return estorno
+        print("   ⚠️  Valor alto - precisa de aprovação!")
+    
+    return novo_estorno
 
 
-def aprovar_estorno(request_id, approver):
-    e = estornos.get(request_id)
-    if not e:
-        print("[ERRO] Estorno não encontrado")
+def aprovar_estorno(estorno_id, aprovador):
+    
+    # Lista os estornos disponíveis para aprovação
+    print("\n📋 ESTORNOS DISPONÍVEIS PARA APROVAÇÃO:")
+    print("-" * 50)
+    
+    estornos_pendentes = [e for e in estornos.values() if e["status"] == "pendente" and e["valor"] > 1000]
+    
+    if not estornos_pendentes:
+        print("📭 Nenhum estorno pendente de aprovação encontrado")
+        print("   (Apenas estornos com valor > R$ 1000 precisam de aprovação)")
         return False
-    if e["amount"] <= 1000:
-        print("[AVISO] Não precisa aprovação")
+    
+    for estorno in estornos_pendentes:
+        print(f"⏳ {estorno['id']} - R$ {estorno['valor']:.2f} | Cliente: {estorno['cliente']}")
+        if estorno["motivo"]:
+            print(f"   📝 Motivo: {estorno['motivo']}")
+        print(f"   📅 Criado em: {estorno['data_criacao']}")
+        print()
+    
+    # Verifica se o estorno existe
+    if estorno_id not in estornos:
+        print("❌ Estorno não encontrado!")
         return False
-    e["status"] = "approved"
-    e["approver"] = approver
-    print(f"[APROVADO] {request_id} por {approver}")
-    processar_estorno(request_id)
+    
+    estorno = estornos[estorno_id]
+    
+    # Verifica se realmente precisa de aprovação
+    if estorno["valor"] <= 1000:
+        print("ℹ️  Este estorno não precisa de aprovação (valor baixo)")
+        return False
+    
+    # Aprova o estorno
+    estorno["status"] = "aprovado"
+    estorno["aprovador"] = aprovador
+    
+    print(f"✅ Estorno {estorno_id} aprovado por {aprovador}")
+    print("   🚀 Iniciando processamento...")
+    
+    # Processa o estorno aprovado
+    processar_estorno(estorno_id)
+    return True
+
+def rejeitar_estorno(estorno_id, aprovador):
+    
+    # Verifica se o estorno existe
+    if estorno_id not in estornos:
+        print("❌ Estorno não encontrado!")
+        return False
+    
+    estorno = estornos[estorno_id]
+    
+    # Rejeita o estorno
+    estorno["status"] = "rejeitado"
+    estorno["aprovador"] = aprovador
+    
+    print(f"❌ Estorno {estorno_id} rejeitado por {aprovador}")
     return True
 
 
-def rejeitar_estorno(request_id, approver):
-    e = estornos.get(request_id)
-    if not e:
-        print("[ERRO] Estorno não encontrado")
-        return False
-    e["status"] = "rejected"
-    e["approver"] = approver
-    print(f"[REJEITADO] {request_id} por {approver}")
-    return True
-
-
-def processar_estorno(request_id):
-    e = estornos.get(request_id)
-    if not e:
-        print("[ERRO] Estorno não encontrado")
+def processar_estorno(estorno_id):
+    
+    # Verifica se o estorno existe
+    if estorno_id not in estornos:
+        print("❌ Estorno não encontrado!")
         return
-    if e["status"] in ("rejected",):
-        print("[AVISO] Estorno rejeitado, não será processado")
+    
+    estorno = estornos[estorno_id]
+    
+    # Verifica se não foi rejeitado
+    if estorno["status"] == "rejeitado":
+        print("⚠️  Estorno foi rejeitado - não será processado")
         return
-
-    e["status"] = "processing"
-    print(f"[PROCESSANDO] {request_id}")
-    # Simples: tentar até 2 vezes, sem aleatoriedade
+    
+    # Muda status para "processando"
+    estorno["status"] = "processando"
+    print(f"🔄 Processando estorno {estorno_id}...")
+    
+    # Simula o processamento (como se fosse enviar dinheiro para o banco)
+    # Vamos tentar 2 vezes para simular problemas de rede
     for tentativa in range(1, 3):
-        try:
-            e["retry_count"] = tentativa
-            time.sleep(0.3 * tentativa)
-            # Sucesso na segunda tentativa para simular retry
-            if tentativa < 2:
-                raise Exception("Erro temporário")
-            e["status"] = "completed"
-            e["error"] = ""
-            print(f"[SUCESSO] {request_id} completado!")
+        print(f"   Tentativa {tentativa}...")
+        time.sleep(1)  # Simula tempo de processamento
+        
+        # Na primeira tentativa, simula um erro
+        # Na segunda tentativa, funciona
+        if tentativa == 1:
+            print("   ❌ Erro temporário (simulado)")
+            estorno["erro"] = "Erro de conexão"
+        else:
+            # Sucesso!
+            estorno["status"] = "concluido"
+            estorno["erro"] = ""
+            print(f"   ✅ Sucesso! Dinheiro enviado para o cliente")
+            print(f"   💰 R$ {estorno['valor']:.2f} estornado com sucesso!")
             return
-        except Exception as exc:
-            e["error"] = str(exc)
-            print(f"[ERRO] Tentativa {tentativa} falhou: {exc}")
-
-    e["status"] = "dlq"
-    print(f"[DLQ] {request_id} enviado para DLQ")
+    
+    # Se chegou aqui, todas as tentativas falharam
+    estorno["status"] = "erro"
+    print(f"   ❌ Falha definitiva - estorno não pôde ser processado")
 
 
-def reprocessar_dlq(request_id):
-    e = estornos.get(request_id)
-    if not e or e["status"] != "dlq":
-        print("[ERRO] Item não está na DLQ")
+def reprocessar_estorno(estorno_id):
+    
+    if estorno_id not in estornos:
+        print("❌ Estorno não encontrado!")
         return False
-    e["retry_count"] = 0
-    e["error"] = ""
-    processar_estorno(request_id)
+    
+    estorno = estornos[estorno_id]
+    
+    if estorno["status"] != "erro":
+        print("ℹ️  Este estorno não está com erro - não precisa reprocessar")
+        return False
+    
+    print(f"🔄 Tentando reprocessar estorno {estorno_id}...")
+    estorno["erro"] = ""  # Limpa o erro anterior
+    processar_estorno(estorno_id)
     return True
-
 
 def listar_estornos(filtro=None):
-    dados = list(estornos.values())
+    
+    # Pega todos os estornos
+    todos_estornos = list(estornos.values())
+    
+    # Se foi pedido um filtro, aplica ele
     if filtro:
-        dados = [x for x in dados if x["status"] == filtro]
-    if not dados:
-        print("Nenhum estorno encontrado")
+        estornos_filtrados = [e for e in todos_estornos if e["status"] == filtro]
+    else:
+        estornos_filtrados = todos_estornos
+    
+    # Verifica se tem estornos para mostrar
+    if not estornos_filtrados:
+        print("📭 Nenhum estorno encontrado")
         return
-    print(f"\nESTORNOS ({len(dados)}):")
-    for e in dados:
-        print(f"- {e['request_id']} | R$ {e['amount']:.2f} | {e['status']}")
-        if e["retry_count"]:
-            print(f"  tentativas: {e['retry_count']}")
-        if e["error"]:
-            print(f"  erro: {e['error']}")
-
+    
+    # Mostra os estornos
+    print(f"\n📋 ESTORNOS ({len(estornos_filtrados)}):")
+    print("-" * 60)
+    
+    for estorno in estornos_filtrados:
+        # Emoji baseado no status
+        emoji_status = {
+            "pendente": "⏳",
+            "aprovado": "✅", 
+            "processando": "🔄",
+            "concluido": "✅",
+            "rejeitado": "❌",
+            "erro": "🚨"
+        }.get(estorno["status"], "❓")
+        
+        print(f"{emoji_status} {estorno['id']}")
+        print(f"   💰 R$ {estorno['valor']:.2f} | 👤 {estorno['cliente']}")
+        print(f"   📅 {estorno['data_criacao']} | Status: {estorno['status']}")
+        
+        if estorno["motivo"]:
+            print(f"   📝 Motivo: {estorno['motivo']}")
+        if estorno["aprovador"]:
+            print(f"   👨‍💼 Aprovador: {estorno['aprovador']}")
+        if estorno["erro"]:
+            print(f"   ❌ Erro: {estorno['erro']}")
+        print()
 
 def estatisticas():
-    total = len(estornos)
-    if total == 0:
-        print("Nenhum estorno registrado")
+    
+    total_estornos = len(estornos)
+    
+    if total_estornos == 0:
+        print("📊 Nenhum estorno registrado ainda")
         return
-    por_status = {}
+    
+    # Conta estornos por status
+    contador_status = {}
     valor_total = 0.0
-    for e in estornos.values():
-        por_status[e["status"]] = por_status.get(e["status"], 0) + 1
-        valor_total += e["amount"]
-    print("\nESTATISTICAS:")
-    print(f"Total: {total} | Valor: R$ {valor_total:.2f}")
-    for s, c in por_status.items():
-        print(f"{s}: {c}")
+    
+    for estorno in estornos.values():
+        status = estorno["status"]
+        contador_status[status] = contador_status.get(status, 0) + 1
+        valor_total += estorno["valor"]
+    
+    # Mostra as estatísticas
+    print("\n📊 ESTATÍSTICAS:")
+    print("-" * 30)
+    print(f"📦 Total de estornos: {total_estornos}")
+    print(f"💰 Valor total: R$ {valor_total:.2f}")
+    print("\n📈 Por status:")
+    
+    for status, quantidade in contador_status.items():
+        emoji = {
+            "pendente": "⏳",
+            "aprovado": "✅", 
+            "processando": "🔄",
+            "concluido": "✅",
+            "rejeitado": "❌",
+            "erro": "🚨"
+        }.get(status, "❓")
+        print(f"   {emoji} {status}: {quantidade}")
 
-
-def exportar_json(filename=None):
-    if not filename:
-        filename = f"estornos_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(list(estornos.values()), f, indent=2, ensure_ascii=False)
-    print(f"[EXPORT] Salvo em {filename}")
+def salvar_estornos():
+    """
+    Salva todos os estornos em um arquivo JSON
+    """
+    if not estornos:
+        print("📭 Nenhum estorno para salvar")
+        return
+    
+    # Cria nome do arquivo com data/hora
+    nome_arquivo = f"estornos_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    
+    # Salva no arquivo
+    with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
+        json.dump(list(estornos.values()), arquivo, indent=2, ensure_ascii=False)
+    
+    print(f"💾 Estornos salvos em: {nome_arquivo}")
 
 
 def demo():
-    print("DEMO - Versão Iniciante\n")
-    criar_estorno("REQ001", 500.0, "CUST123", "Produto defeituoso")
-    criar_estorno("REQ002", 1500.0, "CUST456", "Cancelamento")
-    aprovar_estorno("REQ002", "GERENTE01")
-    criar_estorno("REQ001", 500.0, "CUST123", "Duplicado")
+    """
+    Demonstra o sistema criando alguns estornos de exemplo
+    """
+    print("🧪 DEMONSTRAÇÃO DO SISTEMA")
+    print("=" * 40)
+    
+    # Cria estornos de exemplo
+    print("\n1️⃣ Criando estorno de valor baixo (processamento automático):")
+    criar_estorno(500.0, "CLIENTE001", "Produto defeituoso")
+    
+    print("\n2️⃣ Criando estorno de valor alto (precisa aprovação):")
+    criar_estorno(1500.0, "CLIENTE002", "Cancelamento de pedido")
+    
+    print("\n3️⃣ Aprovando o estorno de valor alto:")
+    # Pega o último estorno criado (que precisa de aprovação)
+    ultimo_estorno = list(estornos.keys())[-1]
+    aprovar_estorno(ultimo_estorno, "GERENTE_SILVA")
+    
+    print("\n4️⃣ Listando todos os estornos:")
     listar_estornos()
+    
+    print("\n5️⃣ Mostrando estatísticas:")
     estatisticas()
-    exportar_json()
-
 
 def menu():
+    """
+    Menu principal do sistema - interface para o usuário
+    """
+    print("🏛️  SISTEMA DE ESTORNO - 2025 - v1.0")
+    print("=" * 50)
+    print("Este sistema gerencia estornos de dinheiro para clientes")
+    print("Valores até R$ 1000 são processados automaticamente")
+    print("Valores acima de R$ 1000 precisam de aprovação")
+    print("=" * 50)
+    
     while True:
-        print("   🏛️  SISTEMA DE ESTORNO")
-        print("="*50)
-        print("1. 💰 Criar Estorno")
-        print("2. ✅ Aprovar Estorno") 
+        print("\n📋 MENU PRINCIPAL:")
+        print("1. 💰 Criar Novo Estorno")
+        print("2. ✅ Aprovar Estorno (valores altos)")
         print("3. ❌ Rejeitar Estorno")
         print("4. 📋 Listar Estornos")
-        print("5. 🚨 Gerenciar DLQ")
-        print("6. 📊 Estatísticas")
-        print("7. 💾 Exportar JSON")
-        print("8. 🧪 Demo Automático")
+        print("5. 🔄 Reprocessar Estorno com Erro")
+        print("6. 📊 Ver Estatísticas")
+        print("7. 💾 Salvar em Arquivo")
+        print("8. 🧪 Demonstração Automática")
         print("9. 🚪 Sair")
-        opcao = input("Escolha (1-9): ").strip()
-
+        
+        opcao = input("\n👉 Escolha uma opção (1-9): ").strip()
+        
         try:
             if opcao == "1":
-                rid = input("Request ID (vazio=auto): ").strip() or gerar_request_id()
-                amount = float(input("Valor R$: "))
-                cid = input("Customer ID: ").strip()
-                reason = input("Motivo (opcional): ").strip()
-                criar_estorno(rid, amount, cid, reason)
+                print("\n💰 CRIAR NOVO ESTORNO")
+                print("-" * 25)
+                valor = float(input("💵 Valor do estorno (R$): "))
+                cliente = input("👤 ID do cliente: ").strip()
+                motivo = input("📝 Motivo (opcional): ").strip()
+                criar_estorno(valor, cliente, motivo)
+                
             elif opcao == "2":
-                rid = input("Request ID: ").strip()
-                approver = input("Seu ID: ").strip()
-                aprovar_estorno(rid, approver)
+                print("\n✅ APROVAR ESTORNO")
+                print("-" * 20)
+                estorno_id = input("🔍 ID do estorno: ").strip()
+                aprovador = input("👨‍💼 Seu ID (aprovador): ").strip()
+                aprovar_estorno(estorno_id, aprovador)
+                
             elif opcao == "3":
-                rid = input("Request ID: ").strip()
-                approver = input("Seu ID: ").strip()
-                rejeitar_estorno(rid, approver)
+                print("\n❌ REJEITAR ESTORNO")
+                print("-" * 20)
+                estorno_id = input("🔍 ID do estorno: ").strip()
+                aprovador = input("👨‍💼 Seu ID (aprovador): ").strip()
+                rejeitar_estorno(estorno_id, aprovador)
+                
             elif opcao == "4":
-                print("Filtros: vazio=Todos | pending | completed | dlq | rejected | approved | processing")
-                filtro = input("Filtro: ").strip() or None
+                print("\n📋 LISTAR ESTORNOS")
+                print("-" * 20)
+                print("Filtros disponíveis:")
+                print("  - Deixe vazio para ver todos")
+                print("  - pendente, aprovado, processando, concluido, rejeitado, erro")
+                filtro = input("🔍 Filtro (opcional): ").strip() or None
                 listar_estornos(filtro)
+                
             elif opcao == "5":
-                rid = input("Request ID na DLQ: ").strip()
-                reprocessar_dlq(rid)
+                print("\n🔄 REPROCESSAR ESTORNO")
+                print("-" * 25)
+                estorno_id = input("🔍 ID do estorno com erro: ").strip()
+                reprocessar_estorno(estorno_id)
+                
             elif opcao == "6":
                 estatisticas()
+                
             elif opcao == "7":
-                exportar_json()
+                salvar_estornos()
+                
             elif opcao == "8":
                 demo()
+                
             elif opcao == "9":
-                print("Até logo!")
+                print("\n👋 Obrigado por usar o Sistema de Estorno!")
+                print("   Até logo! 🚪")
                 break
+                
             else:
-                print("Opção inválida!")
+                print("❌ Opção inválida! Escolha um número de 1 a 9.")
+                
         except ValueError:
-            print("Valor inválido!")
+            print("❌ Valor inválido! Verifique se digitou números corretamente.")
         except KeyboardInterrupt:
-            print("\nEncerrado pelo usuário.")
+            print("\n\n👋 Sistema encerrado pelo usuário.")
             break
+        except Exception as e:
+            print(f"❌ Erro inesperado: {e}")
 
-
+# ==========================================
+# INÍCIO DO PROGRAMA
+# ==========================================
 if __name__ == "__main__":
     menu()
 
