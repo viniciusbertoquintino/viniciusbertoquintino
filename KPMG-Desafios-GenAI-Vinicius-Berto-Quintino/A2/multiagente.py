@@ -1,29 +1,10 @@
-"""
-=== SISTEMA MULTI-AGENTES: REDATOR → CRÍTICO → EDITOR ===
+import os                              
+from dotenv import load_dotenv        
+from agno.agent import Agent           
+from agno.models.azure.openai_chat import AzureOpenAI
+from textwrap import dedent
 
-Este código cria 3 agentes que trabalham juntos para produzir
-um comunicado claro sobre reembolsos.
 
-FLUXO:
-1. REDATOR: Escreve o comunicado inicial
-2. CRÍTICO: Analisa e aponta problemas (com fontes)
-3. EDITOR: Revisa e produz versão final
-
-Máximo de 2 rodadas para evitar loops infinitos.
-"""
-
-# ============================================================================
-# PARTE 1: IMPORTAR BIBLIOTECAS E CARREGAR VARIÁVEIS DE AMBIENTE
-# ============================================================================
-# Importamos as ferramentas do Agno que vamos usar
-
-import os                              # Para acessar variáveis de ambiente
-from dotenv import load_dotenv         # Para carregar o arquivo .env
-from agno.agent import Agent           # Classe para criar agentes individuais
-from agno.models.azure.openai_chat import AzureOpenAI  # Modelo Azure OpenAI
-from textwrap import dedent            # Remove indentação de textos
-
-# Carrega as variáveis do arquivo .env para o ambiente
 load_dotenv()
 
 # Verifica se as variáveis necessárias estão configuradas
@@ -31,9 +12,8 @@ chat_model = AzureOpenAI(
         id=os.getenv("OPENAI_MODEL_NAME"),
         api_version=os.getenv("OPENAI_API_VERSION")
     ),
-# ============================================================================
-# PARTE 2: CRIAR O AGENTE REDATOR
-# ============================================================================
+
+
 # O Redator é responsável por escrever o comunicado inicial
 
 redator = Agent(
@@ -65,9 +45,6 @@ redator = Agent(
 )
 
 
-# ============================================================================
-# PARTE 3: CRIAR O AGENTE CRÍTICO
-# ============================================================================
 # O Crítico analisa o texto do Redator e aponta problemas
 
 critico = Agent(
@@ -98,9 +75,7 @@ critico = Agent(
 )
 
 
-# ============================================================================
-# PARTE 4: CRIAR O AGENTE EDITOR
-# ============================================================================
+
 # O Editor produz a versão final baseado no feedback do Crítico
 
 editor = Agent(
@@ -135,9 +110,7 @@ editor = Agent(
 )
 
 
-# ============================================================================
-# PARTE 5: FUNÇÃO PRINCIPAL - ORQUESTRAÇÃO DOS AGENTES
-# ============================================================================
+
 # Esta função coordena os 3 agentes em sequência
 
 def executar_sistema_multiagentes():
@@ -153,13 +126,11 @@ def executar_sistema_multiagentes():
     print("=" * 80)
     print()
     
-    # ------------------------------------------------------------------------
-    # RODADA 1: REDATOR ESCREVE O COMUNICADO INICIAL
-    # ------------------------------------------------------------------------
+   
     print("📝 ETAPA 1: Redator escrevendo comunicado inicial...")
     print("-" * 80)
     
-    # Criamos a solicitação (prompt) para o Redator
+    # Cria a solicitação (prompt) para o Redator
     solicitacao_inicial = """
     Escreva um comunicado claro sobre a política de reembolsos da empresa.
     
@@ -177,9 +148,7 @@ def executar_sistema_multiagentes():
     print(texto_inicial)
     print()
     
-    # ------------------------------------------------------------------------
-    # RODADA 2: CRÍTICO ANALISA O TEXTO DO REDATOR
-    # ------------------------------------------------------------------------
+    
     print("🔍 ETAPA 2: Crítico analisando o comunicado...")
     print("-" * 80)
     
@@ -199,13 +168,10 @@ def executar_sistema_multiagentes():
     print(analise_critica)
     print()
     
-    # ------------------------------------------------------------------------
-    # RODADA 3: EDITOR PRODUZ VERSÃO FINAL
-    # ------------------------------------------------------------------------
     print("✍️ ETAPA 3: Editor produzindo versão final...")
     print("-" * 80)
     
-    # O Editor recebe TANTO o texto inicial QUANTO as críticas
+    # Aqui o Editor recebe TANTO o texto inicial QUANTO as críticas
     solicitacao_final = f"""
     Produza a versão final do comunicado considerando:
     
@@ -224,19 +190,13 @@ def executar_sistema_multiagentes():
     print(versao_final)
     print()
     
-    # ------------------------------------------------------------------------
-    # FIM: SISTEMA CONCLUÍDO
-    # ------------------------------------------------------------------------
+    # FIM
+    
     print("=" * 80)
     print("✅ SISTEMA MULTI-AGENTES CONCLUÍDO COM SUCESSO!")
     print("=" * 80)
 
 
-# ============================================================================
-# PARTE 6: EXECUTAR O PROGRAMA
-# ============================================================================
-# Esta linha garante que o código só executa quando rodamos diretamente
-# (não quando importamos como módulo)
 
 if __name__ == "__main__":
     # Executa a função principal
