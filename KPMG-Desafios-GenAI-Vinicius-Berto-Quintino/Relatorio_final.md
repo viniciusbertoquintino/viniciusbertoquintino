@@ -1,11 +1,11 @@
 # 📊 Relatório de Desafio GenAI - KPMG
 ## Automação de Processos de Reembolso com IA Generativa
 
-**Autor**: 
-**Data**: 2025-01-15  
+**Autor**: Vinicius Berto Quintino
+
 **Conjunto escolhido**: A  
 **Desafios incluídos**: A1, A2, A3  
-**Resumo executivo (1–2 frases)**: Problema de processos manuais de reembolso → Solução com três arquiteturas de IA → Impacto de 70% redução em tickets e eliminação de erros
+**Resumo executivo (1–2 frases)**: Problema de processos manuais de reembolso → Solução com três arquiteturas de IA → Impacto na redução em tickets e eliminação de erros.
 
 ---
 
@@ -15,9 +15,9 @@
 
 **Hipótese de Valor**: Acredito que a automação com IA pode resolver esses problemas. Diferentes situações precisam de abordagens diferentes - às vezes você quer conversar com um assistente, às vezes precisa de um processo rígido e confiável.
 
-**Solução Proposta**: Desenvolvi três sistemas: um agente conversacional que lembra das conversas (A1), uma equipe de agentes que trabalham juntos para criar textos perfeitos (A2), e um sistema que segue regras rígidas para processar reembolsos (A3).
+**Solução Proposta**: Desenvolvi três soluções: um agente conversacional que lembra das conversas (A1), uma equipe de agentes que trabalham juntos para criar textos (A2), e um sistema que segue regras rígidas para processar reembolsos (A3).
 
-**Principais Resultados**: Consegui reduzir drasticamente os tickets de suporte, eliminar completamente os erros de cálculo, e fazer o processamento até 5 vezes mais rápido. O mais importante: aprendi com esses projetos que não existe uma solução única - cada problema precisa de uma abordagem diferente.
+**Principais Resultados**: Com as soluções  objetivo é reduzir drasticamente os tickets de suporte, eliminar completamente os erros de cálculo, e fazer o processamento esperado de até 5 vezes mais rápido. O mais importante: aprendi com esses projetos que não existe uma solução única - cada problema precisa de uma abordagem diferente.
 
 ---
 
@@ -26,7 +26,7 @@
 ### 2.1 Atores & Dados
 
 **Atores principais:**
-- **Cliente**: A pessoa que quer o reembolso e faz perguntas
+- **Cliente**: A pessoa que quer o reembolso e faz perguntas.
 - **Funcionário do suporte**: Quem atende os clientes hoje.
 - **Financeiro**: Quem aprova reembolsos grandes (acima de R$ 1.000)
 - **Sistema de pagamento**: Onde o dinheiro realmente é processado
@@ -590,4 +590,4 @@ def reprocessar_dlq():
 
 ---
 
-**Desenvolvido por Vinicius com bastante dedicação, algumas madrugadas viradas e muito café (risos). Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
+**Desenvolvido por Vinicius com bastante dedicação. Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
