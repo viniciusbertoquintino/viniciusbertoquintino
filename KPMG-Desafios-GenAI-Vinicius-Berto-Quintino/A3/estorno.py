@@ -374,9 +374,7 @@ def menu():
         except Exception as e:
             print(f"❌ Erro inesperado: {e}")
 
-# ==========================================
 # INÍCIO DO PROGRAMA
-# ==========================================
 if __name__ == "__main__":
     menu()
 
