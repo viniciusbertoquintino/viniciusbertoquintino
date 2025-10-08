@@ -9,20 +9,18 @@ from agno.agent import Agent
 from agno.tools import tool
 from agno.models.azure.openai_chat import AzureOpenAI
 from agno.knowledge.embedder.azure_openai import AzureOpenAIEmbedder
+#from agno.knowledge.embedder.sentence_transformer import SentenceTransformerEmbedder
 from agno.knowledge.reader.pdf_reader import PDFReader
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.lancedb import LanceDb
 from agno.db.sqlite.sqlite import SqliteDb
 
 # Sistema de memória integrado com Agno
-from agno.memory.v2.db.sqlite import SqliteMemoryDb
-from agno.memory.v2.memory import Memory
-from agno.memory.v2.manager import MemoryManager
+from agno.memory import MemoryManager, UserMemory
+from agno.db.base import BaseDb
 
 
-# ========================================
 # Ferramenta de Cálculo de Reembolso
-# ========================================
 @tool(stop_after_tool_call=False)
 def compute_refund(valor: float):
     """
@@ -37,13 +35,12 @@ def compute_refund(valor: float):
     precisa_aprovacao = valor_final > teto
   
 
-    resultado = f"""
-💰 Cálculo de Reembolso
+    resultado = f"""💰 Cálculo de Reembolso
 
-    Valor original: R$ {valor}
-    Imposto (15%): R$ {imposto}
-    Valor final do reembolso: R$ {valor_final}
-    """
+Valor original: R$ {valor}
+Imposto (15%): R$ {imposto}
+Valor final do reembolso: R$ {valor_final}"""
+    
     if precisa_aprovacao:
         resultado += f"\n⚠️ ATENÇÃO: Valor acima de R$ {teto} - Precisa aprovação do Financeiro!"
     else:
@@ -73,11 +70,11 @@ async def load_knowledge_base(kb: Knowledge):
         await kb.add_content_async(
             name="politica_reembolso",
             path="politica_reembolso_v1.0.pdf",   
-            metadata={"tipo": "politica", "fonte": "local"},
+           
         )
-        print("✅ Knowledge Base carregada com sucesso!")
+        print("Knowledge Base carregada com sucesso!")
     except Exception as e:
-        print(f"❌ Erro ao carregar Knowledge Base: {e}")
+        print(f"Erro ao carregar Knowledge Base: {e}")
 
 
 
@@ -89,34 +86,28 @@ def criar_memoria():
     Bem simples - só configura a memória do usuário.
     """
     # 1) Banco de dados para memórias
-    memory_db = SqliteMemoryDb(
-        table_name="memorias_reembolso", 
-        db_file="../tmp/agent_data.db"
-    )
+    memory_db = SqliteDb(db_file="../tmp/agent_data.db")
     
     # 2) Sistema de memória
-    memory = Memory(
+    memory_manager = MemoryManager(
         db=memory_db,
-        memory_manager=MemoryManager(
-            memory_capture_instructions="""
-            Colete informações importantes sobre o usuário:
-            - Nome e dados pessoais
-            - Solicitações de reembolso feitas
-            - Valores e tipos de despesas
-            - Preferências e histórico
-            """,
-            model=AzureOpenAI(
-                temperature=0.3, 
-                azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"), 
-                azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"), 
-                api_key=os.getenv("AZURE_OPENAI_API_KEY"), 
-                api_version=os.getenv("AZURE_OPENAI_API_VERSION")
-            )
+        memory_capture_instructions="""
+        Colete informações importantes sobre o usuário:
+        - Nome e dados pessoais
+        - Solicitações de reembolso feitas
+        - Valores e tipos de despesas
+        - Preferências e histórico
+        """,
+        model=AzureOpenAI( 
+            azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"), 
+            azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"), 
+            api_key=os.getenv("AZURE_OPENAI_API_KEY"), 
+            api_version=os.getenv("AZURE_OPENAI_API_VERSION")
         )
     )
     
-    print("✅ Sistema de memória criado!")
-    return memory
+    print("Sistema de memória criado!")
+    return memory_manager
 
 
 
@@ -136,6 +127,7 @@ def criar_agente():
     azure_deployment="text-embedding-3-large",
     azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
     )
+    # embedding_provider = SentenceTransformerEmbedder(726, "	PORTULAN/albertina-100m-portuguese-ptbr-encoder")
 
     kb = Knowledge(
         vector_db=LanceDb(
@@ -153,7 +145,7 @@ def criar_agente():
     db = SqliteDb(db_file="../tmp/agent_data.db")
 
     # 4) Sistema de memória
-    memory = criar_memoria()
+    memory_manager = criar_memoria()
 
     # 5) Modelo de chat
     chat_model = AzureOpenAI(
@@ -171,7 +163,7 @@ def criar_agente():
     - Responda com base nos trechos da base de conhecimento (RAG).
     - Use suas memórias sobre o usuário para personalizar respostas.
     - Se precisar calcular, use a ferramenta compute_refund.
-    - Seja claro, educado e use emojis quando fizer sentido.
+    - Seja claro e educado nas respostas.
     """
 
     # 7) Cria o Agent com RAG + Memória
@@ -180,7 +172,7 @@ def criar_agente():
         name="Assistente de Reembolso",
         instructions=instructions,
         db=db,
-        memory=memory,                     # Sistema de memória integrado
+        memory_manager=memory_manager,     # Sistema de memória integrado
         
         # RAG
         knowledge=kb,
@@ -193,8 +185,8 @@ def criar_agente():
         # Configurações de memória
         enable_user_memories=True,         # Ativa memórias do usuário
         enable_session_summaries=True,     # Ativa resumos de sessão
-        add_history_to_messages=True,      # Adiciona histórico às mensagens
-        num_history_responses=10,           # Últimas 10 respostas no contexto
+        add_history_to_context=True,      # Adiciona histórico às mensagens
+        #add_history_to_context_max_responses=10,           # Últimas 10 respostas no contexto
 
         markdown=True,
     )
@@ -232,11 +224,11 @@ def processar_pergunta(agente, pergunta: str, user_id: str = "usuario_padrao"):
 
 
 def mostrar_memorias_usuario(agente, user_id: str = "usuario_padrao"):
-    """
-    Mostra as memórias do usuário de forma simples.
-    """
+    
+    # Mostra as memórias do usuário de forma simples.
+   
     try:
-        memorias = agente.memory.get_user_memories(user_id=user_id)
+        memorias = agente.memory_manager.get_user_memories(user_id=user_id)
         
         print(f"\n🧠 **Memórias do usuário {user_id}:**")
         if memorias:
@@ -250,14 +242,14 @@ def mostrar_memorias_usuario(agente, user_id: str = "usuario_padrao"):
 
 
 def mostrar_estatisticas(agente, user_id: str = "usuario_padrao"):
-    """
-    Mostra estatísticas simples do sistema.
-    """
+    
+    # Mostra estatísticas simples do sistema.
+    
     try:
         print("\n📊 **Estatísticas do Sistema:**")
         
         # Memórias do usuário
-        memorias = agente.memory.get_user_memories(user_id=user_id)
+        memorias = agente.memory_manager.get_user_memories(user_id=user_id)
         print(f"   • Memórias do usuário: {len(memorias)}")
         
         # Histórico da sessão

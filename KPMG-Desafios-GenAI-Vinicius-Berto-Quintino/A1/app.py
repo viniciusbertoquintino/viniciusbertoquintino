@@ -16,8 +16,8 @@ def tratar_resposta(resposta):
     import re
     texto = re.sub(r'R\$\s*(\d+(?:,\d{3})*(?:\.\d{2})?)', r'**R$ \1**', texto)
     
-    # Exemplo 3: Adiciona quebra de linha antes de listas
-    texto = texto.replace('- ', '\n- ')
+    # Exemplo 3: Formata listas (sem quebrar linhas desnecessariamente)
+    # texto = texto.replace('- ', '\n- ')  # Comentado para evitar quebras desnecessárias
     
     # Exemplo 4: Personaliza mensagens de erro
     if "erro" in texto.lower() or "error" in texto.lower():
@@ -118,7 +118,6 @@ if pergunta := st.chat_input("Digite sua pergunta aqui..."):
                 
                 # Trata a resposta antes de mostrar
                 resposta_tratada = tratar_resposta(resposta)
-                
                 # Mostra a resposta tratada
                 st.markdown(resposta_tratada)
                 
