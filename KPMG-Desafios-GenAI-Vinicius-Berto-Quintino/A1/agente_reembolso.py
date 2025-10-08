@@ -51,9 +51,9 @@ def compute_refund(valor: float):
     return resultado
 
 
-# ========================================
+
 # (Opcional) Ler TXT para usos auxiliares
-# ========================================
+
 def carregar_politica():
     try:
         with open("politica_reembolso_v1.0.txt", "r", encoding="utf-8") as f:
@@ -62,9 +62,9 @@ def carregar_politica():
         return "Erro: Arquivo de política não encontrado."
 
 
-# ========================================
+
 # Função para carregar Knowledge Base
-# ========================================
+
 async def load_knowledge_base(kb: Knowledge):
     """
     Carrega o conteúdo na Knowledge Base de forma assíncrona.
@@ -80,9 +80,9 @@ async def load_knowledge_base(kb: Knowledge):
         print(f"❌ Erro ao carregar Knowledge Base: {e}")
 
 
-# ========================================
+
 # Sistema de Memória Simples
-# ========================================
+
 def criar_memoria():
     """
     Cria o sistema de memória do agente.
@@ -119,9 +119,9 @@ def criar_memoria():
     return memory
 
 
-# ========================================
+
 # Agente com Knowledge (RAG) + Memória
-# ========================================
+
 def criar_agente():
     """
     Cria um Agent do Agno com:
@@ -146,7 +146,7 @@ def criar_agente():
         max_results=2,
     )
 
-    # 2) Carrega conteúdo na Knowledge Base
+    # 2) Carrega conteúdo na Knowledge Base (assíncrono) carrega somente uma vez na inicialização
     asyncio.run(load_knowledge_base(kb))
     
     # 3) Banco de dados para o agente
@@ -155,7 +155,7 @@ def criar_agente():
     # 4) Sistema de memória
     memory = criar_memoria()
 
-    # 5) Modelo de chat (Azure)
+    # 5) Modelo de chat
     chat_model = AzureOpenAI(
         temperature=0.3, 
         azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"), 
@@ -194,7 +194,7 @@ def criar_agente():
         enable_user_memories=True,         # Ativa memórias do usuário
         enable_session_summaries=True,     # Ativa resumos de sessão
         add_history_to_messages=True,      # Adiciona histórico às mensagens
-        num_history_responses=5,           # Últimas 5 respostas no contexto
+        num_history_responses=10,           # Últimas 10 respostas no contexto
 
         markdown=True,
     )
@@ -222,7 +222,8 @@ def processar_pergunta(agente, pergunta: str, user_id: str = "usuario_padrao"):
         # 5. Salva na sessão
         
         resposta = agente.run(pergunta, user_id=user_id)
-        texto_resposta = getattr(resposta, "content", str(resposta))
+        texto_resposta = getattr(resposta, "content", str(resposta)) # (getattr) atributo de um objeto, nesse caso Retorna o texto da resposta ou a resposta completa / # Em prod usar o Try Except para retornar o texto da resposta ou a resposta completa (mais seguro)
+        
         
         return texto_resposta
         

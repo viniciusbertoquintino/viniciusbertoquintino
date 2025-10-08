@@ -1,16 +1,33 @@
-"""
-Interface Streamlit para o Agente de Reembolso
-Com Sistema de Memória (Curto Prazo + Sessão)
-"""
-import streamlit as st
-import json
-from datetime import datetime
-from agente_reembolso import criar_agente, processar_pergunta  # type: ignore
-from memoria import MemoriaAgente  # type: ignore
 
-# ========================================
-# CONFIGURAÇÃO DA PÁGINA
-# ========================================
+import streamlit as st
+from agente_reembolso import criar_agente, processar_pergunta
+
+# Função para tratar a resposta antes de mostrar
+def tratar_resposta(resposta):
+    
+    # Converte para string se necessário
+    texto = str(resposta)
+    
+    # Exemplo 1: Adiciona emoji no início se não tiver
+    if not texto.startswith(('💰', '🤖', '✅', '❌', '⚠️')):
+        texto = "🤖 " + texto
+    
+    # Exemplo 2: Destaca valores em reais
+    import re
+    texto = re.sub(r'R\$\s*(\d+(?:,\d{3})*(?:\.\d{2})?)', r'**R$ \1**', texto)
+    
+    # Exemplo 3: Adiciona quebra de linha antes de listas
+    texto = texto.replace('- ', '\n- ')
+    
+    # Exemplo 4: Personaliza mensagens de erro
+    if "erro" in texto.lower() or "error" in texto.lower():
+        texto = f"❌ **Ops!** {texto}"
+    
+    return texto
+
+
+# Configurações iniciais da página
+
 
 st.set_page_config(
     page_title="Assistente de Reembolso",
@@ -18,16 +35,15 @@ st.set_page_config(
     layout="centered"
 )
 
-# ========================================
-# TÍTULO E DESCRIÇÃO
-# ========================================
+
+# Titulo e descrição
 
 st.title("💰 Assistente de Reembolso")
 st.markdown("Olá! Sou seu assistente virtual. Pergunte sobre a política de reembolso!")
 
-# ========================================
-# BARRA LATERAL (SIDEBAR)
-# ========================================
+
+# Barra lateral
+
 
 with st.sidebar:
     st.header("ℹ️ Como usar")
@@ -39,57 +55,23 @@ with st.sidebar:
     - Preciso de nota fiscal?
     
     **O agente tem:**
-    - ✅ Memória de curto prazo (últimas 10 msgs)
-    - ✅ Histórico completo da sessão
+    - ✅ Memória automática (lembra da conversa)
     - ✅ RAG com base de conhecimento
+    - ✅ Calculadora de reembolso
     """)
-    
-    st.divider()
-    
-    # Mostra estatísticas da memória
-    if "memoria" in st.session_state:
-        st.subheader("📊 Estatísticas")
-        memoria = st.session_state.memoria
-        st.metric("Buffer", f"{len(memoria.memoria_curto_prazo)}")
-        st.metric("Sessão", len(memoria.memoria_sessao))
     
     st.divider()
     
     # Botão para limpar conversa
     if st.button("🗑️ Limpar Conversa"):
         st.session_state.mensagens = []
-        if "memoria" in st.session_state:
-            st.session_state.memoria.limpar_tudo()
         st.rerun()
-    
-    # Botão para baixar sessão
-    if st.button("📥 Baixar Sessão"):
-        if "memoria" in st.session_state:
-            historico = st.session_state.memoria.obter_historico_completo()
-            sessao_json = json.dumps(historico, indent=2, ensure_ascii=False)
-            st.download_button(
-                label="⬇️ Clique para baixar",
-                data=sessao_json,
-                file_name=f"sessao_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
-                mime="application/json"
-            )
 
-# ========================================
-# INICIALIZAR O AGENTE E MEMÓRIA
-# ========================================
+# INICIALIZAR O AGENTE
 
-# Inicializa a lista de mensagens (memória da conversa)
+# Inicializa a lista de mensagens
 if "mensagens" not in st.session_state:
     st.session_state.mensagens = []
-
-# Inicializa a memória do agente
-if "memoria" not in st.session_state:
-    st.session_state.memoria = MemoriaAgente(limite_curto_prazo=10)
-
-# Função para criar o agente com cache (para evitar recriação desnecessária)
-@st.cache_resource
-def criar_agente_cache():
-    return criar_agente()
 
 # Cria o agente (só uma vez)
 if "agente" not in st.session_state:
@@ -101,17 +83,15 @@ if "agente" not in st.session_state:
             st.error(f"❌ Erro ao criar agente: {str(e)}")
             st.stop()
 
-# ========================================
-# MOSTRAR HISTÓRICO DE MENSAGENS
-# ========================================
+
+# Mostra o histórico de mensagens
 
 for msg in st.session_state.mensagens:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# ========================================
-# CAMPO DE INPUT DO USUÁRIO
-# ========================================
+
+# Campo de input do usuário
 
 if pergunta := st.chat_input("Digite sua pergunta aqui..."):
     
@@ -129,28 +109,30 @@ if pergunta := st.chat_input("Digite sua pergunta aqui..."):
     with st.chat_message("assistant"):
         with st.spinner("Pensando..."):
             try:
-                # Chama o agente COM MEMÓRIA para processar a pergunta
+                # Chama o agente (ele já tem memória integrada)
                 resposta = processar_pergunta(
                     st.session_state.agente, 
                     pergunta,
-                    memoria=st.session_state.memoria  # Passa a memória!
+                    user_id="usuario_streamlit"
                 )
                 
-                # Mostra a resposta
-                st.markdown(resposta)
+                # Trata a resposta antes de mostrar
+                resposta_tratada = tratar_resposta(resposta)
                 
-                # Adiciona resposta ao histórico visual
+                # Mostra a resposta tratada
+                st.markdown(resposta_tratada)
+                
+                # Adiciona resposta tratada ao histórico visual
                 st.session_state.mensagens.append({
                     "role": "assistant",
-                    "content": resposta
+                    "content": resposta_tratada
                 })
                 
             except Exception as e:
                 st.error(f"❌ Erro: {str(e)}")
 
-# ========================================
+
 # RODAPÉ
-# ========================================
 
 st.divider()
-st.caption("🤖 Assistente com Memória | Agno + Streamlit | RAG + Knowledge Base")
+st.caption("🤖 Assistente de Reembolso | Agno + Streamlit | Versão Simplificada")

@@ -153,8 +153,15 @@ final/
 ### 4. Interface
 
 - CLI interativo
-- Web app com Streamlit
-- Estatísticas em tempo real
+- Web app com Streamlit (versão simplificada)
+- Tratamento automático de respostas
+
+### 5. Tratamento de Respostas
+
+- **Formatação automática**: Adiciona emojis e destaca valores
+- **Personalização**: Mensagens de erro customizadas
+- **Melhoria visual**: Quebras de linha e formatação markdown
+- **Flexibilidade**: Fácil de personalizar para suas necessidades
 
 ## 🎮 Comandos Disponíveis
 
@@ -169,9 +176,9 @@ final/
 
 ### Streamlit:
 
-- 📊 Estatísticas na sidebar
 - 🗑️ Limpar conversa
-- 📥 Baixar sessão (JSON)
+- 🎨 Tratamento automático de respostas
+- 💡 Interface simplificada
 
 ## 🧪 Testes
 
@@ -214,6 +221,27 @@ Colete informações importantes sobre o usuário:
 - Valores e tipos de despesas
 - Preferências e histórico
 """
+```
+
+### Personalizar tratamento de respostas:
+
+```python
+# Em app.py, função tratar_resposta():
+def tratar_resposta(resposta):
+    texto = str(resposta)
+    
+    # Adicionar emojis personalizados
+    if "reembolso" in texto.lower():
+        texto = "💰 " + texto
+    
+    # Destacar valores em dinheiro
+    texto = re.sub(r'R\$\s*(\d+)', r'**R$ \1**', texto)
+    
+    # Adicionar data/hora
+    from datetime import datetime
+    texto += f"\n\n*Resposta gerada em: {datetime.now().strftime('%H:%M')}*"
+    
+    return texto
 ```
 
 ## 📊 Exemplos de Uso
@@ -279,6 +307,12 @@ Melhorias são bem-vindas! Algumas ideias:
 - [ ] Suporte a múltiplos usuários
 
 ## 🔄 Mudanças Recentes
+
+### V2.1 - Interface Simplificada
+
+- ✅ **Interface Streamlit simplificada** - Removidas complexidades desnecessárias
+- ✅ **Tratamento automático de respostas** - Formatação inteligente antes de exibir
+- ✅ **Código mais limpo** - Foco na funcionalidade essencial
 
 ### V2.0 - Memória Integrada com Agno
 
