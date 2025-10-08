@@ -134,4 +134,4 @@ if pergunta := st.chat_input("Digite sua pergunta aqui..."):
 # RODAPÉ
 
 st.divider()
-st.caption("🤖 Assistente de Reembolso | Agno + Streamlit | Versão Simplificada")
+st.caption("🤖 Assistente de Reembolso")
