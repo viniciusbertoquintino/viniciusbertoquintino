@@ -206,7 +206,7 @@ O Crítico pode dizer:
 
 ---
 
-## 🔍 Atendimento ao DoD (Definition of Done)
+## 🔍 Atendimento ao DoD
 
 ✅ **Críticas apontam fonte**: O Crítico sempre cita o trecho problemático
 ✅ **Texto final consistente**: Editor corrige todas as inconsistências
