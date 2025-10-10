@@ -183,11 +183,6 @@ Desafios---GenAI---Vinicius-Berto-Quintino/
 - [Agno Framework](https://github.com/agno-agi/agno)
 - [Streamlit](https://docs.streamlit.io/)
 
-### Conceitos de IA
-- [RAG Pattern](https://docs.microsoft.com/en-us/azure/architecture/ai-ml/architecture/rag-pattern)
-- [Multi-Agent Systems](https://en.wikipedia.org/wiki/Multi-agent_system)
-- [Vector Databases](https://www.pinecone.io/learn/vector-database/)
-
 ## 👨‍💻 Autor
 
 **Vinicius Berto Quintino**
@@ -204,3 +199,4 @@ Este projeto é para fins educacionais e demonstrativos. Consulte os arquivos in
 ---
 
 **Desenvolvido por Vinicius com bastante dedicação. Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
+
