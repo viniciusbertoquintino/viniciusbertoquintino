@@ -5,19 +5,25 @@
 ```mermaid
 flowchart TD
     A[Criar Estorno] --> B{Valor > R$ 1.000?}
-    B -->|Não| C[Executar Direto]
-    B -->|Sim| D[Aguardar Aprovação]
-    D --> E{Aprovado?}
-    E -->|Sim| F[Executar]
-    E -->|Não| G[Rejeitado]
-    F --> H[API Externa]
-    C --> H
-    H --> I{Sucesso?}
-    I -->|Sim| J[Completado]
-    I -->|Não| K{Tentativas < 2?}
-    K -->|Sim| L[Retry]
-    K -->|Não| M[DLQ]
-    L --> H
+    B -->|Não| C[Processar Automaticamente]
+    B -->|Sim| D[Status: pendente]
+    D --> E[Aguardar Aprovação Manual]
+    E --> F{Aprovado?}
+    F -->|Sim| G[Status: aprovado]
+    F -->|Não| H[Status: rejeitado]
+    G --> I[Status: processando]
+    C --> I
+    I --> J[Simular Processamento]
+    J --> K{Sucesso na 1ª tentativa?}
+    K -->|Sim| L[Status: concluido]
+    K -->|Não| M[2ª Tentativa]
+    M --> N{Sucesso na 2ª tentativa?}
+    N -->|Sim| L
+    N -->|Não| O[Status: erro]
+    O --> P[Reprocessamento Manual]
+    P --> I
+    H --> Q[Fim - Rejeitado]
+    L --> R[Fim - Concluído]
 ```
 
 ## 📋 Estados do Estorno
@@ -49,4 +55,5 @@ stateDiagram-v2
         manualmente pelo usuário
     end note
 ```
+
 
