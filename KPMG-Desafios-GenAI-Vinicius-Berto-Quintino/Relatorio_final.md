@@ -17,7 +17,7 @@
 
 **Solução Proposta**: Desenvolvi três soluções: um agente conversacional que lembra das conversas (A1), uma equipe de agentes que trabalham juntos para criar textos (A2), e um sistema que segue regras rígidas para processar reembolsos (A3).
 
-**Principais Resultados**: Com as soluções  objetivo é reduzir drasticamente os tickets de suporte, eliminar completamente os erros de cálculo, e fazer o processamento esperado de até 5 vezes mais rápido. O mais importante: aprendi com esses projetos que não existe uma solução única - cada problema precisa de uma abordagem diferente.
+**Principais Resultados**: Com as soluções  objetivo é reduzir drasticamente os tickets de suporte, eliminar quase que completamente os erros de cálculo, e fazer o processamento ser até 5 vezes mais rápido. O mais importante: aprendi com esses projetos que não existe uma solução única - cada problema precisa de uma abordagem diferente.
 
 ---
 
@@ -54,12 +54,12 @@
 **SLAs (tempo de resposta):**
 - Resposta em menos de 3 segundos
 - Sistema disponível 99% do tempo
-- Processamento de reembolso em menos de 1 minuto
+- Processamento de reembolso em menos de 1 minuto para valores <= R$1.000,00
 
 **Métricas que estou medindo:**
 - **Acurácia**: 95% das respostas devem estar corretas
 - **TMA (Tempo Médio de Atendimento)**: Menos de 5 minutos por cliente
-- **Taxa de erro**: Menos de 1% nos cálculos
+- **Taxa de erro**: Menos de 1% nos cálculos (estimativa)
 - **Satisfação**: 90% dos clientes devem ficar satisfeitos (Ficticio)
 
 ### 2.3 Assunções & Riscos
@@ -82,9 +82,8 @@
    - **Como mitigo**: Sistema de retry e fila de reprocessamento
 
 **Assunções que fiz:**
-- A política de reembolso está sempre atualizada
-- O Azure OpenAI vai estar disponível
-- Os dados de entrada são válidos
+- A política de reembolso está sempre atualizada.
+- Os dados de entrada são válidos.
 
 ### 2.4 Decisão de Arquitetura
 
@@ -111,7 +110,7 @@
 
 ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
 │     A1      │    │     A2      │    │     A3      │
-│  AGENTE     │    │ MULTI-AGENTES│    │  WORKFLOW   │
+│  AGENTE     │    │ MULTI-AGENTES│   │  WORKFLOW   │
 │             │    │             │    │             │
 │ • RAG       │    │ • Redator   │    │ • DAG       │
 │ • Memória   │    │ • Crítico   │    │ • Retry     │
@@ -136,7 +135,7 @@
 - **Azure OpenAI**: O "cérebro" que entende e responde
 - **LanceDB**: Para buscar informações na política (RAG)
 - **SQLite**: Para salvar as conversas e memórias
-- **Streamlit**: Para criar uma interface web bonita
+- **Streamlit**: Para criar uma interface amigavel.
 
 **A2 - Sistema Multi-Agentes:**
 - **3 Agentes Especializados**: Cada um tem uma função específica
@@ -341,14 +340,12 @@ from datetime import datetime
 **Métricas de sucesso:**
 - Taxa de acerto nas respostas (95%+)
 - Tempo médio de resposta (< 3 segundos)
-- Satisfação do usuário (90%+)
 - Quantas vezes as ferramentas são usadas
 
 **Métricas de confiabilidade:**
 - Taxa de erro geral (< 1%)
 - Disponibilidade do sistema (99%+)
 - Tempo de recuperação quando falha
-- Quantos requests por minuto o sistema aguenta
 
 ### 5.2 Confiabilidade
 
@@ -382,7 +379,7 @@ def reprocessar_dlq():
         processar_estorno(item["request_id"])
 ```
 
-**Por que isso é importante**: Se o sistema falhar, não perde dados. Se uma requisição for duplicada, não processa duas vezes. Se algo der muito errado, vai para uma fila especial para eu investigar depois.
+**Por que isso é importante**: Se o sistema falhar, não perde dados. Se uma requisição for duplicada, não processa duas vezes. Se algo der muito errado, vai para uma fila especial para ser investigado depois.
 
 ### 5.3 Testes
 
@@ -503,12 +500,10 @@ def reprocessar_dlq():
 
 **Resultados quantitativos:**
 
-| Métrica | Antes | Depois | Melhoria |
+| Métrica | Antes (Ficticio) | Depois | Melhoria |
 |---------|-------|--------|----------|
 | Tickets de suporte | 100% | 30% | -70% |
 | Erros de cálculo | 15% | 0% | -100% |
-| Tempo de processamento | 5 min | 1 min | -80% |
-| Satisfação do cliente | 60% | 90% | +50% |
 | Precisão das respostas | 70% | 95% | +25% |
 
 **Resultados qualitativos:**
@@ -529,7 +524,6 @@ def reprocessar_dlq():
 - Deriva de modelo com o tempo
 - Aumento de custos com escala
 - Necessidade de manutenção contínua
-- Integração com sistemas legados
 
 ### 8.3 Próximos Passos
 

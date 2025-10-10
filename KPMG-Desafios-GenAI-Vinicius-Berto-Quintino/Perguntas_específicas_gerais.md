@@ -33,8 +33,8 @@
 │   ENVIRONMENT   │    │     MEMORY      │    │    TOOLS        │
 │                 │    │                 │    │                 │
 │ • SQLite DB     │    │ • Curto Prazo   │    │ • compute_refund│
-│ • LanceDB       │    │   	   	         │    │   (Cálculo)     │
-│ • PDF Knowledge │    │ • Sessão        │    │ • RAG Search    │
+│ • LanceDB       │    │ • Sessão        │    │   (Cálculo)     │
+│ • PDF Knowledge │    │                 │    │ • RAG Search    │
 │ • Azure OpenAI  │    │   	             │    │   (Knowledge)   │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
@@ -649,4 +649,4 @@ Desafios GenAI - Vinicius Berto Quintino/
 
 ---
 
-**Desenvolvido com bastante dedicação, algumas madrugadas viradas e muito café (risos). Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
+**Desenvolvido por Vinicius com bastante dedicação. Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**

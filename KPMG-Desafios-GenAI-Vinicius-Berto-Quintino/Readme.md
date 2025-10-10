@@ -203,4 +203,4 @@ Este projeto é para fins educacionais e demonstrativos. Consulte os arquivos in
 
 ---
 
-**Desenvolvido com ❤️ e muito ☕ usando Python + IA Generativa**
+**Desenvolvido por Vinicius com bastante dedicação. Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
