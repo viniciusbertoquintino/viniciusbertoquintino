@@ -46,4 +46,4 @@ Tags simples para leitura rápida:
 
 Ao final da execução/demonstração, os estornos podem ser exportados para um arquivo JSON com timestamp no nome:
 
-**Desenvolvido com bastante dedicação, algumas madrugadas viradas e muito café (risos). Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
+**Desenvolvido por Vinicius com bastante dedicação. Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
