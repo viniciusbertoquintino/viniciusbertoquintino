@@ -194,24 +194,8 @@ def criar_agente():
 
 
 def processar_pergunta(agente, pergunta: str, user_id: str = "usuario_padrao"):
-    """
-    Processa uma pergunta usando o agente com memória integrada.
     
-    Args:
-        agente: O agente de IA
-        pergunta: A pergunta do usuário
-        user_id: ID do usuário para memória personalizada
-    
-    Returns:
-        A resposta do agente
-    """
     try:
-        # O agente automaticamente:
-        # 1. Consulta memórias do usuário
-        # 2. Adiciona histórico da sessão
-        # 3. Processa a pergunta
-        # 4. Atualiza memórias se necessário
-        # 5. Salva na sessão
         
         resposta = agente.run(pergunta, user_id=user_id)
         texto_resposta = getattr(resposta, "content", str(resposta)) # (getattr) atributo de um objeto, nesse caso Retorna o texto da resposta ou a resposta completa / # Em prod usar o Try Except para retornar o texto da resposta ou a resposta completa (mais seguro)
