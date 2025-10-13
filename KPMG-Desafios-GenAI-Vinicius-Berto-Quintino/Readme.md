@@ -68,7 +68,6 @@ Este repositório contém três projetos distintos que exploram diferentes aspec
 ### Pré-requisitos
 - Python 3.8+
 - Conta Azure OpenAI (para A1 e A2)
-- Arquivo `.env` com credenciais (veja exemplos em cada projeto)
 
 ## 📊 Demonstrações
 
@@ -199,4 +198,5 @@ Este projeto é para fins educacionais e demonstrativos. Consulte os arquivos in
 ---
 
 **Desenvolvido por Vinicius com bastante dedicação. Foram exploradas diferentes abordagens de IA para mostrar que não existe uma solução única — tudo depende do contexto específico de cada problema.**
+
 
