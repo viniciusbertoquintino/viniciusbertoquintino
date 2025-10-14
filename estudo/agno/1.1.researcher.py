@@ -1,5 +1,6 @@
 from agno.agent import Agent
-from agno.tools.tavily import TavilyTools
+#from agno.tools.tavily import TavilyTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.models.groq import Groq
 
 from dotenv import load_dotenv
@@ -11,7 +12,8 @@ model = Groq(id="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY"))
 
 agent = Agent(
     model=model,
-    tools=[TavilyTools()],
+    #tools=[TavilyTools()],
+    tools=[DuckDuckGoTools()],
     debug_mode=False,
     markdown=True)
 

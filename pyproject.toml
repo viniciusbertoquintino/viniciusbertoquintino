@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "agno==1.8",
+    "ddgs>=9.6.1",
     "groq>=0.32.0",
     "tavily-python>=0.7.12",
     "yfinance>=0.2.66",
