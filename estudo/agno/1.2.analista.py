@@ -1,0 +1,20 @@
+from agno.agent import Agent
+#from agno.tools.duckduckgo import DuckDuckGoTools
+#from agno.tools.tavily import TavilyTools
+from agno.tools.yfinance import YFinanceTools
+from agno.models.groq import Groq
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+model = Groq(id="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY"))
+
+agent = Agent(
+    model=model,
+    tools=[YFinanceTools()],
+    debug_mode=False,
+    markdown=True)
+
+agent.print_response("Qual cotacao atual da empresa Microsoft?", stream=True)

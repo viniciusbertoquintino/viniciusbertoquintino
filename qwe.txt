@@ -1,0 +1,7 @@
+Tenho experiência prática em Python e Inteligência Artificial Generativa, 
+utilizando bibliotecas como LangChain, FastAPI, LlamaIndex, crewAI e LangGraph. 
+Conheço RAGs (Vector DBs, embeddings, Semantic/Hybrid Search), 
+construção de soluções multiagentes com orquestração, roles, tools e arquiteturas MCP e A2A. 
+Além disso, possuo familiaridade com Azure (Containers, Functions, Cosmos, AI Search, OpenAI), 
+CI/CD com GitHub Actions e inglês intermediário, tenho conhecimento em arquiteturas de LLMs, 
+evaluation e monitoramento.

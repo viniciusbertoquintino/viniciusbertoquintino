@@ -1,0 +1,18 @@
+from agno.agent import Agent
+
+from agno.models.groq import Groq
+from agno.tools.hackernews import HackerNewsTools
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
+model = Groq(id="llama-3.1-8b-instant", api_key=os.getenv("GROQ_API_KEY"))
+
+agent = Agent(
+    model=model,
+    tools=[HackerNewsTools()],
+    instructions="Write a report on the topic. Output only the report.",
+    markdown=True,
+    debug_mode=False,
+)
+agent.print_response("Trending startups and products.", stream=True)
