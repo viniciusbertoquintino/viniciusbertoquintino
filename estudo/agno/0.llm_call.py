@@ -1,15 +1,16 @@
+from agno.agent import Agent
 from agno.models.groq import Groq
-from agno.models.message import Message
-
+import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
-model = Groq(id="llama3.3-70b-versatile")
+model = Groq(id="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY"))
 
-msg = Message(role="user",
-              content=[{"type": "text", "text": "Ola, meu nome é Vinicius"}])
+agent = Agent(
+    model=model,
+    debug_mode=False,
+    markdown=True
+)
 
-response = model.invoke(msg)
-
-response.choices[0].message.content
+agent.print_response("Ola, meu nome é Vinicius", stream=True)
