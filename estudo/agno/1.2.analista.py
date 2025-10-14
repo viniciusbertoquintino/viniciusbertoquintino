@@ -14,7 +14,9 @@ model = Groq(id="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY"))
 agent = Agent(
     model=model,
     tools=[YFinanceTools()],
+    instructions="Use tabelas para mostrar dados financeiros quando possível.",
+    #max_iterations=3,
     debug_mode=False,
     markdown=True)
 
-agent.print_response("Qual cotacao atual da empresa Microsoft?", stream=True)
+agent.print_response("Qual é cotação atual da empresa Microsoft?", stream=True)
