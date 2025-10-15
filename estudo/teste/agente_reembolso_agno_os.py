@@ -39,16 +39,16 @@ def compute_refund(valor: float):
     precisa_aprovacao = valor_final > teto
   
 
-    resultado = f"""💰 Cálculo de Reembolso
+    resultado = f"""Cálculo de Reembolso
 
 Valor original: R$ {valor}
 Imposto (15%): R$ {imposto}
 Valor final do reembolso: R$ {valor_final}"""
     
     if precisa_aprovacao:
-        resultado += f"\n⚠️ ATENÇÃO: Valor acima de R$ {teto} - Precisa aprovação do Financeiro!"
+        resultado += f"\nATENÇÃO: Valor acima de R$ {teto} - Precisa aprovação do Financeiro!"
     else:
-        resultado += f"\n✅ Reembolso aprovado automaticamente (abaixo de R$ {teto})."
+        resultado += f"\nReembolso aprovado automaticamente (abaixo de R$ {teto})."
     return resultado
 
 
@@ -202,30 +202,19 @@ def criar_agno_os():
     """
     Cria o AgentOS para produção com:
     - Agente de reembolso configurado
-    - Banco de dados PostgreSQL (produção) ou SQLite (desenvolvimento)
     - Sistema de memória integrado
     """
-    # Configuração do banco de dados
-    # Em produção, usar PostgreSQL; em desenvolvimento, SQLite
-    if os.getenv("DATABASE_URL"):
-        db = PostgresDb(db_url=os.getenv("DATABASE_URL"))
-        print("🗄️ Usando PostgreSQL para produção")
-    else:
-        db = SqliteDb(db_file="../tmp/agent_data.db")
-        print("🗄️ Usando SQLite para desenvolvimento")
-    
-    # Cria o agente
+    # Cria o agente (o banco de dados já está configurado no agente)
     agente = criar_agente()
     
-    # Configura o AgentOS
+    # Configura o AgentOS (nova API sem parâmetro db)
     agent_os = AgentOS(
+        id="reembolso-agentos",
+        description="Sistema de reembolso com IA",
         agents=[agente],
-        db=db,
-        show_tool_calls=False,  # Desabilita logs de ferramentas em produção
-        debug_mode=False,       # Desabilita modo debug em produção
     )
     
-    print("🚀 AgentOS configurado com sucesso!")
+    print("AgentOS configurado com sucesso!")
     return agent_os
 
 
@@ -234,19 +223,19 @@ if __name__ == "__main__":
     Executa o agente usando AgentOS para produção
     """
     try:
-        print("🌐 Iniciando AgentOS para aplicação web...")
+        print("Iniciando AgentOS para aplicação web...")
         agent_os = criar_agno_os()
+        
+        print("Servidor web iniciado!")
+        print("Acesse: http://localhost:8000")
+        print("Documentação: http://localhost:8000/docs")
         
         # Obtém a aplicação FastAPI
         app = agent_os.get_app()
         
-        print("🚀 Servidor web iniciado!")
-        print("📡 Acesse: http://localhost:8000")
-        print("📚 Documentação: http://localhost:8000/docs")
-        
-        # Inicia o servidor (em produção, usar uvicorn diretamente)
+        # Inicia o servidor usando uvicorn
         import uvicorn
         uvicorn.run(app, host="0.0.0.0", port=8000)
         
     except Exception as e:
-        print(f"❌ Erro ao executar AgentOS: {e}")
+        print(f"Erro ao executar AgentOS: {e}")
