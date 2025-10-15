@@ -11,8 +11,8 @@ model = Groq(id="llama-3.1-8b-instant", api_key=os.getenv("GROQ_API_KEY"))
 agent = Agent(
     model=model,
     tools=[HackerNewsTools()],
-    instructions="Write a report on the topic. Output only the report.",
+    instructions="Escreva um relatório sobre o tópico. Produza apenas o relatório.",
     markdown=True,
     debug_mode=False,
 )
-agent.print_response("Trending startups and products.", stream=True)
+agent.print_response("Startups e produtos em tendência.", stream=True)

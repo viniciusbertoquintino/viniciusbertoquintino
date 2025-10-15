@@ -2,32 +2,27 @@ import os
 from dotenv import load_dotenv        
 from agno.agent import Agent           
 from agno.models.azure.openai_chat import AzureOpenAI
+from agno.team.team import Team
+from agno.db.sqlite import SqliteDb
+from agno.db.postgres import PostgresDb
+from agno.os import AgentOS
 from textwrap import dedent
 
 
 load_dotenv()
 
-# Verifica se as variáveis necessárias estão configuradas
+# Configuração do modelo de chat
 chat_model = AzureOpenAI(
-        id=os.getenv("OPENAI_MODEL_NAME"),
-        api_version=os.getenv("OPENAI_API_VERSION")
-    ),
+    id=os.getenv("OPENAI_MODEL_NAME"),
+    api_version=os.getenv("OPENAI_API_VERSION")
+)
 
 
-# O Redator é responsável por escrever o comunicado inicial
-
+# Criação dos agentes especializados
 redator = Agent(
-    # Nome do agente (para identificação)
     name="Redator",
-    
-    # Modelo de IA usando Azure OpenAI (configurado no .env)
-    
-    model= chat_model,
-    
-    # Papel do agente na equipe
+    model=chat_model,
     role="Especialista em redação de comunicados claros para clientes",
-    
-    # Instruções detalhadas sobre como o agente deve agir
     instructions=dedent("""
         Você é um redator de comunicados para atendimento ao cliente (CX).
         
@@ -39,21 +34,13 @@ redator = Agent(
         
         Objetivo: Reduzir contatos do suporte N1 (perguntas repetitivas).
     """),
-    
-    
     markdown=True,
 )
 
-
-# O Crítico analisa o texto do Redator e aponta problemas
-
 critico = Agent(
     name="Crítico",
-
-   model= chat_model,
-
+    model=chat_model,
     role="Analista de qualidade que identifica inconsistências e problemas",
-    
     instructions=dedent("""
         Você é um crítico rigoroso de comunicados.
         
@@ -64,28 +51,18 @@ critico = Agent(
         
         IMPORTANTE:
         - SEMPRE cite a FONTE dos problemas (qual frase/parágrafo)
-        - Use formato: "❌ Problema: [descrição] | 📍 Fonte: [trecho exato]"
+        - Use o formato: "❌ Problema: [descrição] | 📍 Fonte: [trecho exato]"
         - Se estiver tudo OK, diga: "✅ Aprovado sem ressalvas"
         
         Seja específico e construtivo!
     """),
-    
-    
     markdown=True,
 )
 
-
-
-# O Editor produz a versão final baseado no feedback do Crítico
-
 editor = Agent(
-
     name="Editor",
-
-    model= chat_model,
-
+    model=chat_model,
     role="Editor-chefe que produz a versão final do comunicado",
-    
     instructions=dedent("""
         Você é o editor-chefe responsável pela versão final.
         
@@ -104,34 +81,76 @@ editor = Agent(
         1. Versão final do comunicado
         2. Resumo das alterações feitas
     """),
-    
-   
     markdown=True,
 )
 
-
-
-# Esta função coordena os 3 agentes em sequência
-
-def executar_sistema_multiagentes():
+# Criação da equipe multi-agentes
+def criar_equipe_multiagentes():
     """
-    Executa o fluxo completo do sistema multi-agentes.
-    
-    Fluxo:
-    1. Redator escreve → 2. Crítico analisa → 3. Editor finaliza
+    Cria uma equipe de agentes especializados para produção de comunicados
     """
+    team = Team(
+        members=[redator, critico, editor],
+        model=chat_model,
+        instructions=dedent("""
+            Você coordena uma equipe de 3 agentes especializados:
+            
+            1. REDATOR: Escreve comunicados claros sobre políticas
+            2. CRÍTICO: Analisa e identifica problemas nos textos
+            3. EDITOR: Produz a versão final corrigida
+            
+            Fluxo de trabalho:
+            - Redator cria o comunicado inicial
+            - Crítico analisa e aponta problemas
+            - Editor produz a versão final corrigida
+            
+            Sempre coordene os agentes para produzir comunicados de alta qualidade.
+        """),
+    )
+    return team
+
+
+
+# Configuração do AgentOS
+def criar_agno_os():
+    """
+    Cria o AgentOS para produção com a equipe multi-agentes
+    """
+    # Configuração do banco de dados
+    if os.getenv("DATABASE_URL"):
+        db = PostgresDb(db_url=os.getenv("DATABASE_URL"))
+        print("🗄️ Usando PostgreSQL para produção")
+    else:
+        db = SqliteDb(db_file="../tmp/multiagente.db")
+        print("🗄️ Usando SQLite para desenvolvimento")
     
+    # Cria a equipe de agentes
+    team = criar_equipe_multiagentes()
+    
+    # Configura o AgentOS
+    agent_os = AgentOS(
+        agents=[team],  # A equipe é tratada como um agente
+        db=db,
+        show_tool_calls=False,
+        debug_mode=False,
+    )
+    
+    print("🚀 AgentOS configurado com sucesso!")
+    return agent_os
+
+# Função para testar a equipe diretamente (desenvolvimento)
+def testar_equipe_diretamente():
+    """
+    Testa a equipe multi-agentes diretamente (para desenvolvimento)
+    """
     print("=" * 80)
-    print("🚀 INICIANDO SISTEMA MULTI-AGENTES")
+    print("🚀 TESTANDO EQUIPE MULTI-AGENTES")
     print("=" * 80)
     print()
     
-   
-    print("📝 ETAPA 1: Redator escrevendo comunicado inicial...")
-    print("-" * 80)
+    team = criar_equipe_multiagentes()
     
-    # Cria a solicitação (prompt) para o Redator
-    solicitacao_inicial = """
+    solicitacao = """
     Escreva um comunicado claro sobre a política de reembolsos da empresa.
     
     Informações a incluir:
@@ -139,67 +158,45 @@ def executar_sistema_multiagentes():
     - Condição: produto não utilizado e na embalagem original
     - Como solicitar: através do portal de atendimento ou email suporte@empresa.com
     - Tempo de processamento: até 10 dias úteis
+    
+    Use a equipe para criar, revisar e finalizar o comunicado.
     """
     
-    # O Redator gera a resposta (comunicado inicial)
-    resposta_redator = redator.run(solicitacao_inicial)
-    texto_inicial = resposta_redator.content
-    
-    print(texto_inicial)
-    print()
-    
-    
-    print("🔍 ETAPA 2: Crítico analisando o comunicado...")
+    print("📝 Processando solicitação com a equipe...")
     print("-" * 80)
     
-    # O Crítico recebe o texto do Redator e analisa
-    solicitacao_critica = f"""
-    Analise este comunicado sobre reembolsos:
-    
-    {texto_inicial}
-    
-    Identifique problemas de clareza, completude ou ambiguidade.
-    Cite a fonte específica de cada problema.
-    """
-    
-    resposta_critico = critico.run(solicitacao_critica)
-    analise_critica = resposta_critico.content
-    
-    print(analise_critica)
-    print()
-    
-    print("✍️ ETAPA 3: Editor produzindo versão final...")
-    print("-" * 80)
-    
-    # Aqui o Editor recebe TANTO o texto inicial QUANTO as críticas
-    solicitacao_final = f"""
-    Produza a versão final do comunicado considerando:
-    
-    TEXTO ORIGINAL DO REDATOR:
-    {texto_inicial}
-    
-    ANÁLISE DO CRÍTICO:
-    {analise_critica}
-    
-    Corrija todos os problemas apontados e entregue a versão final.
-    """
-    
-    resposta_editor = editor.run(solicitacao_final)
-    versao_final = resposta_editor.content
-    
-    print(versao_final)
-    print()
-    
-    # FIM
+    resposta = team.run(solicitacao)
+    print(resposta.content)
     
     print("=" * 80)
-    print("✅ SISTEMA MULTI-AGENTES CONCLUÍDO COM SUCESSO!")
+    print("✅ TESTE CONCLUÍDO COM SUCESSO!")
     print("=" * 80)
-
-
 
 if __name__ == "__main__":
-    # Executa a função principal
-    executar_sistema_multiagentes()
+    import sys
+    
+    # Verifica se deve executar em modo web ou teste
+    if len(sys.argv) > 1 and sys.argv[1] == "--test":
+        testar_equipe_diretamente()
+    else:
+        # Executa usando AgentOS para produção
+        try:
+            print("🌐 Iniciando AgentOS para aplicação web...")
+            agent_os = criar_agno_os()
+            
+            # Obtém a aplicação FastAPI
+            app = agent_os.get_app()
+            
+            print("🚀 Servidor web iniciado!")
+            print("📡 Acesse: http://localhost:8000")
+            print("📚 Documentação: http://localhost:8000/docs")
+            print("💡 Para testar diretamente, use: python multiagente.py --test")
+            
+            # Inicia o servidor
+            import uvicorn
+            uvicorn.run(app, host="0.0.0.0", port=8000)
+            
+        except Exception as e:
+            print(f"❌ Erro ao executar AgentOS: {e}")
 
 
