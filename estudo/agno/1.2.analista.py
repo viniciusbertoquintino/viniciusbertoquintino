@@ -14,7 +14,7 @@ model = Groq(id="llama-3.3-70b-versatile", api_key=os.getenv("GROQ_API_KEY"))
 agent = Agent(
     model=model,
     tools=[YFinanceTools()],
-    instructions="Use tabelas para mostrar dados financeiros quando possível.",
+    instructions="Use tabelas para mostrar a informação final. Não inclua nenhum outro texto.",
     #max_iterations=3,
     debug_mode=False,
     markdown=True)

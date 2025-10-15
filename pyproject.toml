@@ -5,9 +5,19 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "agno==1.8",
+    "agno>=2.1.4",
     "ddgs>=9.6.1",
+    "fastapi>=0.119.0",
     "groq>=0.32.0",
+    "lancedb>=0.25.2",
+    "mcp>=1.17.0",
+    "openai>=2.3.0",
+    "pgvector>=0.4.1",
+    "psycopg>=3.2.10",
+    "pypdf>=6.1.1",
+    "sqlalchemy>=2.0.44",
+    "tantivy>=0.25.0",
     "tavily-python>=0.7.12",
+    "uvicorn>=0.37.0",
     "yfinance>=0.2.66",
 ]
