@@ -8,7 +8,7 @@
 
 ## Sobre mim 🕵🏾‍♂️
 
-- [x] 🎓 Estou me formando em Análise e Desenvolvimento de Sistemas.
+- [x] 🎓 Formado em Análise e Desenvolvimento de Sistemas.
 - [x] 📫 Como me contatar: viniciusbertoquintino@gmail.com
 - [x] 📫 Linkedin: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
 - [x] 🌱 
@@ -27,7 +27,7 @@ Vamos aprender e construir o futuro, um `commit` de cada vez.
 
 ## About me 🕵🏾‍♂️
 
-- [x] 🎓 I'm graduating in Systems Analysis and Development.
+- [x] 🎓 Graduated in Systems Analysis and Development.
 - [x] 📫 How to reach me: viniciusbertoquintino@gmail.com
 - [x] 📫 Linkedin: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
 - [X] 🌱 
