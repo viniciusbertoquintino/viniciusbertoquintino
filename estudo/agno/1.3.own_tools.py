@@ -25,7 +25,7 @@ def celsius_to_fahrenheit(temperature_celsius: float) -> float:
 agent = Agent(
     model=model,
     #tools=[TavilyTools()],
-    tools=[DuckDuckGoTools(), celsius_to_fahrenheit()],
+    tools=[DuckDuckGoTools(), celsius_to_fahrenheit],
     debug_mode=False,
     markdown=True)
 
