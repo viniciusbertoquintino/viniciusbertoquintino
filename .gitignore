@@ -8,5 +8,5 @@ wheels/
 
 # Virtual environments
 .venv
-estudo/agno/.env
+estudo/.env
 .env

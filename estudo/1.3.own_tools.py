@@ -22,6 +22,8 @@ def celsius_to_fahrenheit(temperature_celsius: float) -> float:
     """
     return (temperature_celsius * 9/5) + 32
 
+    
+
 agent = Agent(
     model=model,
     #tools=[TavilyTools()],
