@@ -14,5 +14,7 @@ agent = Agent(
     instructions="Escreva um relatório sobre o tópico. Produza apenas o relatório.",
     markdown=True,
     debug_mode=False,
+    add_history_to_messages=True,
+    num_history_messages=10,
 )
 agent.print_response("Startups e produtos em tendência.", stream=True)
