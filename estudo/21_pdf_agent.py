@@ -1,40 +1,51 @@
 from agno.agent import Agent
-from agno.models.groq import Groq
-from agno.knowledge.reader.pdf_reader import PDFReader
-from agno.knowledge.knowledge import Knowledge
-from agno.vectordb.chroma import ChromaDB
-from agno.db.sqlite import SqliteDb
+from agno.playground import Playground, serve_playground_app
+from agno.storage.sqlite import SqliteStorage
+from agno.models.openai import OpenAIChat
 
-# Configuração do banco vetorial
-vector_db = ChromaDB(
-    db_file="tmp/chroma.db",
-    collection_name="pdf_agent",
+from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
+from agno.vectordb.chroma import ChromaDb
+
+
+
+# RAG
+vector_db = ChromaDb(collection="pdf_agent", path="tmp/chromadb", persistent_client=True)
+
+knowledge = PDFKnowledgeBase(
+path="GlobalEVOutlook2025.pdf",
+vector_db=vector_db,
+reader=PDFReader(chunk=True)
 )
+# knowledge.load()
 
-# Configuração do conhecimento
-knowledge = Knowledge(
-    name="PDF Knowledge",
-    path="teste.pdf",
-    vector_db=vector_db,
-    reader=PDFReader(chunk=True),
-)
 
-# Criação do agente
+db = SqliteStorage(table_name="agent_session", db_file="tmp/agent.db")
+
 agent = Agent(
-    model=Groq(id="llama3-8b-8192"),
+    name="Agente de PDF",
+    model=OpenAIChat(id="gpt-4.1-mini"),
+    storage=db,
     knowledge=knowledge,
-    search_knowledge=True,
-    instructions="You are a helpful assistant that can answer questions about PDF documents. Use the knowledge base to provide accurate information and cite sources when possible.",
-    markdown=True,
-    db=SqliteDb(db_file="tmp/agents.db"),
-    add_history_to_context=True,
+    instructions="Você deve chamar o usuário de senhor",
+    description="",
+    add_history_to_messages=True,
+    search_knowledge=True, 
     num_history_runs=3,
+    # debug_mode=True
 )
 
-# Exemplo de uso
+app = Playground(agents=[
+        agent
+]).get_app()
+
+
 if __name__ == "__main__":
-    # Carrega o conhecimento do PDF
-    knowledge.load()
-    
-    # Faz uma pergunta sobre o documento
-    agent.print_response("What is this document about?", stream=True)
+    # knowledge.load(recreate=True)
+    serve_playground_app("21_pdf_agent:app", reload=True)
+
+
+
+
+
+
+
