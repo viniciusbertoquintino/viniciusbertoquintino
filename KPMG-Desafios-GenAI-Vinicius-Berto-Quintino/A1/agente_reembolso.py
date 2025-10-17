@@ -149,7 +149,7 @@ def criar_agente():
 
     # 5) Modelo de chat
     chat_model = AzureOpenAI(
-        temperature=0.3, 
+        temperature=0.0, 
         azure_deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"), 
         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"), 
         api_key=os.getenv("AZURE_OPENAI_API_KEY"), 
