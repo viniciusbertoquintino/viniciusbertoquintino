@@ -11,4 +11,5 @@ wheels/
 estudo/.env
 langchain/.env
 .env
+estudo/.venv
 
