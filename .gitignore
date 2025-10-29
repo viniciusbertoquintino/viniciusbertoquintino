@@ -9,6 +9,6 @@ wheels/
 # Virtual environments
 .venv
 estudo/.env
-langchain/config.yaml
+langchain/.env
 .env
 
