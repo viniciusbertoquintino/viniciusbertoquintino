@@ -9,7 +9,7 @@ wheels/
 # Virtual environments
 .venv
 estudo/.env
-langchain/.env
-.env
 estudo/.venv
+.env
+
 
