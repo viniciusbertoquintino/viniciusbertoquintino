@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 
-# Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 
 # Instruções para o assistente de viagens
