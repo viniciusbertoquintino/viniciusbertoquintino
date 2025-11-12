@@ -1,4 +1,4 @@
-# Sentiment Classifier with Hugging Face 🤖
+# Sentiment Classifier com Hugging Face 🤖
 
 Este projeto utiliza modelos pré-treinados da Hugging Face para classificar sentimentos em textos (positivo, negativo ou neutro). O modelo é baseado no DistilBERT e foi treinado no dataset IMDb para análise de sentimentos.
 
