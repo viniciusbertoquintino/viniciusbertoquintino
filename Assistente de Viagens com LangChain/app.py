@@ -1,7 +1,8 @@
 # Importações necessárias
 import os
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+
+from langchain_openai import AzureChatOpenAI
 
 load_dotenv()
 
@@ -17,7 +18,11 @@ Seja sempre prestativo e dê conselhos úteis!"""
 
 # Configura o modelo de IA (ChatGPT)
 # temperature=0.7 significa que as respostas serão criativas mas não muito aleatórias
-modelo_ia = ChatOpenAI(temperature=0.3, model="gpt-4o-mini")
+modelo_ia = AzureChatOpenAI(temperature=0.3, azure_deployment="gpt-4o",
+                       azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+                       api_key=os.getenv("AZURE_OPENAI_API_KEY"),
+                       api_version=os.getenv("OPENAI_API_VERSION")
+                       )
 
 def iniciar_assistente_viagem():
     """
