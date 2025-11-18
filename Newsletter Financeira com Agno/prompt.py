@@ -97,9 +97,9 @@ Chegou sua dose diária de insights financeiros! Preparamos um resumo completo d
 Gostou do conteúdo? Compartilhe com outros investidores!
 💬 Tem alguma dúvida? Responda este e-mail!
 
-👥 Newsletter Financeiro IAsimov
+👥 Newsletter Financeiro
 🤖 Powered by Inteligência Artificial
-📅 Próxima edição: [próximo dia útil em Teresina/BRT]
+📅 Próxima edição: [próximo dia útil em São Paulo/BRT]
 
 ═══════════════════════════════════════════
 
