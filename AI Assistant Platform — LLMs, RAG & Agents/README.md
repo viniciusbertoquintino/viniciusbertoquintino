@@ -10,9 +10,9 @@ automatizar processos, analisar documentos e apoiar operações internas.
 Empresas lidam com grande volume de documentos, chamados e informações
 distribuídas, gerando:
 
-- alto esforço manual\
-- dificuldade de acesso ao conhecimento\
-- baixa eficiência operacional
+-   alto esforço manual\
+-   dificuldade de acesso ao conhecimento\
+-   baixa eficiência operacional
 
 ------------------------------------------------------------------------
 
@@ -21,23 +21,23 @@ distribuídas, gerando:
 Esta plataforma implementa uma solução baseada em **LLMs, RAG e AI
 Agents** para:
 
-- recuperar conhecimento de documentos\
-- automatizar análise de chamados\
-- auxiliar tomada de decisão\
-- reduzir esforço manual em operações
+-   recuperar conhecimento de documentos\
+-   automatizar análise de chamados\
+-   auxiliar tomada de decisão\
+-   reduzir esforço manual em operações
 
 ------------------------------------------------------------------------
 
 ## 🚀 Principais Funcionalidades
 
-- Upload e processamento de documentos\
-- Pipeline completo de RAG com embeddings e pgvector\
-- Busca semântica para recuperação de informações\
-- Chat com respostas baseadas em contexto e fontes\
-- Agentes inteligentes para análise de chamados e suporte operacional\
-- Execução estruturada de tarefas com AI Agents\
-- Observabilidade com logs de prompts, tokens e latência\
-- Dashboard com métricas operacionais
+-   Upload e processamento de documentos\
+-   Pipeline completo de RAG com embeddings e pgvector\
+-   Busca semântica para recuperação de informações\
+-   Chat com respostas baseadas em contexto e fontes\
+-   Agentes inteligentes para análise de chamados e suporte operacional\
+-   Execução estruturada de tarefas com AI Agents\
+-   Observabilidade com logs de prompts, tokens e latência\
+-   Dashboard com métricas operacionais
 
 ------------------------------------------------------------------------
 
@@ -55,31 +55,31 @@ User → Frontend (React / Lovable)\
 
 A versão principal da plataforma utiliza:
 
-- Supabase Auth\
-- PostgreSQL + pgvector\
-- Supabase Storage\
-- Supabase Edge Functions
+-   Supabase Auth\
+-   PostgreSQL + pgvector\
+-   Supabase Storage\
+-   Supabase Edge Functions
 
 ### Backend opcional (FastAPI)
 
 Utilizado para:
 
-- processamento pesado\
-- execução avançada de agentes\
-- experimentação com pipelines de IA
+-   processamento pesado\
+-   execução avançada de agentes\
+-   experimentação com pipelines de IA
 
 ------------------------------------------------------------------------
 
 ## 🧠 Pipeline RAG
 
-1. Upload de documento\
-2. Extração e limpeza de texto\
-3. Chunking semântico\
-4. Geração de embeddings\
-5. Armazenamento em pgvector\
-6. Busca semântica\
-7. Construção de contexto\
-8. Resposta com LLM
+1.  Upload de documento\
+2.  Extração e limpeza de texto\
+3.  Chunking semântico\
+4.  Geração de embeddings\
+5.  Armazenamento em pgvector\
+6.  Busca semântica\
+7.  Construção de contexto\
+8.  Resposta com LLM
 
 ------------------------------------------------------------------------
 
@@ -87,52 +87,52 @@ Utilizado para:
 
 ### Document Analyst
 
-- resumo\
-- pontos-chave\
-- riscos
+-   resumo\
+-   pontos-chave\
+-   riscos
 
 ### Ticket Assistant
 
-- classificação\
-- resposta sugerida
+-   classificação\
+-   resposta sugerida
 
 ### Workflow Planner
 
-- ações\
-- etapas
+-   ações\
+-   etapas
 
 ------------------------------------------------------------------------
 
 ## 📊 Observabilidade
 
-- prompt utilizado\
-- documentos recuperados\
-- tokens\
-- latência\
-- custo estimado
+-   prompt utilizado\
+-   documentos recuperados\
+-   tokens\
+-   latência\
+-   custo estimado
 
 ------------------------------------------------------------------------
 
 ## 🧪 Diferenciais
 
-- RAG com pgvector\
-- busca semântica\
-- agentes com execução estruturada\
-- observabilidade completa\
-- arquitetura serverless\
-- cenário corporativo real
+-   RAG com pgvector\
+-   busca semântica\
+-   agentes com execução estruturada\
+-   observabilidade completa\
+-   arquitetura serverless\
+-   cenário corporativo real
 
 ------------------------------------------------------------------------
 
 ## 🛠️ Stack
 
-- TypeScript\
-- React\
-- Supabase\
-- PostgreSQL (pgvector)\
-- Edge Functions\
-- OpenAI / Azure OpenAI\
-- Docker
+-   TypeScript\
+-   React\
+-   Supabase\
+-   PostgreSQL (pgvector)\
+-   Edge Functions\
+-   OpenAI / Azure OpenAI\
+-   Docker
 
 ------------------------------------------------------------------------
 
@@ -155,11 +155,11 @@ npm run dev
 
 ## 🎯 What this project demonstrates
 
-- AI Engineering aplicado\
-- uso real de LLMs em negócios\
-- arquitetura de sistemas com IA\
-- automação inteligente\
-- recuperação de conhecimento com RAG
+-   AI Engineering aplicado\
+-   uso real de LLMs em negócios\
+-   arquitetura de sistemas com IA\
+-   automação inteligente\
+-   recuperação de conhecimento com RAG
 
 ------------------------------------------------------------------------
 
