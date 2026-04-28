@@ -1,9 +1,22 @@
-# AI Assistant Platform --- LLMs, RAG & Agents
+# AI Assistant Platform — LLMs, RAG & Agents
 
-Plataforma de IA Generativa que simula como empresas utilizam LLMs para
-automatizar processos, analisar documentos e apoiar operações internas.
+Plataforma de IA Generativa que simula como empresas utilizam LLMs para automatizar processos, analisar documentos e apoiar operações internas.
 
-------------------------------------------------------------------------
+---
+
+## 📸 Screenshots
+
+### Dashboard — Visão Geral da Plataforma
+![Dashboard](docs/images/dashboard.png)
+
+> Métricas operacionais em tempo real: documentos indexados, consultas RAG, tokens consumidos, latência média e uso de recursos (Embeddings, pgvector, LLM calls, Storage).
+
+### Agentes Inteligentes
+![Agents](docs/images/agents.png)
+
+> Três agentes especializados prontos para execução: **Document Analyst**, **Ticket Assistant** e **Workflow Planner** — cada um com ferramentas e prompts dedicados.
+
+---
 
 ## 🎯 Problema
 
@@ -85,21 +98,11 @@ Utilizado para:
 
 ## 🤖 Agents
 
-### Document Analyst
-
--   resumo\
--   pontos-chave\
--   riscos
-
-### Ticket Assistant
-
--   classificação\
--   resposta sugerida
-
-### Workflow Planner
-
--   ações\
--   etapas
+| Agente | Descrição | Capacidades |
+|---|---|---|
+| **Document Analyst** | Analisa documentos para extrair informações críticas | resumo, pontos-chave, riscos, FAQ |
+| **Ticket Assistant** | Processa chamados de suporte automaticamente | classificação, prioridade, resposta sugerida |
+| **Workflow Planner** | Quebra solicitações complexas em etapas executáveis | planejamento, etapas, acionamento de ferramentas |
 
 ------------------------------------------------------------------------
 
