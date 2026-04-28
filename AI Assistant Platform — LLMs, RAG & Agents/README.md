@@ -1,257 +1,169 @@
-# AI Assistant Platform — LLMs, RAG & Agents
+# AI Assistant Platform --- LLMs, RAG & Agents
 
-Plataforma corporativa de IA Generativa para análise de documentos, automação de processos e suporte operacional utilizando LLMs, RAG (Retrieval-Augmented Generation) e agentes inteligentes.
+Plataforma de IA Generativa que simula como empresas utilizam LLMs para
+automatizar processos, analisar documentos e apoiar operações internas.
 
----
+------------------------------------------------------------------------
 
-## 🚀 Visão Geral
+## 🎯 Problema
 
-Este projeto simula um cenário real de aplicação de IA em ambientes corporativos, permitindo que usuários consultem documentos, automatizem tarefas e utilizem assistentes inteligentes integrados a fluxos de trabalho.
+Empresas lidam com grande volume de documentos, chamados e informações
+distribuídas, gerando:
 
-A plataforma foi construída com foco em engenharia de IA aplicada, incluindo:
+- alto esforço manual\
+- dificuldade de acesso ao conhecimento\
+- baixa eficiência operacional
 
-- RAG com busca semântica e híbrida  
-- agentes inteligentes com reasoning estruturado  
-- memória de conversação  
-- observabilidade completa (tokens, latência, custo)  
-- arquitetura escalável baseada em Supabase  
+------------------------------------------------------------------------
 
----
+## 💡 Solução
 
-## 🧠 Principais Funcionalidades
+Esta plataforma implementa uma solução baseada em **LLMs, RAG e AI
+Agents** para:
 
-- 📄 Upload e indexação de documentos (PDF, DOCX, XLSX, TXT)
-- 🔎 Busca semântica com embeddings (pgvector)
-- 💬 Chat com documentos (RAG)
-- 📚 Respostas com fontes citadas (grounded answers)
-- 🤖 Agentes inteligentes (análise, classificação, workflow)
-- 🔄 Automação de processos e workflows
-- 📊 Dashboard com métricas em tempo real
-- 📜 Logs detalhados (prompt, tokens, latência, custo)
-- 🧠 Memória de conversação
+- recuperar conhecimento de documentos\
+- automatizar análise de chamados\
+- auxiliar tomada de decisão\
+- reduzir esforço manual em operações
 
----
+------------------------------------------------------------------------
 
-## 🧩 Casos de Uso
+## 🚀 Principais Funcionalidades
 
-- Consulta a políticas internas  
-- Base de conhecimento corporativa  
-- Atendimento assistido  
-- Análise de documentos  
-- Classificação e priorização de chamados  
-- Copilot para operações internas  
+- Upload e processamento de documentos\
+- Pipeline completo de RAG com embeddings e pgvector\
+- Busca semântica para recuperação de informações\
+- Chat com respostas baseadas em contexto e fontes\
+- Agentes inteligentes para análise de chamados e suporte operacional\
+- Execução estruturada de tarefas com AI Agents\
+- Observabilidade com logs de prompts, tokens e latência\
+- Dashboard com métricas operacionais
 
----
+------------------------------------------------------------------------
 
 ## 🏗️ Arquitetura
 
-Frontend (Lovable UI)
-        |
-        v
-Supabase (Auth, DB, Storage, pgvector)
-        |
-        v
-Edge Functions
-        |
-        |-- Document Processing (RAG ingestion)
-        |-- RAG Query Engine
-        |-- Agents Engine
-        |
-        v
-OpenAI / Azure OpenAI
+User → Frontend (React / Lovable)\
+→ Supabase (Auth, PostgreSQL, Storage, pgvector)\
+→ Edge Functions (RAG, Agents)\
+→ OpenAI / Azure OpenAI\
+→ Response + Logs
 
----
+------------------------------------------------------------------------
 
 ## ⚙️ Arquitetura e Execução
 
-A versão principal da plataforma é baseada em Supabase, utilizando:
+A versão principal da plataforma utiliza:
 
-- Supabase Auth (autenticação)
-- PostgreSQL + pgvector (armazenamento e busca vetorial)
-- Supabase Storage (upload de documentos)
-- Supabase Edge Functions (processamento de documentos, RAG e execução de agentes)
-
-Essa abordagem permite uma arquitetura serverless, simples e escalável para aplicações de IA.
+- Supabase Auth\
+- PostgreSQL + pgvector\
+- Supabase Storage\
+- Supabase Edge Functions
 
 ### Backend opcional (FastAPI)
 
-O projeto também inclui uma camada backend em FastAPI, utilizada como extensão para:
+Utilizado para:
 
-- processamento mais pesado de documentos
-- execução avançada de agentes
+- processamento pesado\
+- execução avançada de agentes\
 - experimentação com pipelines de IA
-- cenários fora das limitações das Edge Functions
 
-Essa camada é opcional e pode ser usada para evolução futura da plataforma.
-
----
+------------------------------------------------------------------------
 
 ## 🧠 Pipeline RAG
 
-1. Upload de documento  
-2. Extração e limpeza de texto  
-3. Chunking semântico  
-4. Geração de embeddings  
-5. Armazenamento em pgvector  
-6. Busca semântica e ranking  
-7. Construção de contexto  
-8. Geração de resposta com LLM  
+1. Upload de documento\
+2. Extração e limpeza de texto\
+3. Chunking semântico\
+4. Geração de embeddings\
+5. Armazenamento em pgvector\
+6. Busca semântica\
+7. Construção de contexto\
+8. Resposta com LLM
 
----
+------------------------------------------------------------------------
 
 ## 🤖 Agents
 
 ### Document Analyst
 
-- resumo
-- extração de pontos-chave
-- identificação de riscos
-- geração de FAQ
+- resumo\
+- pontos-chave\
+- riscos
 
 ### Ticket Assistant
 
-- classificação de prioridade
-- identificação de área responsável
-- sugestão de resposta
+- classificação\
+- resposta sugerida
 
 ### Workflow Planner
 
-- decomposição de tarefas
-- sugestão de ações
-- simulação de execução
+- ações\
+- etapas
 
-Todos os agentes utilizam:
-
-- RAG para contexto  
-- reasoning estruturado  
-- resposta em JSON  
-
----
+------------------------------------------------------------------------
 
 ## 📊 Observabilidade
 
-Cada interação registra:
+- prompt utilizado\
+- documentos recuperados\
+- tokens\
+- latência\
+- custo estimado
 
-- prompt utilizado  
-- documentos recuperados  
-- tokens consumidos  
-- latência  
-- custo estimado  
-- modelo utilizado  
+------------------------------------------------------------------------
 
----
+## 🧪 Diferenciais
 
-## 🧪 Diferenciais Técnicos
+- RAG com pgvector\
+- busca semântica\
+- agentes com execução estruturada\
+- observabilidade completa\
+- arquitetura serverless\
+- cenário corporativo real
 
-- RAG com busca híbrida (semantic + keyword)
-- chunking semântico
-- memória de conversação
-- observabilidade completa
-- estimativa de custo por request
-- agentes com reasoning estruturado
-- fallback anti-alucinação
-- arquitetura modular
-
----
+------------------------------------------------------------------------
 
 ## 🛠️ Stack
 
-### Backend
+- TypeScript\
+- React\
+- Supabase\
+- PostgreSQL (pgvector)\
+- Edge Functions\
+- OpenAI / Azure OpenAI\
+- Docker
 
-- Supabase (PostgreSQL + pgvector)
-- Supabase Edge Functions (Deno)
-- FastAPI (opcional)
-
-### IA
-
-- OpenAI / Azure OpenAI
-- Embeddings: text-embedding-3-small
-- LLM: gpt-4o-mini
-
-### Frontend
-
-- Lovable / React
-
-### Infra
-
-- Docker (opcional)
-- GitHub Actions (CI/CD)
-
----
-
-## 📁 Estrutura do Projeto
-
-ai-assistant-platform/
-├── supabase/
-│   ├── functions/
-│   ├── migrations/
-│   └── config.toml
-├── backend/ (opcional)
-├── frontend/
-├── docs/
-├── docker-compose.yml
-├── .env.example
-└── README.md
-
----
+------------------------------------------------------------------------
 
 ## ⚡ Como Executar
 
-### 1. Variáveis de ambiente
-
+``` bash
 cp .env.example .env
+```
 
-Adicionar:
-
-OPENAI_API_KEY=your_key
-SUPABASE_URL=your_url
-SUPABASE_ANON_KEY=your_key
-
----
-
-### 2. Rodar Supabase
-
+``` bash
 supabase start
+```
 
----
-
-### 3. Rodar frontend
-
+``` bash
 npm install
 npm run dev
+```
 
----
+------------------------------------------------------------------------
 
-### 4. (Opcional) Backend
+## 🎯 What this project demonstrates
 
-docker-compose up
+- AI Engineering aplicado\
+- uso real de LLMs em negócios\
+- arquitetura de sistemas com IA\
+- automação inteligente\
+- recuperação de conhecimento com RAG
 
----
-
-## 🔐 Segurança
-
-- Variáveis sensíveis não expostas ao frontend  
-- Uso de Edge Functions para chamadas à API  
-- RLS (Row Level Security) configurado  
-
----
-
-## 🗺️ Roadmap
-
-- Evaluation layer avançada  
-- feedback do usuário  
-- cache de embeddings  
-- tool calling real  
-- multi-tenant  
-
----
-
-## 🎯 Objetivo
-
-Demonstrar aplicação real de IA Generativa em cenários corporativos, com foco em engenharia, automação e impacto de negócio.
-
----
+------------------------------------------------------------------------
 
 ## ⭐ Destaque
 
-Projeto desenvolvido com foco em AI Engineering aplicado, simulando um ambiente corporativo real com LLMs, RAG e agentes inteligentes.
+Projeto focado em engenharia de IA aplicada, simulando uso real em
+ambientes corporativos.
