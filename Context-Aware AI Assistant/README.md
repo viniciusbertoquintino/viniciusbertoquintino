@@ -1,71 +1,61 @@
 # Context-Aware AI Assistant
 
-Assistente inteligente baseado em LLMs capaz de interpretar o contexto da interface do usuário em tempo real e interagir com sistemas corporativos.
+Assistente de IA sensível ao contexto da interface do usuário. O sistema captura o estado atual da tela e fornece sugestões inteligentes, respostas contextualizadas e automações em tempo real.
 
 ## Visão Geral
 
-O Context-Aware AI Assistant é um assistente de IA que utiliza o contexto da aplicação (via postMessage) para fornecer respostas e ações contextualizadas, adaptadas à tela e ao fluxo do usuário.
+Este projeto implementa um copilot que entende o contexto visual e funcional da aplicação onde está integrado, oferecendo assistência proativa baseada no que o usuário está fazendo.
 
-O objetivo é transformar interfaces tradicionais em experiências inteligentes, permitindo automação assistida e interação contextual com sistemas corporativos.
+## Stack
 
-## Principais Funcionalidades
+- **Frontend**: JavaScript / TypeScript, React / Next.js
+- **Backend**: Python (FastAPI)
+- **IA**: OpenAI / Azure OpenAI, LangChain / LangGraph
+- **Comunicação**: APIs REST, Web Messaging API (postMessage)
 
-- Captura de contexto da interface via postMessage
-- Interpretação do estado da tela (dados, campos, ações)
-- Geração de respostas contextualizadas com LLMs
-- Sugestão de ações baseadas no contexto
-- Automação assistida (copilot)
-- Integração com sistemas corporativos
-
-## Casos de Uso
-
-- Assistente em sistemas internos (ERP, CRM)
-- Automação de preenchimento de formulários
-- Análise de chamados em tempo real
-- Sugestão de respostas para atendimento
-- Copilot para operações corporativas
-
-## Arquitetura
+## Funcionamento
 
 ```text
-Frontend (App) → postMessage → Context Layer → Backend → LLM
-                                               ↓
-                                           Resposta
-                                               ↓
-                                       UI Assistida
+1. A aplicação envia o estado da tela via postMessage
+2. O backend recebe o contexto
+3. O contexto é estruturado para o LLM
+4. O modelo gera resposta ou ação recomendada
+5. O frontend exibe sugestões ou executa automação
+```
 
+## Estrutura do Projeto
 
-                                       Stack
-Python
-FastAPI
-LangChain / LlamaIndex
-PostgreSQL + pgvector (ou Chroma/Qdrant)
-OpenAI / Azure OpenAI
-Pydantic / SQLAlchemy
-Docker
-Estrutura do Projeto
-rag-document-analyzer/
-├── app/
-│   ├── api/
-│   ├── services/
-│   │   ├── ingestion.py
-│   │   ├── embedding.py
-│   │   ├── retrieval.py
-│   │   └── rag_pipeline.py
-│   ├── models/
-│   └── core/
-├── data/
+```
+context-aware-ai-assistant/
+├── frontend/
+│   ├── components/
+│   ├── hooks/
+│   └── context-listener.js
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── services/
+│   │   └── prompts/
 ├── Dockerfile
-├── requirements.txt
 └── README.md
-Diferenciais Técnicos
-Implementação de busca híbrida (semantic + keyword)
-Controle de contexto para LLM
-Exibição de fontes e trechos utilizados
-Pipeline modular de RAG
-Preparado para produção com Docker
-Próximos Passos
-Avaliação automática de respostas (RAG evaluation)
-Feedback loop para melhoria contínua
-Cache de embeddings
-Monitoramento de custo e tokens
+```
+
+## Diferenciais Técnicos
+
+- Uso de context-aware AI
+- Integração via postMessage (baixo acoplamento)
+- Assistência em tempo real
+- Aplicação de IA diretamente na interface
+- Base para copilots corporativos
+
+## Próximos Passos
+
+- [ ] Execução de ações automatizadas (RPA)
+- [ ] Memória de sessão
+- [ ] Integração com workflows (n8n)
+- [ ] Avaliação de respostas
+- [ ] Personalização por usuário
+
+## Status
+
+🚧 Em desenvolvimento

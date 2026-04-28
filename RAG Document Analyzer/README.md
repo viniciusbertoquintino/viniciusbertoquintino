@@ -32,5 +32,47 @@ O sistema utiliza embeddings, busca semântica e busca híbrida para recuperar i
 
 ```text
 Upload → Parsing → Chunking → Embeddings → Vector DB
-                                      ↓
+                                               ↓
 Usuário → Query → Retrieval → Context → LLM → Resposta
+```
+
+## Tecnologias
+
+- **LLM**: OpenAI GPT / Azure OpenAI
+- **Embeddings**: OpenAI Ada / Sentence Transformers
+- **Vector DB**: ChromaDB / Pinecone / Weaviate
+- **Backend**: Python / FastAPI
+- **Processamento**: LangChain / LlamaIndex
+- **Parsing**: PyPDF2, python-docx, openpyxl
+
+## Estrutura do Projeto
+
+```
+RAG Document Analyzer/
+├── app/
+│   ├── api/
+│   ├── core/
+│   ├── services/
+│   └── main.py
+├── data/
+├── tests/
+├── requirements.txt
+└── README.md
+```
+
+## Como Executar
+
+1. Clone o repositório
+2. Instale as dependências:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Configure as variáveis de ambiente (`.env`)
+4. Execute a aplicação:
+   ```bash
+   python -m uvicorn app.main:app --reload
+   ```
+
+## Status
+
+🚧 Em desenvolvimento
