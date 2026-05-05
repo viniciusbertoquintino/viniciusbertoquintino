@@ -1,2 +1,8 @@
 venv/
 Reconhecedor de Gestos/venv/
+Reconhecedor de Gestos/yolov8n.pt
+Reconhecedor de Gestos/runs/
+Reconhecedor de Gestos/val_results/
+Reconhecedor de Gestos/phone_dataset_filtered/
+Reconhecedor de Gestos/hand_landmarker.task
+Reconhecedor de Gestos/face_landmarker.task
