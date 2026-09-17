@@ -6,40 +6,62 @@
 
 ![Badge nascido no Brasil](https://img.shields.io/badge/MADE%20IN-BRAZIL-green.svg)
 
-## Sobre mim 🕵🏾‍♂️
+## Sobre mim
 
-- [x] 🎓 Formado em Análise e Desenvolvimento de Sistemas.
-- [x] 📫 Como me contatar: viniciusbertoquintino@gmail.com
-- [x] 📫 Linkedin: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
-- [x] 🌱 
+- [x] Formado em Análise e Desenvolvimento de Sistemas.
+- [x] Como me contatar: viniciusbertoquintino@gmail.com
+- [x] Linkedin: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
 
-## Projetos 🚀 
+## Projetos
 
 Bem-vindo(a) ao meu playground de Inteligência Artificial!
 
-Sou um entusiasta da capacidade que os algoritmos têm de aprender, prever e criar. Este repositório é o meu diário de bordo digital, onde transformo curiosidade em código e dados em insights.
+Cada projeto vive em um repositório independente, com desenvolvimento assistido incremental:
 
-Aqui, eu me aventuro por diferentes cantos do universo da IA, desde a elegância matemática de um modelo de regressão até a complexidade de uma rede neural profunda. Cada pasta é um projeto, uma pergunta que tentei responder ou um desafio que decidi enfrentar.
+- `ROADMAP.md` — o que fazer agora e quando está pronto
+- `README.md` — o que o projeto **é hoje** (contrato público honesto)
+- `.cursor/rules/` — como o agente deve trabalhar (1 tarefa por vez)
+- `SETUP.md` — prompts recomendados para iniciar
 
-**Explore à vontade!** Se você encontrar algo interessante, tiver uma ideia para melhorar um código ou simplesmente quiser trocar uma ideia sobre IA, não hesite em me chamar.
+Regra central: **uma microetapa concluída = uma validação = um commit lógico** (commit só quando eu pedir).
 
-Vamos aprender e construir o futuro, um `commit` de cada vez.
+| Projeto | Repositório | Descrição |
+|---|---|---|
+| Reconhecedor de Gestos | [reconhecedor-de-gestos](https://github.com/viniciusbertoquintino/reconhecedor-de-gestos) | Gestos em tempo real com MediaPipe + OpenCV |
+| Newsletter de Tecnologia | [newsletter-tecnologia-agno](https://github.com/viniciusbertoquintino/newsletter-tecnologia-agno) | Newsletter automatizada de tech com Agno |
+| Newsletter Financeira | [newsletter-financeira-agno](https://github.com/viniciusbertoquintino/newsletter-financeira-agno) | Newsletter automatizada financeira com Agno |
+| Assistente de Viagens | [assistente-viagens-langchain](https://github.com/viniciusbertoquintino/assistente-viagens-langchain) | Chat de viagens com LangChain |
+| Context-Aware AI Assistant | [context-aware-ai-assistant](https://github.com/viniciusbertoquintino/context-aware-ai-assistant) | Copilot sensível ao contexto de UI |
+| AI Assistant Platform | [ai-assistant-platform](https://github.com/viniciusbertoquintino/ai-assistant-platform) | Plataforma LLMs, RAG e Agents |
 
-## About me 🕵🏾‍♂️
+**Explore à vontade!** Se encontrar algo interessante ou quiser trocar ideias sobre IA, não hesite em me chamar.
 
-- [x] 🎓 Graduated in Systems Analysis and Development.
-- [x] 📫 How to reach me: viniciusbertoquintino@gmail.com
-- [x] 📫 Linkedin: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
-- [X] 🌱 
+## About me
 
-## Projects 🚀
+- [x] Graduated in Systems Analysis and Development.
+- [x] How to reach me: viniciusbertoquintino@gmail.com
+- [x] Linkedin: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
+
+## Projects
 
 Welcome to my Artificial Intelligence playground!
 
-I'm passionate about the ability of algorithms to learn, predict, and create. This repository is my digital logbook, where I turn curiosity into code and data into insights.
+Each project lives in its own repository with incremental assisted development:
 
-Here, I explore different corners of the AI universe, from the mathematical elegance of a regression model to the complexity of a deep neural network. Each folder is a project, a question I tried to answer, or a challenge I decided to tackle.
+- `ROADMAP.md` — what to do now and when it's done
+- `README.md` — what the project **is today** (honest public contract)
+- `.cursor/rules/` — how the agent should work (1 task at a time)
+- `SETUP.md` — recommended prompts to get started
 
-**Feel free to explore!** If you find something interesting, have an idea to improve some code, or just want to chat about AI, don't hesitate to reach out.
+Central rule: **one completed micro-step = one validation = one logical commit** (commit only when I ask).
 
-Let's learn and build the future, one `commit` at a time.
+| Project | Repository | Description |
+|---|---|---|
+| Gesture Recognizer | [reconhecedor-de-gestos](https://github.com/viniciusbertoquintino/reconhecedor-de-gestos) | Real-time gestures with MediaPipe + OpenCV |
+| Tech Newsletter | [newsletter-tecnologia-agno](https://github.com/viniciusbertoquintino/newsletter-tecnologia-agno) | Automated tech newsletter with Agno |
+| Finance Newsletter | [newsletter-financeira-agno](https://github.com/viniciusbertoquintino/newsletter-financeira-agno) | Automated finance newsletter with Agno |
+| Travel Assistant | [assistente-viagens-langchain](https://github.com/viniciusbertoquintino/assistente-viagens-langchain) | Travel chat with LangChain |
+| Context-Aware AI Assistant | [context-aware-ai-assistant](https://github.com/viniciusbertoquintino/context-aware-ai-assistant) | UI context-aware copilot |
+| AI Assistant Platform | [ai-assistant-platform](https://github.com/viniciusbertoquintino/ai-assistant-platform) | LLMs, RAG and Agents platform |
+
+**Feel free to explore!** If you find something interesting or want to chat about AI, don't hesitate to reach out.
