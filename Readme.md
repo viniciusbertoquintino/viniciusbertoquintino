@@ -27,15 +27,23 @@ Cada projeto vive em um repositório independente, com desenvolvimento assistido
 
 Regra central: **uma microetapa concluída = uma validação = um commit lógico** (commit só quando eu pedir).
 
+Organização no clone deste repositório (caminhos relativos à raiz):
+
+- `production-rag/` — em andamento
+- `projetos-nao-iniciados/` — backlog (índice em [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md))
+- `meu-caderno-ia/` — caderno de estudos
+
+Cada pasta de projeto é um repositório Git separado; o código publicado está nos links do GitHub abaixo.
+
 ### Em andamento
 
-| Projeto | Repositório | Caminho local | Descrição |
-|---|---|---|---|
-| Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | `d:\projetos\viniciusbertoquintino\production-rag` | RAG corporativo com retrieval, avaliação, observabilidade e caminho para deploy |
+| Projeto | Repositório | Descrição |
+|---|---|---|
+| Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | RAG corporativo com retrieval, avaliação, observabilidade e caminho para deploy |
 
 ### Backlog (não iniciados / pausados)
 
-Índice completo com repositórios, caminhos locais e projetos Guarded Place: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
+Índice com repositórios e pastas no repo: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
 
 **Explore à vontade!** Se encontrar algo interessante ou quiser trocar ideias sobre IA, não hesite em me chamar.
 
@@ -60,14 +68,22 @@ Each project lives in its own repository with incremental assisted development:
 
 Central rule: **one completed micro-step = one validation = one logical commit** (commit only when I ask).
 
+Layout in a clone of this repository (paths relative to the repo root):
+
+- `production-rag/` — in progress
+- `projetos-nao-iniciados/` — backlog ([index](projetos-nao-iniciados/README.md))
+- `meu-caderno-ia/` — study notebook
+
+Each project folder is a separate Git repository; published code lives in the GitHub links below.
+
 ### In progress
 
-| Project | Repository | Local path | Description |
-|---|---|---|---|
-| Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | `d:\projetos\viniciusbertoquintino\production-rag` | Production-style RAG with retrieval quality, evaluation, observability, and a path to deploy |
+| Project | Repository | Description |
+|---|---|---|
+| Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | Production-style RAG with retrieval quality, evaluation, observability, and a path to deploy |
 
 ### Backlog (not started / paused)
 
-Full index with repositories, local paths, and Guarded Place projects: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
+Index with repositories and repo folders: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
 
 **Feel free to explore!** If you find something interesting or want to chat about AI, don't hesitate to reach out.
