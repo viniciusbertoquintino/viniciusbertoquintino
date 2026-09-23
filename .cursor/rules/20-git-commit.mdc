@@ -1,0 +1,60 @@
+---
+description: Boas práticas de commit — perfil e repos aninhados; commit só quando o usuário pedir
+alwaysApply: true
+---
+
+# Commit Git (boas práticas)
+
+## Quando commitar
+
+- **Não** criar commit automaticamente ao terminar uma tarefa.
+- Commit **somente** após pedido explícito do usuário e mudanças validadas (`git status`, diff revisado).
+- Uma microetapa lógica = um commit (não misturar refatoração + feature + docs não relacionados).
+
+## Qual repositório
+
+1. Alterações em `Readme.md`, `fluxos/`, `projetos-nao-iniciados/README.md`, `.cursor/` → Git na **raiz** `viniciusbertoquintino`.
+2. Alterações em `production-rag/`, `meu-caderno-ia/` ou `projetos-nao-iniciados/<nome>/` → Git **dentro da pasta do projeto** (`git -C <pasta>`).
+
+Antes do commit na raiz: confirmar que `git status` **não** lista arquivos de repos aninhados (respeitar `.gitignore`).
+
+## Stage
+
+- Preferir `git add -- <paths>` (arquivos explícitos), não `git add .` na raiz do perfil.
+- Nunca stagear `.env`, credenciais, `node_modules/`, `.venv/`, artefatos de build.
+
+## Mensagem (Conventional Commits)
+
+Formato: `<tipo>(<escopo opcional>): <resumo imperativo>`
+
+| Tipo | Uso |
+|------|-----|
+| `docs` | README, fluxos, índice de backlog |
+| `chore` | `.gitignore`, `.cursor/rules`, housekeeping |
+| `fix` | correção em doc ou config do perfil |
+| `feat` | raro no perfil; conteúdo novo versionado (ex.: novo fluxo) |
+
+Corpo: **bilíngue (PT + EN)** — duas linhas com prefixos `PT:` e `EN:` (por quê, não só o quê). Em projetos com ROADMAP, incluir `Roadmap: XX.YY` após o bloco bilíngue.
+
+Assunto (primeira linha): português ou inglês, imperativo, ≤ 72 caracteres.
+
+Exemplo na raiz do perfil:
+
+```
+chore(cursor): adicionar regras de workspace e commit
+
+PT: Documenta o perfil vs repos aninhados e quando commitar em cada um.
+EN: Documents profile vs nested repos and which repo to commit to.
+
+PT: Commit somente sob pedido explícito; Conventional Commits; stage por path.
+EN: Commit only on explicit request; Conventional Commits; stage by path.
+```
+
+## Proibições (sem pedido explícito)
+
+- `git push`, `push --force`, `commit --amend`, `--no-verify`, `git config` global/local
+- Commit de pastas ignoradas ou de outro repo por engano na raiz do perfil
+
+## Após o commit (raiz ou projeto)
+
+- Mostrar `git log -1 --oneline` e lembrar que push só se o usuário pedir.

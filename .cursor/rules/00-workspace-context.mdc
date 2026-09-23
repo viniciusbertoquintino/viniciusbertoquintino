@@ -1,0 +1,31 @@
+---
+description: Contexto do workspace viniciusbertoquintino (perfil GitHub + pastas de projetos aninhados)
+alwaysApply: true
+---
+
+# Workspace viniciusbertoquintino
+
+Repositório Git **desta raiz** = perfil público no GitHub (`viniciusbertoquintino/viniciusbertoquintino`).
+
+## O que versionar aqui
+
+- `Readme.md`, `fluxos/`, `projetos-nao-iniciados/README.md`, `.gitignore`, `.cursor/rules/`
+- Documentação e índices — não o código dos projetos aninhados
+
+## Pastas com Git próprio (ignoradas pelo perfil)
+
+- `production-rag/` — em andamento
+- `meu-caderno-ia/`
+- `projetos-nao-iniciados/<projeto>/` — backlog
+
+Commits de código vão no **repositório da pasta do projeto** (`git -C production-rag`, etc.), não na raiz do perfil.
+
+## Fontes de verdade
+
+- `@Readme.md` — visão pública e links
+- `@projetos-nao-iniciados/README.md` — índice do backlog (caminhos relativos ao repo)
+- Cada projeto aninhado: `@ROADMAP.md` e `@README.md` **dentro da pasta do projeto**
+
+## Segurança
+
+Nunca commitar `.env`, chaves, tokens ou dumps de dados em qualquer repo.
