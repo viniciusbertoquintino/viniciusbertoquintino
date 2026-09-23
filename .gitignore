@@ -1,0 +1,5 @@
+# Repositórios locais (não versionar no perfil GitHub)
+meu-caderno-ia/
+production-rag/
+projetos-nao-iniciados/*/
+!projetos-nao-iniciados/README.md
