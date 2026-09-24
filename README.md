@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=640&height=50&lines=RAG+%C2%B7+agentes+%C2%B7+modelos+de+decis%C3%A3o;LLMs+%C2%B7+avalia%C3%A7%C3%A3o+%C2%B7+observabilidade" alt="IA aplicada: RAG, agentes e modelos de decisão" />
+  <img src="assets/perfil-topo.png" alt="Grafo de decisão: IA aplicada" width="100%" />
 </p>
 
 # Vinícius Berto Quintino

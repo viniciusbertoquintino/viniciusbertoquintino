@@ -1,0 +1,68 @@
+---
+description: Boas práticas de commit — perfil e repos aninhados; commit só quando o usuário pedir
+alwaysApply: true
+---
+
+# Commit Git (boas práticas)
+
+## Quando commitar
+
+- **Não** criar commit automaticamente ao terminar uma tarefa.
+- Commit **somente** após pedido explícito do usuário e mudanças validadas (`git status`, diff revisado).
+- Uma microetapa lógica = um commit (não misturar refatoração + feature + docs não relacionados).
+
+## Qual repositório
+
+1. A árvore publicada do perfil é a pasta local inteira. Alterações em `README.md`, `.cursor/`, `production-rag/`, `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`, `meu-caderno-ia/` ou `projetos-nao-iniciados/` entram no Git da **raiz**, salvo pedido de commit só no remote de `production-rag`.
+2. Se o pedido for publicar em `production-rag` no GitHub próprio, usar `git -C production-rag`.
+
+Antes do commit na raiz: não stagear `.git` interno, `.env`, `.venv/` nem `node_modules/`.
+
+## Stage
+
+- Preferir `git add -- <paths>` (arquivos explícitos), não `git add .` na raiz do perfil.
+- Nunca stagear `.env`, credenciais, `node_modules/`, `.venv/`, artefatos de build.
+
+## Mensagem (Conventional Commits)
+
+Formato: `<tipo>(<escopo opcional>): <resumo imperativo>`
+
+| Tipo | Uso |
+|------|-----|
+| `docs` | README, fluxos, índice de backlog |
+| `chore` | `.gitignore`, `.cursor/rules`, housekeeping |
+| `fix` | correção em doc ou config do perfil |
+| `feat` | raro no perfil; conteúdo novo versionado (ex.: novo fluxo) |
+
+Corpo: **bilíngue em dois blocos** — primeiro todo o texto em português, depois todo em inglês (não intercalar PT/EN linha a linha).
+
+1. Linha em branco após o assunto.
+2. Cabeçalho `PT:` + parágrafo(s) em português (por quê, não só o quê).
+3. Linha em branco.
+4. Cabeçalho `EN:` + parágrafo(s) em inglês (mesmo conteúdo, não tradução literal palavra a palavra se soar estranho).
+5. Opcional: linha em branco e `Roadmap: XX.YY` (projetos com ROADMAP).
+
+Assunto (primeira linha): português ou inglês, imperativo, ≤ 72 caracteres.
+
+Exemplo na raiz do perfil:
+
+```
+chore(cursor): adicionar regras de workspace e commit
+
+PT:
+Documenta o perfil vs repos aninhados e quando commitar em cada um.
+Commit somente sob pedido explícito; Conventional Commits; stage por path.
+
+EN:
+Documents profile vs nested repos and which repo to commit to.
+Commit only on explicit request; Conventional Commits; stage by path.
+```
+
+## Proibições (sem pedido explícito)
+
+- `git push`, `push --force`, `commit --amend`, `--no-verify`, `git config` global/local
+- Commit de pastas ignoradas ou de outro repo por engano na raiz do perfil
+
+## Após o commit (raiz ou projeto)
+
+- Mostrar `git log -1 --oneline` e lembrar que push só se o usuário pedir.
