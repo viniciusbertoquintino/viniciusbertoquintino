@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=22&duration=3000&pause=1000&color=58A6FF&center=true&vCenter=true&width=640&height=50&lines=RAG+%C2%B7+agentes+%C2%B7+modelos+de+decis%C3%A3o;LLMs+%C2%B7+avalia%C3%A7%C3%A3o+%C2%B7+observabilidade" alt="IA aplicada: RAG, agentes e modelos de decisão" />
+</p>
+
 # Vinícius Berto Quintino
 
 Formado em Análise e Desenvolvimento de Sistemas. Trabalho com IA aplicada: RAG, agentes e modelos de decisão.
@@ -21,8 +25,6 @@ Formado em Análise e Desenvolvimento de Sistemas. Trabalho com IA aplicada: RAG
 | Desafios GenAI (KPMG) | [`KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`](KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/) |
 | Caderno de estudos | [`meu-caderno-ia/`](meu-caderno-ia/) |
 | Backlog | [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) |
-
-A árvore deste repositório no GitHub é a mesma da pasta local. `production-rag` também tem repositório próprio.
 
 Cada projeto traz o próprio `README.md` e, quando existe, `ROADMAP.md`. O agente desta raiz segue [`.cursor/rules/`](.cursor/rules/): uma microetapa por vez, commit só quando eu pedir.
 
@@ -51,7 +53,5 @@ Graduated in Systems Analysis and Development. I work on applied AI: RAG, agents
 | GenAI challenges (KPMG) | [`KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`](KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/) |
 | Study notebook | [`meu-caderno-ia/`](meu-caderno-ia/) |
 | Backlog | [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) |
-
-The GitHub tree matches the local folder. `production-rag` also has its own repository.
 
 Each project has its own `README.md` and, when one exists, a `ROADMAP.md`. The agent for this root follows [`.cursor/rules/`](.cursor/rules/): one micro-step at a time, and a commit only when I ask.
