@@ -35,7 +35,7 @@ Organização no clone deste repositório (caminhos relativos à raiz):
 
 Cada pasta de projeto é um repositório Git separado; o código publicado está nos links do GitHub abaixo.
 
-Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) — commits bilíngues (PT/EN) e somente quando eu pedir.
+Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) — corpo de commit em bloco PT e bloco EN; commit somente quando eu pedir.
 
 ### Em andamento
 
@@ -78,7 +78,7 @@ Layout in a clone of this repository (paths relative to the repo root):
 
 Each project folder is a separate Git repository; published code lives in the GitHub links below.
 
-In this profile repository, the agent follows [`.cursor/rules/`](.cursor/rules/) — bilingual commits (PT/EN) and only when I ask.
+In this profile repository, the agent follows [`.cursor/rules/`](.cursor/rules/) — commit body as a PT block then an EN block; commits only when I ask.
 
 ### In progress
 

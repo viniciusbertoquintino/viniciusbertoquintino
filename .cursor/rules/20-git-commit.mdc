@@ -34,7 +34,13 @@ Formato: `<tipo>(<escopo opcional>): <resumo imperativo>`
 | `fix` | correção em doc ou config do perfil |
 | `feat` | raro no perfil; conteúdo novo versionado (ex.: novo fluxo) |
 
-Corpo: **bilíngue (PT + EN)** — duas linhas com prefixos `PT:` e `EN:` (por quê, não só o quê). Em projetos com ROADMAP, incluir `Roadmap: XX.YY` após o bloco bilíngue.
+Corpo: **bilíngue em dois blocos** — primeiro todo o texto em português, depois todo em inglês (não intercalar PT/EN linha a linha).
+
+1. Linha em branco após o assunto.
+2. Cabeçalho `PT:` + parágrafo(s) em português (por quê, não só o quê).
+3. Linha em branco.
+4. Cabeçalho `EN:` + parágrafo(s) em inglês (mesmo conteúdo, não tradução literal palavra a palavra se soar estranho).
+5. Opcional: linha em branco e `Roadmap: XX.YY` (projetos com ROADMAP).
 
 Assunto (primeira linha): português ou inglês, imperativo, ≤ 72 caracteres.
 
@@ -43,11 +49,13 @@ Exemplo na raiz do perfil:
 ```
 chore(cursor): adicionar regras de workspace e commit
 
-PT: Documenta o perfil vs repos aninhados e quando commitar em cada um.
-EN: Documents profile vs nested repos and which repo to commit to.
+PT:
+Documenta o perfil vs repos aninhados e quando commitar em cada um.
+Commit somente sob pedido explícito; Conventional Commits; stage por path.
 
-PT: Commit somente sob pedido explícito; Conventional Commits; stage por path.
-EN: Commit only on explicit request; Conventional Commits; stage by path.
+EN:
+Documents profile vs nested repos and which repo to commit to.
+Commit only on explicit request; Conventional Commits; stage by path.
 ```
 
 ## Proibições (sem pedido explícito)
