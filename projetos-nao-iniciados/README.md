@@ -4,8 +4,6 @@ Pastas locais com kit de desenvolvimento assistido (`ROADMAP.md`, `SETUP.md`, `.
 
 Desenvolvimento incremental: ver `ROADMAP.md` em cada pasta antes de retomar.
 
-**Fora deste backlog:** Plataforma de Assistentes com IA (**English:** AI Assistants Platform) está na raiz, em [`plataforma-assistentes-ia/`](../plataforma-assistentes-ia/).
-
 ---
 
 ## Repositórios principais (somente local)
