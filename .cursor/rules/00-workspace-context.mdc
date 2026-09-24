@@ -12,13 +12,20 @@ Repositório Git **desta raiz** = perfil público no GitHub (`viniciusbertoquint
 - `README.md`, `projetos-nao-iniciados/README.md`, `.gitignore`, `.cursor/rules/`
 - Documentação e índices — não o código dos projetos aninhados
 
+## Remotes canônicos no GitHub
+
+- Este perfil: `viniciusbertoquintino/viniciusbertoquintino`
+- Código publicado: `viniciusbertoquintino/production-rag` (pasta `production-rag/`)
+
+Não recriar no GitHub os projetos do backlog nem `meu-caderno-ia` sem pedido explícito.
+
 ## Pastas com Git próprio (ignoradas pelo perfil)
 
-- `production-rag/` — em andamento
-- `meu-caderno-ia/`
-- `projetos-nao-iniciados/<projeto>/` — backlog
+- `production-rag/` — em andamento, com remote no GitHub
+- `meu-caderno-ia/` — somente local (remote GitHub removido)
+- `projetos-nao-iniciados/<projeto>/` — backlog somente local (remotes GitHub removidos)
 
-Commits de código vão no **repositório da pasta do projeto** (`git -C production-rag`, etc.), não na raiz do perfil.
+Commits de código de `production-rag` vão no Git dessa pasta (`git -C production-rag`), não na raiz do perfil. Backlog e caderno: Git local apenas, sem `git push` para remotes apagados.
 
 ## Fontes de verdade
 

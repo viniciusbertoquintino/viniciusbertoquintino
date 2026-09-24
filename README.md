@@ -16,9 +16,9 @@
 
 Bem-vindo(a) ao meu playground de Inteligência Artificial!
 
-**Neste repositório no GitHub:** `README.md` (perfil), [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) (índice do backlog) e [`.cursor/rules/`](.cursor/rules/). O código de cada projeto está nos repositórios linkados abaixo — não neste Git.
+**Neste repositório no GitHub:** `README.md` (perfil), [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) (índice do backlog) e [`.cursor/rules/`](.cursor/rules/). O único código de projeto publicado no GitHub é [production-rag](https://github.com/viniciusbertoquintino/production-rag).
 
-**No clone local completo** (mesma árvore de pastas), versiono o workspace com `production-rag/`, `projetos-nao-iniciados/<projeto>/` e `meu-caderno-ia/` como repositórios Git separados (ignorados aqui via `.gitignore`).
+**No clone local completo** (mesma árvore de pastas), `production-rag/` tem remote no GitHub. `projetos-nao-iniciados/<projeto>/` e `meu-caderno-ia/` ficam só no disco (Git local, sem remote; ignorados aqui via `.gitignore`).
 
 Cada projeto vive em um repositório independente, com desenvolvimento assistido incremental:
 
@@ -33,9 +33,9 @@ Organização no clone deste repositório (caminhos relativos à raiz):
 
 - `production-rag/` — em andamento
 - `projetos-nao-iniciados/` — backlog (índice em [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md))
-- `meu-caderno-ia/` — caderno de estudos
+- `meu-caderno-ia/` — caderno de estudos (somente local)
 
-Cada pasta de projeto é um repositório Git separado; o código publicado está nos links do GitHub abaixo.
+Cada pasta de projeto pode ter Git local. No GitHub, o código publicado é o de `production-rag`. O backlog está só no clone local.
 
 Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) — corpo de commit em bloco PT e bloco EN; commit somente quando eu pedir.
 
@@ -45,9 +45,9 @@ Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) �
 |---|---|---|
 | Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | RAG corporativo com retrieval, avaliação, observabilidade e caminho para deploy |
 
-### Backlog (não iniciados / pausados)
+### Backlog (não iniciados / pausados, somente local)
 
-Índice com repositórios e pastas no repo: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
+Índice das pastas no clone: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
 
 **Explore à vontade!** Se encontrar algo interessante ou quiser trocar ideias sobre IA, não hesite em me chamar.
 
@@ -61,9 +61,9 @@ Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) �
 
 Welcome to my Artificial Intelligence playground!
 
-**In this GitHub repository:** `README.md` (profile), [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) (backlog index), and [`.cursor/rules/`](.cursor/rules/). Each project's code lives in the linked repositories below — not in this Git repo.
+**In this GitHub repository:** `README.md` (profile), [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) (backlog index), and [`.cursor/rules/`](.cursor/rules/). The only published project code on GitHub is [production-rag](https://github.com/viniciusbertoquintino/production-rag).
 
-**In a full local clone** (same folder layout), I keep `production-rag/`, `projetos-nao-iniciados/<project>/`, and `meu-caderno-ia/` as separate Git repositories (ignored here via `.gitignore`).
+**In a full local clone** (same folder layout), `production-rag/` has a GitHub remote. `projetos-nao-iniciados/<project>/` and `meu-caderno-ia/` stay on disk only (local Git, no remote; ignored here via `.gitignore`).
 
 Each project lives in its own repository with incremental assisted development:
 
@@ -78,9 +78,9 @@ Layout in a clone of this repository (paths relative to the repo root):
 
 - `production-rag/` — in progress
 - `projetos-nao-iniciados/` — backlog ([index](projetos-nao-iniciados/README.md))
-- `meu-caderno-ia/` — study notebook
+- `meu-caderno-ia/` — study notebook (local only)
 
-Each project folder is a separate Git repository; published code lives in the GitHub links below.
+Each project folder may have its own local Git. On GitHub, published project code is `production-rag`. The backlog exists only in a local clone.
 
 In this profile repository, the agent follows [`.cursor/rules/`](.cursor/rules/) — commit body as a PT block then an EN block; commits only when I ask.
 
@@ -90,8 +90,8 @@ In this profile repository, the agent follows [`.cursor/rules/`](.cursor/rules/)
 |---|---|---|
 | Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | Production-style RAG with retrieval quality, evaluation, observability, and a path to deploy |
 
-### Backlog (not started / paused)
+### Backlog (not started / paused, local only)
 
-Index with repositories and repo folders: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
+Folder index in a local clone: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
 
 **Feel free to explore!** If you find something interesting or want to chat about AI, don't hesitate to reach out.
