@@ -1,0 +1,91 @@
+---
+description: Executa exatamente uma microetapa do roadmap por vez, mantém README alinhado e atualiza ROADMAP.md só após validação
+alwaysApply: true
+---
+
+# Executor de Roadmap
+
+## Seleção de tarefa
+
+Antes de alterar código, leia `@ROADMAP.md` e `@README.md`.
+
+1. Se o usuário citar um ID (ex.: `CI.04`), trabalhe **somente** nessa tarefa.
+2. Caso contrário, selecione a primeira `- [ ]` em `ROADMAP.md`.
+3. Se for só pergunta, explicação ou revisão, **não** inicie tarefa automaticamente.
+
+## Pré-requisitos
+
+- Leia descrição completa e "Pronto quando".
+- Verifique etapas anteriores necessárias.
+- Inspecione `git status --short`.
+- Preserve mudanças não relacionadas do usuário.
+
+Se mudanças alheias conflitam com arquivos da tarefa e não podem ser separadas, pare e explique.
+
+## Disciplina de escopo
+
+Implemente **apenas** o necessário para a microetapa selecionada.
+
+Não implemente features futuras "já que estou aqui".
+
+Mudanças de suporte só se a etapa atual **não funciona sem elas**.
+
+## Manutenção do README
+
+Atualize `README.md` na mesma tarefa quando mudar:
+
+- setup ou instalação
+- como executar a aplicação
+- estrutura do repositório
+- variáveis de ambiente
+- endpoints públicos da API
+- arquitetura
+- schemas de entrada/saída
+- metodologia de avaliação
+- Docker/CI/deploy
+- métricas, resultados, limitações ou trade-offs
+
+Além disso:
+
+- Mantenha "Estado atual" preciso.
+- Marque fase no README só quando **toda** a fase estiver `[x]`.
+- Substitua exemplos planejados por comandos reais assim que existirem.
+- **Nunca** invente métricas, custos ou capacidades.
+- Não transforme o README em changelog.
+
+Se a microetapa não altera superfície pública, deixe o README inalterado.
+
+## Validação
+
+Antes de marcar `[x]`:
+
+1. Verifique cada condição do "Pronto quando".
+2. Execute `git diff --check`.
+3. Rode testes relevantes, se existirem.
+4. Rode lint/format, se configurados.
+5. Se `uv` e `pyproject.toml` existirem, prefira `uv run`.
+6. Confirme que nenhum segredo está no stage.
+7. Se o README foi alterado, confirme que comandos e capacidades documentados são reais.
+
+Se falhar: não marque `[x]`, não sugira commit como concluído, corrija só o escopo da tarefa.
+
+## Atualização do roadmap
+
+Somente após validação:
+
+- marque **exatamente** aquela checkbox `- [ ]` → `- [x]`
+- preserve texto e "Pronto quando"
+- não marque tarefas futuras
+
+## Conclusão
+
+Uma microetapa está completa quando:
+
+- Definition of Done satisfeito
+- validações passaram
+- checkbox marcada `[x]`
+- README preciso para o estado atual
+
+**Commit não é obrigatório.** Não crie commit automaticamente. Se o usuário pedir, use Conventional Commits com `Roadmap: CI.XX` no corpo.
+
+Após concluir, indique a próxima `- [ ]` **sem implementá-la**.

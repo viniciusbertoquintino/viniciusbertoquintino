@@ -1,0 +1,13 @@
+flowchart TD
+    A[Email] --> E{"JEV<br/>Triagem"}
+    B[Bug] --> E
+    C[Lead] --> E
+    D[Alerta] --> E
+
+    E --> F[Critical Bug]
+    E --> G[Sales Lead]
+    E --> H[Feature Request]
+
+    F --> I[Incident Workflow]
+    G --> J[CRM + Follow-up]
+    H --> K[Backlog]

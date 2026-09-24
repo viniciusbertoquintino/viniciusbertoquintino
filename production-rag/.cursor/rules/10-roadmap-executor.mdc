@@ -1,0 +1,113 @@
+---
+description: Execute exactly one Production RAG roadmap micro-step at a time, keep README aligned, and update ROADMAP.md only after validation
+alwaysApply: true
+---
+
+# Roadmap Executor
+
+## Task selection
+
+Before making code changes, read `@ROADMAP.md` and `@README.md`.
+
+Select the task as follows:
+
+1. If the user explicitly names a roadmap ID such as `P1.04`, work on exactly that task.
+2. Otherwise, select the first unchecked roadmap item (`- [ ]`) in `ROADMAP.md`.
+3. If the user is only asking a question, requesting an explanation, or reviewing code, do not start a roadmap task automatically.
+
+## Prerequisites
+
+Before implementing the selected task:
+
+- Read its full description and Definition of Done.
+- Check that earlier required roadmap steps are complete.
+- Inspect the current repository state with `git status --short`.
+- Preserve unrelated user changes.
+- Check whether the task changes anything that a new reader needs to know in `README.md`.
+
+If unrelated changes overlap the same files that must be modified for the task and cannot be safely separated, stop and explain the conflict instead of committing mixed work.
+
+## Scope discipline
+
+Implement only what is necessary to satisfy the selected roadmap task.
+
+Do not implement later roadmap features "while you are here".
+
+Small supporting changes are allowed only when they are strictly required for the current task to work.
+
+## README maintenance
+
+Treat `README.md` as a living portfolio document.
+
+For every roadmap task, evaluate whether the README needs an update.
+
+Update `README.md` in the same task when the implementation changes any of the following:
+
+- project setup or installation commands
+- how the application is executed
+- repository structure
+- configuration or environment variables
+- public API/endpoints
+- architecture
+- supported document types
+- retrieval strategy
+- evaluation methodology
+- observability
+- security behavior
+- Docker/CI/CD/deploy instructions
+- benchmarks, metrics, results, limitations, or trade-offs
+
+Additionally:
+
+- Keep the `Estado atual` section accurate.
+- Update phase-level checkboxes in the README only when an entire roadmap phase is complete.
+- Replace planned examples with real commands as soon as they become valid.
+- Replace placeholders with measured values when metrics become available.
+- Never invent benchmark numbers, costs, results, or capabilities.
+- Do not turn the README into a changelog. Micro-step history belongs in Git and `ROADMAP.md`.
+- Preserve a concise, recruiter-friendly presentation.
+
+If the current micro-step has no meaningful documentation impact, leave `README.md` unchanged.
+
+## Validation
+
+Before marking a task complete:
+
+1. Verify every Definition of Done condition from `ROADMAP.md`.
+2. Run `git diff --check`.
+3. Run relevant tests if tests exist.
+4. Run configured lint/format checks if they exist.
+5. If `uv` and `pyproject.toml` are already configured, prefer project commands through `uv run`.
+6. Confirm no secrets or sensitive files are staged.
+7. If README was updated, verify every documented command and capability matches the repository state.
+
+If validation fails:
+
+- do not mark the roadmap item complete
+- do not create the completion commit
+- fix only issues that are in scope for the current task
+- report the blocker if the task cannot be completed safely
+
+## Roadmap update
+
+Only after the task passes validation:
+
+- change exactly that task checkbox from `- [ ]` to `- [x]`
+- keep the task text and Definition of Done intact
+- do not mark future tasks complete
+
+The `ROADMAP.md` update belongs in the same commit as the implementation for that task.
+
+If `README.md` required an update for the task, include it in that same logical commit.
+
+## Completion
+
+A roadmap task is complete only when:
+
+- its Definition of Done is satisfied
+- relevant validation passes
+- its checkbox is marked `[x]`
+- README is accurate for the current repository state
+- one logical Git commit has been created for it
+
+After completion, identify the next unchecked roadmap item but do not implement it unless the user asks to continue.

@@ -1,0 +1,13 @@
+flowchart TD
+    A["Budget<br/>US$ 1,00"] --> B[Subtask]
+    B --> C{"JEV<br/>Model Router"}
+
+    C -->|Barato| D[Small]
+    C -->|Especialista| E[Coding]
+    C -->|Difícil| F[Frontier]
+
+    D --> G[Execução]
+    E --> G
+    F --> G
+
+    H["Princípio:<br/>não escolher sempre o melhor modelo<br/>alocar inteligência faz parte da arquitetura"]

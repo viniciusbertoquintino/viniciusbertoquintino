@@ -1,5 +1,14 @@
-# Repositórios locais (não versionar no perfil GitHub)
-meu-caderno-ia/
-production-rag/
-projetos-nao-iniciados/*/
-!projetos-nao-iniciados/README.md
+# Artefatos locais — a estrutura de pastas dos projetos entra no Git do perfil
+**/.venv/
+**/venv/
+**/node_modules/
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/*.pyc
+**/.env
+**/.env.*
+!**/.env.example
+**/.DS_Store
+**/Thumbs.db

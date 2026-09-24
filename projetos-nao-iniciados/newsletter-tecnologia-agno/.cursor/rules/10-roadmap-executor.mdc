@@ -1,0 +1,28 @@
+---
+description: Executa exatamente uma microetapa do roadmap por vez, mantém README alinhado e atualiza ROADMAP.md só após validação
+alwaysApply: true
+---
+
+# Executor de Roadmap
+
+## Seleção de tarefa
+
+1. ID explícito (ex.: `NT.04`) → somente essa tarefa.
+2. Caso contrário → primeira `- [ ]` em `ROADMAP.md`.
+3. Pergunta/revisão → não iniciar tarefa.
+
+## Disciplina de escopo
+
+Uma microetapa por vez.
+
+## README
+
+Atualizar quando mudar: setup, execução, estrutura, env, pipeline, testes, CI.
+
+## Validação
+
+Verificar cada "Pronto quando", `git diff --check`, testes, lint, ausência de segredos.
+
+## Conclusão
+
+**Commit não é obrigatório.** Conventional Commits com `Roadmap: NT.XX` se o usuário pedir. Indicar próxima `- [ ]` sem implementar.

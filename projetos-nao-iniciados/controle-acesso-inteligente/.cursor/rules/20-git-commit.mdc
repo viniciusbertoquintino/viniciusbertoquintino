@@ -1,0 +1,31 @@
+---
+description: Cria commit seguro somente quando o usuário pedir explicitamente, após microetapa validada
+alwaysApply: true
+---
+
+# Commit Git Seguro (somente sob pedido)
+
+**Não crie commit automaticamente** ao fechar uma microetapa.
+
+Crie commit **somente** quando o usuário pedir explicitamente **e** a microetapa estiver validada e marcada `[x]` quando aplicável.
+
+## Antes de fazer stage
+
+1. `git status --short`
+2. `git diff` e `git diff --cached` se relevante
+3. Confirmar escopo da tarefa e ausência de segredos
+4. Confirmar validações passaram
+
+## Stage
+
+- `git add -- <path1> <path2> ...` — nunca stage amplo com mudanças não relacionadas.
+- Incluir `ROADMAP.md` se checkbox atualizada.
+
+## Formato
+
+Conventional Commits: `<type>(<scope>): <descrição>`. Corpo: `Roadmap: CA.XX`
+
+## Regras de segurança
+
+- Nunca push automático.
+- Nunca `--no-verify`, amend, rebase ou force-push sem pedido explícito.

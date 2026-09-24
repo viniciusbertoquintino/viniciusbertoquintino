@@ -1,0 +1,12 @@
+flowchart TD
+    A["Issue<br/>Checkout 500"] -->|Estado atual| B{"JEV Router<br/>Quem trabalha agora?"}
+
+    B --> C[Researcher]
+    B --> D[Coder]
+    B --> E[Tester]
+    B --> F[Reviewer]
+
+    C -->|Novo estado| B
+    D -->|Novo estado| B
+    E -->|Novo estado| B
+    F -->|Novo estado| B

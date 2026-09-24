@@ -1,0 +1,28 @@
+---
+description: Executa exatamente uma microetapa do roadmap por vez, mantém README alinhado e atualiza ROADMAP.md só após validação
+alwaysApply: true
+---
+
+# Executor de Roadmap
+
+## Seleção de tarefa
+
+1. ID explícito (ex.: `IV.04`) → somente essa tarefa.
+2. Caso contrário → primeira `- [ ]` em `ROADMAP.md`.
+3. Pergunta/revisão → não iniciar tarefa.
+
+## Disciplina de escopo
+
+Uma microetapa por vez. Não implementar o futuro.
+
+## README
+
+Atualizar quando mudar: setup, execução (`streamlit run`), estrutura, env, telas Streamlit, schemas, export, Docker/CI.
+
+## Validação
+
+Verificar cada "Pronto quando", `git diff --check`, testes de módulo, lint, ausência de segredos. Para telas Streamlit, validar que o app inicia sem erro.
+
+## Conclusão
+
+**Commit não é obrigatório.** Conventional Commits com `Roadmap: IV.XX` se o usuário pedir. Indicar próxima `- [ ]` sem implementar.

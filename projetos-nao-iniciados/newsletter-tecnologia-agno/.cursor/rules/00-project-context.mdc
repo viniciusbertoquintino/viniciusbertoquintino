@@ -1,0 +1,37 @@
+---
+description: Contexto global e padrões de engenharia da Newsletter de Tecnologia com Agno
+alwaysApply: true
+---
+
+# Newsletter de Tecnologia com Agno — Contexto do Projeto
+
+Este repositório é um projeto de portfólio em automação com agentes de IA. Trate como software orientado a produção, não como tutorial.
+
+## Fontes de verdade
+
+- `@ROADMAP.md` — escopo de implementação
+- `@README.md` — descrição pública (nunca afirmar features não implementadas)
+- "Pronto quando" da microetapa atual é autoritário
+
+## Padrões de engenharia
+
+Python 3.12+, Agno, `uv`, Pydantic, type hints, módulos testáveis, testes determinísticos.
+
+## Domínio
+
+Newsletter automatizada de tecnologia: pesquisa de notícias (Tavily), geração com LLM e envio por email.
+
+**Não é:** plataforma de email marketing enterprise ou CMS de conteúdo.
+
+## Segurança
+
+Nunca commitar `.env`, API keys, senhas ou tokens de email.
+
+## Relatório ao concluir uma microetapa
+
+1. tarefa concluída
+2. arquivos alterados
+3. README atualizado ou por que não
+4. validações/testes executados
+5. commit **não criado** — só se o usuário pedir
+6. próxima `- [ ]` (sem iniciar)

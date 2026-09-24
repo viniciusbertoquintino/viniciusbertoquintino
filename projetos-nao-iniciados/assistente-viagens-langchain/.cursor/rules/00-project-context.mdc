@@ -1,0 +1,37 @@
+---
+description: Contexto global e padrões de engenharia do Assistente de Viagens com LangChain
+alwaysApply: true
+---
+
+# Assistente de Viagens com LangChain — Contexto do Projeto
+
+Este repositório é um projeto de portfólio em agentes conversacionais. Trate como software orientado a produção, não como tutorial.
+
+## Fontes de verdade
+
+- `@ROADMAP.md` — escopo de implementação
+- `@README.md` — descrição pública (nunca afirmar features não implementadas)
+- "Pronto quando" da microetapa atual é autoritário
+
+## Padrões de engenharia
+
+Python 3.12+, LangChain, `uv`, type hints, módulos testáveis, testes determinísticos.
+
+## Domínio
+
+Assistente de viagens via chat no terminal, integrado com Azure OpenAI via LangChain.
+
+**Não é:** agência de viagens, sistema de reservas ou app mobile.
+
+## Segurança
+
+Nunca commitar `.env`, API keys, senhas ou tokens Azure.
+
+## Relatório ao concluir uma microetapa
+
+1. tarefa concluída
+2. arquivos alterados
+3. README atualizado ou por que não
+4. validações/testes executados
+5. commit **não criado** — só se o usuário pedir
+6. próxima `- [ ]` (sem iniciar)

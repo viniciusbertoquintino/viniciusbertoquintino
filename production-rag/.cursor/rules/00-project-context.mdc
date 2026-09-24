@@ -1,0 +1,82 @@
+---
+description: Global engineering and portfolio standards for the Production RAG project
+alwaysApply: true
+---
+
+# Production RAG - Project Context
+
+This repository is an AI Engineering portfolio project. Treat it as production-oriented software, not as a tutorial demo.
+
+## Sources of truth
+
+- Read `@ROADMAP.md` before implementing roadmap work.
+- Read `@README.md` before changing setup, architecture, public behavior, or project documentation.
+- The roadmap task definition and its "Pronto quando" / Definition of Done are authoritative for implementation scope.
+- The README is authoritative for the public-facing description of the repository and must never claim features that are not implemented.
+- Do not silently expand scope beyond the current roadmap task.
+
+## Engineering standards
+
+Prefer:
+
+- Python 3.12+
+- `uv` for environment and dependency management
+- `pyproject.toml`
+- FastAPI and Pydantic
+- type hints
+- small, testable modules
+- explicit interfaces at provider boundaries
+- dependency injection where it improves testability
+- structured logging
+- deterministic and reproducible tests
+- measurable behavior for quality, latency, tokens, and cost
+
+Avoid:
+
+- premature abstractions
+- unnecessary frameworks
+- hidden global state
+- hard-coded secrets
+- vendor coupling when a small provider interface is sufficient
+- implementing future roadmap tasks early
+
+## Portfolio quality
+
+The repository should be understandable by a recruiter or engineer who opens it for the first time.
+
+Prioritize:
+
+- a clear README
+- reproducible setup
+- visible architecture
+- real metrics instead of unsupported claims
+- documented trade-offs
+- tests and validation
+- concise commit history
+
+Do not invent results or present planned features as completed.
+
+## Security
+
+Never commit:
+
+- `.env`
+- API keys
+- passwords
+- tokens
+- private certificates
+- cloud credentials
+- local secret files
+
+Use environment variables and provide `.env.example` when the roadmap reaches that step.
+
+## Communication after implementation
+
+When a roadmap task is completed, report:
+
+1. roadmap task completed
+2. files changed
+3. README updated or why no README change was necessary
+4. validations/tests executed
+5. commit created
+6. next unchecked roadmap task

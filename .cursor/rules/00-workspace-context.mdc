@@ -9,23 +9,24 @@ Repositório Git **desta raiz** = perfil público no GitHub (`viniciusbertoquint
 
 ## O que versionar aqui
 
-- `README.md`, `projetos-nao-iniciados/README.md`, `.gitignore`, `.cursor/rules/`
-- Documentação e índices — não o código dos projetos aninhados
+A raiz deste Git espelha a pasta local:
 
-## Remotes canônicos no GitHub
+- `README.md`, `.gitignore`, `.cursor/rules/`
+- `production-rag/`
+- `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`
+- `meu-caderno-ia/`
+- `projetos-nao-iniciados/` (índice + pastas dos projetos)
 
-- Este perfil: `viniciusbertoquintino/viniciusbertoquintino`
-- Código publicado: `viniciusbertoquintino/production-rag` (pasta `production-rag/`)
+Não versionar `.env`, `.venv/`, `node_modules/` nem `__pycache__/`.
 
-Não recriar no GitHub os projetos do backlog nem `meu-caderno-ia` sem pedido explícito.
+## Remotes
 
-## Pastas com Git próprio (ignoradas pelo perfil)
+- Perfil (esta árvore): `viniciusbertoquintino/viniciusbertoquintino`
+- `production-rag` também tem remote próprio: `viniciusbertoquintino/production-rag`
 
-- `production-rag/` — em andamento, com remote no GitHub
-- `meu-caderno-ia/` — somente local (remote GitHub removido)
-- `projetos-nao-iniciados/<projeto>/` — backlog somente local (remotes GitHub removidos)
+Pastas com `.git` interno continuam sendo repositórios locais. Ao incluir arquivos no perfil, não gravar o `.git` interno como submodule. Não recriar no GitHub os remotes já apagados sem pedido explícito.
 
-Commits de código de `production-rag` vão no Git dessa pasta (`git -C production-rag`), não na raiz do perfil. Backlog e caderno: Git local apenas, sem `git push` para remotes apagados.
+Commits que mudam só o perfil vão na raiz. Commits que devem ir ao remote de `production-rag` vão com `git -C production-rag`.
 
 ## Fontes de verdade
 

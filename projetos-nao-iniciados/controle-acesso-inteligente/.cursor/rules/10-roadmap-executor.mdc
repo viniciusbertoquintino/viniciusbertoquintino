@@ -1,0 +1,41 @@
+---
+description: Executa exatamente uma microetapa do roadmap por vez, mantém README alinhado e atualiza ROADMAP.md só após validação
+alwaysApply: true
+---
+
+# Executor de Roadmap
+
+## Seleção de tarefa
+
+Antes de alterar código, leia `@ROADMAP.md` e `@README.md`.
+
+1. Se o usuário citar um ID (ex.: `CA.04`), trabalhe **somente** nessa tarefa.
+2. Caso contrário, selecione a primeira `- [ ]` em `ROADMAP.md`.
+3. Se for só pergunta, explicação ou revisão, **não** inicie tarefa automaticamente.
+
+## Pré-requisitos
+
+- Leia descrição completa e "Pronto quando".
+- Verifique etapas anteriores necessárias.
+- Inspecione `git status --short`.
+- Preserve mudanças não relacionadas do usuário.
+
+## Disciplina de escopo
+
+Implemente **apenas** o necessário para a microetapa selecionada. Não implemente features futuras "já que estou aqui".
+
+## Manutenção do README
+
+Atualize `README.md` na mesma tarefa quando mudar: setup, execução, estrutura, env, endpoints, arquitetura, schemas, tipos de alerta, avaliação, Docker/CI, métricas ou limitações.
+
+Mantenha "Estado atual" preciso. Não invente métricas. Não transforme o README em changelog.
+
+## Validação
+
+Antes de marcar `[x]`: verifique cada "Pronto quando", `git diff --check`, testes, lint, ausência de segredos no stage.
+
+## Conclusão
+
+**Commit não é obrigatório.** Não crie commit automaticamente. Se o usuário pedir, use Conventional Commits com `Roadmap: CA.XX` no corpo.
+
+Após concluir, indique a próxima `- [ ]` **sem implementá-la**.

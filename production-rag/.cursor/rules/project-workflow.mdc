@@ -1,0 +1,81 @@
+---
+description: Development workflow for the Production RAG portfolio project
+globs:
+alwaysApply: true
+---
+
+# Production RAG Development Workflow
+
+This project is being developed incrementally as an AI Engineering portfolio project.
+
+## Development philosophy
+
+Always prefer:
+
+- small incremental changes
+- production-oriented architecture
+- type hints
+- explicit interfaces
+- testable components
+- dependency injection when useful
+- clear separation of responsibilities
+- structured logging
+- measurable behavior
+- reproducible experiments
+
+Avoid unnecessary abstractions and premature complexity.
+
+## Roadmap execution
+
+Work on one roadmap micro-step at a time.
+
+Do not implement future roadmap steps unless they are strictly required by the current task.
+
+When a roadmap task is completed:
+
+1. Validate the implementation.
+2. Run relevant tests.
+3. Update documentation if necessary.
+4. Create the Git commit following the automatic commit rule.
+5. Report:
+   - task completed
+   - files changed
+   - tests executed
+   - commit created
+   - next roadmap task
+
+## Python
+
+Use:
+
+- Python 3.12+
+- `uv` for dependency and environment management
+- `pyproject.toml`
+- type hints
+- Ruff
+- Pytest
+- Pydantic
+- FastAPI
+
+Prefer modern Python syntax.
+
+## Security
+
+Never commit:
+
+- `.env`
+- API keys
+- passwords
+- tokens
+- credentials
+- private certificates
+
+Always use environment variables for secrets.
+
+## Git
+
+Use Conventional Commits.
+
+Never automatically push changes to remote repositories.
+
+Never rewrite Git history unless explicitly instructed.

@@ -1,0 +1,39 @@
+---
+description: Contexto global e padrões de engenharia do Chatbot de Orientação em Segurança
+alwaysApply: true
+---
+
+# Chatbot de Orientação em Segurança — Contexto do Projeto
+
+Este repositório é um projeto de portfólio em segurança operacional. Trate como software orientado a produção, não como tutorial.
+
+## Fontes de verdade
+
+- `@ROADMAP.md` — escopo de implementação
+- `@README.md` — descrição pública (nunca afirmar features não implementadas)
+- "Pronto quando" da microetapa atual é autoritário
+
+## Padrões de engenharia
+
+Python 3.12+, `uv`, FastAPI, Pydantic, type hints, módulos testáveis, interfaces nas bordas de vendor, testes determinísticos.
+
+## Domínio
+
+Chatbot que responde sobre **procedimentos de segurança**: senhas, golpes digitais, perda de crachá, áreas restritas, comunicação de incidentes e emergências.
+
+Base de conhecimento **estruturada** (FAQ/markdown versionado) — não Qdrant no dia 1. Não copiar pipeline RAG do projeto `production-rag`.
+
+**Regra crítica:** recusar responder fora da base — **não inventar políticas**.
+
+## Segurança
+
+Nunca commitar `.env`, API keys, senhas ou tokens.
+
+## Relatório ao concluir uma microetapa
+
+1. tarefa concluída
+2. arquivos alterados
+3. README atualizado ou por que não
+4. validações/testes executados
+5. commit **não criado** — só se o usuário pedir
+6. próxima `- [ ]` (sem iniciar)

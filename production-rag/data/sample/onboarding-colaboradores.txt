@@ -1,0 +1,12 @@
+Guia de Onboarding de Colaboradores
+
+Dia 1: recepção, entrega de equipamentos e criação de contas corporativas.
+Dia 2: treinamento de segurança da informação e apresentação da estrutura organizacional.
+Semana 1: reunião com gestor para definição de metas do trimestre.
+Semana 2: integração com o buddy designado e revisão dos processos internos.
+Ao final do primeiro mês, o colaborador deve concluir o checklist de onboarding no portal RH.
+
+Contatos úteis:
+- RH: rh@example.com
+- TI: ti@example.com
+- Facilities: facilities@example.com

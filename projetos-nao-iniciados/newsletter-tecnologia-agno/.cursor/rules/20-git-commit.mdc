@@ -1,0 +1,12 @@
+---
+description: Cria commit seguro somente quando o usuário pedir explicitamente, após microetapa validada
+alwaysApply: true
+---
+
+# Commit Git Seguro (somente sob pedido)
+
+Não criar commit automaticamente. Somente após pedido explícito e microetapa validada.
+
+Stage com `git add -- <paths>`. Conventional Commits com `Roadmap: NT.XX` no corpo.
+
+Nunca push automático, `--no-verify`, amend ou force-push sem pedido explícito.

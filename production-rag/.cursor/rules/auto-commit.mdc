@@ -1,0 +1,92 @@
+---
+description: Automatically create a Git commit after completing each development task
+globs:
+alwaysApply: true
+---
+
+# Automatic Git Commit Rule
+
+Whenever a development task or roadmap micro-step is successfully completed, create a Git commit automatically.
+
+## Before committing
+
+Always:
+
+1. Run `git status`.
+2. Review the changes with `git diff`.
+3. Verify that no secrets, credentials, `.env` files, API keys, tokens, or sensitive files are being committed.
+4. Run the relevant tests when tests exist.
+5. Run formatting/linting checks when configured.
+6. Do not commit if the implementation is incomplete or broken.
+7. Do not commit unrelated files.
+
+## Commit behavior
+
+After a task is successfully completed:
+
+1. Stage only the files related to the completed task.
+2. Create exactly one logical commit for that task.
+3. Use Conventional Commits.
+4. Do not ask for confirmation before creating the commit.
+5. Do not push automatically.
+6. Never use `git push` unless the user explicitly requests it.
+7. Never amend, rebase, reset, or rewrite previous commits unless explicitly requested.
+8. If there are no changes, do not create an empty commit.
+
+## Commit message format
+
+Use:
+
+`<type>(<scope>): <short description>`
+
+Allowed types:
+
+- `feat`: new functionality
+- `fix`: bug fix
+- `test`: tests
+- `refactor`: code restructuring without changing behavior
+- `docs`: documentation
+- `chore`: tooling, configuration, dependencies or maintenance
+- `perf`: performance improvement
+- `ci`: CI/CD changes
+
+Examples:
+
+`chore: initialize production rag repository`
+
+`chore: configure python project with uv`
+
+`feat(api): add health endpoint`
+
+`feat(llm): implement llm provider interface`
+
+`feat(ingestion): add pdf document loader`
+
+`feat(retrieval): implement vector search`
+
+`test(retrieval): add retrieval evaluation tests`
+
+`feat(observability): add request tracing`
+
+`ci: add github actions test workflow`
+
+## Roadmap tasks
+
+When the task has an identifier such as `P1.07`, include it in the commit body when useful.
+
+Example:
+
+Commit title:
+
+`feat(api): add chat endpoint`
+
+Commit body:
+
+`Roadmap: P1.07`
+
+## Important
+
+A commit represents a completed and working unit of progress.
+
+Do not create commits merely because files were edited.
+Commit only after the requested micro-task has been completed successfully.

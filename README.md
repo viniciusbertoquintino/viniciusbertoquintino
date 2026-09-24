@@ -16,9 +16,9 @@
 
 Bem-vindo(a) ao meu playground de Inteligência Artificial!
 
-**Neste repositório no GitHub:** `README.md` (perfil), [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) (índice do backlog) e [`.cursor/rules/`](.cursor/rules/). O único código de projeto publicado no GitHub é [production-rag](https://github.com/viniciusbertoquintino/production-rag).
+**Neste repositório no GitHub** a árvore é a mesma do clone local: `production-rag/`, `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`, `meu-caderno-ia/`, `projetos-nao-iniciados/` (índice em [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md)) e [`.cursor/rules/`](.cursor/rules/). O `.gitignore` deixa de fora só ambientes, cache e `.env`.
 
-**No clone local completo** (mesma árvore de pastas), `production-rag/` tem remote no GitHub. `projetos-nao-iniciados/<projeto>/` e `meu-caderno-ia/` ficam só no disco (Git local, sem remote; ignorados aqui via `.gitignore`).
+`production-rag` também tem repositório próprio: [production-rag](https://github.com/viniciusbertoquintino/production-rag).
 
 Cada projeto vive em um repositório independente, com desenvolvimento assistido incremental:
 
@@ -32,10 +32,11 @@ Regra central: **uma microetapa concluída = uma validação = um commit lógico
 Organização no clone deste repositório (caminhos relativos à raiz):
 
 - `production-rag/` — em andamento
+- `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` — desafios GenAI
 - `projetos-nao-iniciados/` — backlog (índice em [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md))
-- `meu-caderno-ia/` — caderno de estudos (somente local)
+- `meu-caderno-ia/` — caderno de estudos
 
-Cada pasta de projeto pode ter Git local. No GitHub, o código publicado é o de `production-rag`. O backlog está só no clone local.
+Essas pastas estão neste repositório. `production-rag` também segue no repositório próprio.
 
 Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) — corpo de commit em bloco PT e bloco EN; commit somente quando eu pedir.
 
@@ -45,7 +46,14 @@ Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) �
 |---|---|---|
 | Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | RAG corporativo com retrieval, avaliação, observabilidade e caminho para deploy |
 
-### Backlog (não iniciados / pausados, somente local)
+### Neste repositório
+
+| Projeto | Pasta | Descrição |
+|---|---|---|
+| Desafios GenAI (KPMG) | `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` | Agente de reembolso, multi-agentes e simulação de fluxo |
+| Caderno de estudos | `meu-caderno-ia/` | Anotações e experimentos |
+
+### Backlog (não iniciados / pausados)
 
 Índice das pastas no clone: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
 
@@ -61,9 +69,9 @@ Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) �
 
 Welcome to my Artificial Intelligence playground!
 
-**In this GitHub repository:** `README.md` (profile), [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) (backlog index), and [`.cursor/rules/`](.cursor/rules/). The only published project code on GitHub is [production-rag](https://github.com/viniciusbertoquintino/production-rag).
+**In this GitHub repository** the tree matches a local clone: `production-rag/`, `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`, `meu-caderno-ia/`, `projetos-nao-iniciados/` ([index](projetos-nao-iniciados/README.md)), and [`.cursor/rules/`](.cursor/rules/). `.gitignore` only skips environments, caches, and `.env` files.
 
-**In a full local clone** (same folder layout), `production-rag/` has a GitHub remote. `projetos-nao-iniciados/<project>/` and `meu-caderno-ia/` stay on disk only (local Git, no remote; ignored here via `.gitignore`).
+`production-rag` also has its own repository: [production-rag](https://github.com/viniciusbertoquintino/production-rag).
 
 Each project lives in its own repository with incremental assisted development:
 
@@ -77,10 +85,11 @@ Central rule: **one completed micro-step = one validation = one logical commit**
 Layout in a clone of this repository (paths relative to the repo root):
 
 - `production-rag/` — in progress
+- `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` — GenAI challenges
 - `projetos-nao-iniciados/` — backlog ([index](projetos-nao-iniciados/README.md))
-- `meu-caderno-ia/` — study notebook (local only)
+- `meu-caderno-ia/` — study notebook
 
-Each project folder may have its own local Git. On GitHub, published project code is `production-rag`. The backlog exists only in a local clone.
+These folders live in this repository. `production-rag` also stays in its own repository.
 
 In this profile repository, the agent follows [`.cursor/rules/`](.cursor/rules/) — commit body as a PT block then an EN block; commits only when I ask.
 
@@ -90,7 +99,14 @@ In this profile repository, the agent follows [`.cursor/rules/`](.cursor/rules/)
 |---|---|---|
 | Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | Production-style RAG with retrieval quality, evaluation, observability, and a path to deploy |
 
-### Backlog (not started / paused, local only)
+### In this repository
+
+| Project | Folder | Description |
+|---|---|---|
+| GenAI Challenges (KPMG) | `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` | Reimbursement agent, multi-agent system, and flow simulation |
+| Study notebook | `meu-caderno-ia/` | Notes and experiments |
+
+### Backlog (not started / paused)
 
 Folder index in a local clone: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
 

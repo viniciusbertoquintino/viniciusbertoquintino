@@ -1,0 +1,49 @@
+---
+description: Cria commit seguro somente quando o usuário pedir explicitamente, após microetapa validada
+alwaysApply: true
+---
+
+# Commit Git Seguro (somente sob pedido)
+
+**Não crie commit automaticamente** ao fechar uma microetapa.
+
+Crie commit **somente** quando o usuário pedir explicitamente **e** a microetapa (ou implementação solicitada) estiver validada e marcada `[x]` no roadmap quando aplicável.
+
+Não commitar conversas de explicação, revisão ou planejamento.
+
+## Antes de fazer stage
+
+1. `git status --short`
+2. `git diff` e, se relevante, `git diff --cached`
+3. Confirmar que mudanças pertencem à tarefa concluída
+4. Confirmar ausência de `.env`, credenciais, tokens ou arquivos sensíveis
+5. Confirmar que validações passaram
+
+## Stage
+
+- Stage apenas arquivos da tarefa atual.
+- Incluir `ROADMAP.md` se a checkbox foi atualizada.
+- Preferir `git add -- <path1> <path2> ...`
+- **Nunca** `git add .` amplo com mudanças não relacionadas.
+- Nunca commitar trabalho alheio do usuário.
+
+## Formato do commit
+
+Conventional Commits: `<type>(<scope>): <descrição curta>`
+
+Tipos: `feat`, `fix`, `test`, `refactor`, `docs`, `chore`, `perf`, `ci`
+
+Incluir no corpo quando houver ID de roadmap: `Roadmap: CI.04`
+
+## Regras de segurança
+
+- Não criar commits vazios.
+- **Nunca** push automático.
+- Nunca `git push` sem pedido explícito.
+- Nunca `git reset --hard`.
+- Nunca amend, rebase, force-push ou rewrite sem pedido explícito.
+- Nunca `--no-verify` ou equivalente.
+
+## Após commit (se o usuário pediu)
+
+Reportar `git log -1 --oneline` e hash da mensagem.

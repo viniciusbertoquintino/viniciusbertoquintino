@@ -1,0 +1,14 @@
+flowchart TD
+    A["Mesmas tarefas<br/>Bugs + Features + Research + Refactor"] --> B{Test Harness}
+
+    B --> C[Arquitetura A]
+    B --> D[Arquitetura B + JEV]
+
+    C --> E[Medição]
+    D --> E
+
+    E --> F[Success Rate]
+    E --> G[Cost]
+    E --> H[Latency]
+    E --> I[Retries]
+    E --> J[Human Intervention]

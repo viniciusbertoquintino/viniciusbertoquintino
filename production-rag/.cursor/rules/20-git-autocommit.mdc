@@ -1,0 +1,79 @@
+---
+description: Create one safe Conventional Commit automatically after a roadmap micro-step is completed and validated
+alwaysApply: true
+---
+
+# Safe Automatic Git Commit
+
+Create a Git commit automatically only when the Agent has modified the repository to complete a roadmap micro-step or an explicitly requested implementation task.
+
+Do not create a commit for explanation-only, review-only, or planning-only conversations.
+
+## Before staging
+
+Always:
+
+1. Run `git status --short`.
+2. Review changes with `git diff` and, when relevant, `git diff --cached`.
+3. Confirm the changes belong to the completed task.
+4. Confirm no secrets, credentials, `.env`, tokens, or sensitive files are included.
+5. Confirm required tests/validation passed.
+
+## Staging
+
+- Stage only files related to the current completed task.
+- Include `ROADMAP.md` when its task checkbox was updated.
+- Do not use broad staging when unrelated changes exist.
+- Prefer explicit paths with `git add -- <path1> <path2> ...`.
+- Never commit unrelated user work.
+
+## Commit format
+
+Use Conventional Commits:
+
+`<type>(<scope>): <short description>`
+
+Allowed types:
+
+- `feat`
+- `fix`
+- `test`
+- `refactor`
+- `docs`
+- `chore`
+- `perf`
+- `ci`
+
+Examples:
+
+- `chore: initialize production rag repository`
+- `chore: configure python project with uv`
+- `feat(api): add health endpoint`
+- `feat(llm): add llm provider interface`
+- `feat(ingestion): add pdf loader`
+- `feat(retrieval): implement semantic search`
+- `test(retrieval): add retrieval evaluation tests`
+- `feat(observability): add request tracing`
+- `ci: add lint and test workflow`
+
+When a roadmap ID exists, include it in the commit body:
+
+`Roadmap: P1.04`
+
+## Safety rules
+
+- Do not create empty commits.
+- Do not push automatically.
+- Never run `git push` unless the user explicitly requests it.
+- Never use `git reset --hard`.
+- Never amend, rebase, force-push, or rewrite history unless the user explicitly requests it.
+- Never bypass failing tests with `--no-verify` or equivalent.
+
+## After commit
+
+Run:
+
+- `git status --short`
+- `git log -1 --oneline`
+
+Then report the commit hash and message to the user.

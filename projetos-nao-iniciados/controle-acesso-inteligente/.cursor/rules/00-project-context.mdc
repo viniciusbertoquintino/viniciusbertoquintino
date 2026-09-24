@@ -1,0 +1,43 @@
+---
+description: Contexto global e padrões de engenharia do Controle de Acesso Inteligente
+alwaysApply: true
+---
+
+# Controle de Acesso Inteligente — Contexto do Projeto
+
+Este repositório é um projeto de portfólio em segurança operacional. Trate como software orientado a produção, não como tutorial.
+
+## Fontes de verdade
+
+- Leia `@ROADMAP.md` antes de implementar trabalho do roadmap.
+- Leia `@README.md` antes de alterar setup, arquitetura, comportamento público ou documentação.
+- A definição da tarefa e seu "Pronto quando" são autoritativos para o escopo.
+- O README é autoritário para a descrição pública e **nunca** deve afirmar features não implementadas.
+- Não expanda escopo silenciosamente além da microetapa atual.
+
+## Padrões de engenharia
+
+Preferir: Python 3.12+, `uv`, `pyproject.toml`, FastAPI, Pydantic, type hints, módulos testáveis, interfaces nas bordas de vendor, testes determinísticos.
+
+Evitar: abstrações prematuras, estado global, segredos hard-coded, acoplamento a vendor, implementar microetapas futuras antecipadamente.
+
+## Domínio
+
+API que analisa **eventos de acesso** e detecta: fora de horário, tentativas recorrentes, uso incomum de credenciais e entradas em áreas não autorizadas.
+
+**Não é:** dashboard empresarial, integração com catracas físicas ou SIEM completo no dia 1.
+
+**Distinção:** este projeto (CA) é API de eventos em tempo real. O projeto `auxiliar-controle-acesso` (AC) é análise de registros em lote via Streamlit.
+
+## Segurança
+
+Nunca commitar `.env`, API keys, senhas, tokens ou credenciais de cloud.
+
+## Relatório ao concluir uma microetapa
+
+1. tarefa concluída
+2. arquivos alterados
+3. README atualizado ou por que não
+4. validações/testes executados
+5. commit **não criado** — só se o usuário pedir (sugerir mensagem Conventional Commit)
+6. próxima `- [ ]` (sem iniciar)

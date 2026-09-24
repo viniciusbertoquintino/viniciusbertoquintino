@@ -4,7 +4,7 @@ Pastas locais com kit de desenvolvimento assistido (`ROADMAP.md`, `SETUP.md`, `.
 
 **Em andamento (GitHub):** [production-rag](https://github.com/viniciusbertoquintino/production-rag). No clone local: pasta `production-rag/` na raiz deste repo (ver [README do perfil](../README.md)).
 
-**Backlog:** somente no clone local, em `projetos-nao-iniciados/<nome>/` (não versionado neste Git do perfil). Os remotes antigos desses projetos foram removidos da conta GitHub.
+**Backlog:** pastas `projetos-nao-iniciados/<nome>/` neste mesmo repositório (a árvore do GitHub segue a pasta local). Os remotes antigos desses projetos foram removidos da conta GitHub.
 
 Desenvolvimento incremental: ver `ROADMAP.md` em cada pasta antes de retomar.
 
@@ -44,7 +44,7 @@ Local folders with an assisted-development kit (`ROADMAP.md`, `SETUP.md`, `.curs
 
 **In progress (GitHub):** [production-rag](https://github.com/viniciusbertoquintino/production-rag). In a local clone: `production-rag/` at the repo root (see the [profile README](../README.md)).
 
-**Backlog:** local clone only, under `projetos-nao-iniciados/<name>/` (not tracked in this profile Git). Former GitHub remotes for these projects were deleted.
+**Backlog:** folders `projetos-nao-iniciados/<name>/` in this same repository (the GitHub tree matches the local folder). Former GitHub remotes for these projects were deleted.
 
 Incremental work: read each folder's `ROADMAP.md` before resuming.
 

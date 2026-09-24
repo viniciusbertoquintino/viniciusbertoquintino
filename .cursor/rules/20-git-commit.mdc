@@ -13,10 +13,10 @@ alwaysApply: true
 
 ## Qual repositório
 
-1. Alterações em `README.md`, `projetos-nao-iniciados/README.md`, `.cursor/` → Git na **raiz** `viniciusbertoquintino`.
-2. Alterações em `production-rag/`, `meu-caderno-ia/` ou `projetos-nao-iniciados/<nome>/` → Git **dentro da pasta do projeto** (`git -C <pasta>`).
+1. A árvore publicada do perfil é a pasta local inteira. Alterações em `README.md`, `.cursor/`, `production-rag/`, `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`, `meu-caderno-ia/` ou `projetos-nao-iniciados/` entram no Git da **raiz**, salvo pedido de commit só no remote de `production-rag`.
+2. Se o pedido for publicar em `production-rag` no GitHub próprio, usar `git -C production-rag`.
 
-Antes do commit na raiz: confirmar que `git status` **não** lista arquivos de repos aninhados (respeitar `.gitignore`).
+Antes do commit na raiz: não stagear `.git` interno, `.env`, `.venv/` nem `node_modules/`.
 
 ## Stage
 

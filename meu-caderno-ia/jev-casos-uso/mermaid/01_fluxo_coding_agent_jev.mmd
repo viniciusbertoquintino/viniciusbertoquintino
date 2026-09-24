@@ -1,0 +1,10 @@
+flowchart TD
+    A[Coding Agent] --> B[Diff + testes + logs]
+    B --> C{JEV Eval}
+
+    C -->|PASS| D[Pass]
+    C -->|RETRY| E[Retry]
+    C -->|HUMAN| F[Human]
+
+    E --> G[Feedback operacional<br/>Falha + evidência + ação recomendada]
+    G --> A

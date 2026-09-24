@@ -1,0 +1,14 @@
+Construí uma AI Assistant Platform usando LLMs, RAG e AI Agents.
+
+O projeto permite:
+- upload de documentos
+- indexação com embeddings
+- chat com fontes
+- análise automática de chamados
+- agentes para suporte operacional
+- observabilidade básica de prompts e respostas
+
+Stack:
+Python, FastAPI, PostgreSQL, pgvector, LangChain, LangGraph, OpenAI/Azure OpenAI, React, Docker.
+
+O objetivo foi simular um cenário corporativo real de IA aplicada a atendimento, suporte e recuperação de conhecimento.

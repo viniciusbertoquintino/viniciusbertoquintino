@@ -1,0 +1,81 @@
+---
+description: Boas práticas para mensagens de commit (Conventional Commits)
+alwaysApply: true
+---
+
+# Mensagens de commit
+
+Use **Conventional Commits** em **inglês**, alinhado ao histórico deste repositório.
+
+## Formato
+
+```
+<type>(<scope>): <descrição curta>
+
+[corpo opcional]
+
+[Roadmap: P1.xx quando aplicável]
+```
+
+- **Assunto**: uma linha, imperativo ("add" não "added"), sem ponto final, ~72 caracteres ou menos.
+- **Corpo**: só quando o assunto não basta; explique o *porquê*, não repita o diff.
+- **Um commit = uma unidade lógica** de trabalho concluída e validada.
+
+## Types permitidos
+
+| Type | Uso |
+|------|-----|
+| `feat` | funcionalidade nova |
+| `fix` | correção de bug |
+| `test` | testes |
+| `refactor` | refactor sem mudar comportamento |
+| `docs` | documentação |
+| `chore` | tooling, deps, manutenção |
+| `perf` | performance |
+| `ci` | CI/CD |
+
+## Scopes comuns neste projeto
+
+`api`, `llm`, `ingestion`, `retrieval`, `vector`, `config`, `data`, `observability`, `structure`, `setup`, `roadmap`, `readme`
+
+O scope é opcional quando o type já deixa claro (ex.: `chore: configure python project with uv`).
+
+## Roadmap
+
+Se a tarefa tiver ID (ex.: `P1.07`), inclua no corpo:
+
+```
+Roadmap: P1.07
+```
+
+## Exemplos bons
+
+```
+feat(api): add health endpoint
+
+Roadmap: P1.04
+```
+
+```
+test(ingestion): add chunking edge case tests
+
+Roadmap: P1.15
+```
+
+```
+fix(llm): handle OpenAI timeout without leaking request body
+```
+
+## Evitar
+
+- Assuntos vagos: `fix stuff`, `update`, `wip`, `changes`.
+- Vários assuntos no mesmo commit ou commit só porque arquivos foram editados.
+- **Trailers de atribuição do Cursor** (`Co-authored-by: Cursor`, `Made with Cursor`, etc.) — não adicionar.
+- Secrets, `.env`, tokens ou credenciais no commit.
+- Push automático; amend/rebase/rewrite de histórico sem pedido explícito.
+
+## Antes de commitar (mensagem coerente com o diff)
+
+1. `git status` e `git diff` — a mensagem deve descrever **só** o que está no stage.
+2. Type/scope corretos para a natureza da mudança.
+3. Testes/lint relevantes passando quando existirem.
