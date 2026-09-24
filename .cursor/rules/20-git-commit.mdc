@@ -13,7 +13,7 @@ alwaysApply: true
 
 ## Qual repositório
 
-1. Alterações em `Readme.md`, `fluxos/`, `projetos-nao-iniciados/README.md`, `.cursor/` → Git na **raiz** `viniciusbertoquintino`.
+1. Alterações em `README.md`, `projetos-nao-iniciados/README.md`, `.cursor/` → Git na **raiz** `viniciusbertoquintino`.
 2. Alterações em `production-rag/`, `meu-caderno-ia/` ou `projetos-nao-iniciados/<nome>/` → Git **dentro da pasta do projeto** (`git -C <pasta>`).
 
 Antes do commit na raiz: confirmar que `git status` **não** lista arquivos de repos aninhados (respeitar `.gitignore`).

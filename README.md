@@ -14,9 +14,11 @@
 
 ## Projetos
 
-Diagramas de fluxo (triagem de incidente, Mermaid + draw.io): [fluxos/README.md](fluxos/README.md).
-
 Bem-vindo(a) ao meu playground de Inteligência Artificial!
+
+**Neste repositório no GitHub:** `README.md` (perfil), [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) (índice do backlog) e [`.cursor/rules/`](.cursor/rules/). O código de cada projeto está nos repositórios linkados abaixo — não neste Git.
+
+**No clone local completo** (mesma árvore de pastas), versiono o workspace com `production-rag/`, `projetos-nao-iniciados/<projeto>/` e `meu-caderno-ia/` como repositórios Git separados (ignorados aqui via `.gitignore`).
 
 Cada projeto vive em um repositório independente, com desenvolvimento assistido incremental:
 
@@ -57,9 +59,11 @@ Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) �
 
 ## Projects
 
-Flow diagrams (security incident triage, Mermaid + draw.io): [fluxos/README.md](fluxos/README.md).
-
 Welcome to my Artificial Intelligence playground!
+
+**In this GitHub repository:** `README.md` (profile), [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) (backlog index), and [`.cursor/rules/`](.cursor/rules/). Each project's code lives in the linked repositories below — not in this Git repo.
+
+**In a full local clone** (same folder layout), I keep `production-rag/`, `projetos-nao-iniciados/<project>/`, and `meu-caderno-ia/` as separate Git repositories (ignored here via `.gitignore`).
 
 Each project lives in its own repository with incremental assisted development:
 

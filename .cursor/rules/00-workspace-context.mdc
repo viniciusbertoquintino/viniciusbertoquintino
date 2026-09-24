@@ -9,7 +9,7 @@ Repositório Git **desta raiz** = perfil público no GitHub (`viniciusbertoquint
 
 ## O que versionar aqui
 
-- `Readme.md`, `fluxos/`, `projetos-nao-iniciados/README.md`, `.gitignore`, `.cursor/rules/`
+- `README.md`, `projetos-nao-iniciados/README.md`, `.gitignore`, `.cursor/rules/`
 - Documentação e índices — não o código dos projetos aninhados
 
 ## Pastas com Git próprio (ignoradas pelo perfil)
@@ -22,7 +22,7 @@ Commits de código vão no **repositório da pasta do projeto** (`git -C product
 
 ## Fontes de verdade
 
-- `@Readme.md` — visão pública e links
+- `@README.md` — visão pública e links (arquivo exigido pelo perfil GitHub)
 - `@projetos-nao-iniciados/README.md` — índice do backlog (caminhos relativos ao repo)
 - Cada projeto aninhado: `@ROADMAP.md` e `@README.md` **dentro da pasta do projeto**
 

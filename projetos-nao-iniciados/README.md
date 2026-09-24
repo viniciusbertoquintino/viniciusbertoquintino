@@ -2,9 +2,9 @@
 
 Repositórios com kit de desenvolvimento assistido (`ROADMAP.md`, `SETUP.md`, `.cursor/rules/`), mas **sem foco ativo** no momento.
 
-**Em andamento:** [Production RAG](https://github.com/viniciusbertoquintino/production-rag) — pasta [`production-rag/`](../production-rag/) no clone deste repositório (ver [README do perfil](../Readme.md)).
+**Em andamento:** [production-rag](https://github.com/viniciusbertoquintino/production-rag) (repositório no GitHub). No clone local: pasta `production-rag/` na raiz deste repo (ver [README do perfil](../README.md)).
 
-**Backlog:** pastas neste diretório (`projetos-nao-iniciados/<nome>/`), cada uma com repositório Git próprio apontando para o GitHub.
+**Backlog:** cada linha abaixo aponta para um repositório no GitHub. No clone local, a mesma árvore usa `projetos-nao-iniciados/<nome>/` (não versionada neste Git do perfil).
 
 Desenvolvimento incremental: ver `ROADMAP.md` em cada pasta antes de retomar.
 
@@ -12,7 +12,7 @@ Desenvolvimento incremental: ver `ROADMAP.md` em cada pasta antes de retomar.
 
 ## Repositórios principais
 
-| Projeto | Repositório | Pasta no repo | Descrição |
+| Projeto | Repositório | Pasta no clone local | Descrição |
 |---|---|---|---|
 | AI Assistant Platform | [ai-assistant-platform](https://github.com/viniciusbertoquintino/ai-assistant-platform) | `projetos-nao-iniciados/ai-assistant-platform/` | Plataforma full-stack de LLMs, RAG e Agents (React + Supabase + FastAPI) |
 | Assistente de Viagens | [assistente-viagens-langchain](https://github.com/viniciusbertoquintino/assistente-viagens-langchain) | `projetos-nao-iniciados/assistente-viagens-langchain/` | Chat de viagens com LangChain |
@@ -25,7 +25,7 @@ Desenvolvimento incremental: ver `ROADMAP.md` em cada pasta antes de retomar.
 
 Repositório remoto compartilhado: [guarded_place_projetos](https://github.com/viniciusbertoquintino/guarded_place_projetos). Cada linha é uma pasta neste backlog (layout flat).
 
-| Projeto | Pasta no repo |
+| Projeto | Pasta no clone local |
 |---|---|
 | Analista de Prevenção a Fraudes | `projetos-nao-iniciados/analista-prevencao-fraudes/` |
 | Assistente de Investigação | `projetos-nao-iniciados/assistente-investigacao/` |
@@ -42,15 +42,15 @@ Repositório remoto compartilhado: [guarded_place_projetos](https://github.com/v
 
 Repositories with an assisted-development kit (`ROADMAP.md`, `SETUP.md`, `.cursor/rules/`) but **not actively in focus** right now.
 
-**In progress:** [Production RAG](https://github.com/viniciusbertoquintino/production-rag) — [`production-rag/`](../production-rag/) folder in a clone of this repository (see the [profile README](../Readme.md)).
+**In progress:** [production-rag](https://github.com/viniciusbertoquintino/production-rag) on GitHub. In a local clone: `production-rag/` at the repo root (see the [profile README](../README.md)).
 
-**Backlog:** folders under this directory (`projetos-nao-iniciados/<name>/`), each with its own Git repository linked to GitHub.
+**Backlog:** each row links to a GitHub repository. In a local clone, use `projetos-nao-iniciados/<name>/` (not tracked in this profile Git).
 
 Incremental work: read each folder's `ROADMAP.md` before resuming.
 
 ## Main repositories
 
-| Project | Repository | Folder in repo | Description |
+| Project | Repository | Folder in local clone | Description |
 |---|---|---|---|
 | AI Assistant Platform | [ai-assistant-platform](https://github.com/viniciusbertoquintino/ai-assistant-platform) | `projetos-nao-iniciados/ai-assistant-platform/` | Full-stack LLMs, RAG, and Agents platform (React + Supabase + FastAPI) |
 | Travel Assistant | [assistente-viagens-langchain](https://github.com/viniciusbertoquintino/assistente-viagens-langchain) | `projetos-nao-iniciados/assistente-viagens-langchain/` | Travel chat with LangChain |
@@ -63,7 +63,7 @@ Incremental work: read each folder's `ROADMAP.md` before resuming.
 
 Shared remote repository: [guarded_place_projetos](https://github.com/viniciusbertoquintino/guarded_place_projetos). Each row is a folder in this backlog (flat layout).
 
-| Project | Folder in repo |
+| Project | Folder in local clone |
 |---|---|
 | Fraud Prevention Analyst | `projetos-nao-iniciados/analista-prevencao-fraudes/` |
 | Investigation Assistant | `projetos-nao-iniciados/assistente-investigacao/` |
