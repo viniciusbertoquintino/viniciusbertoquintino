@@ -18,11 +18,11 @@ W, H = 1400, 460
 GIF_W = 1000
 SCALE = 2
 
-N_REST = 6
-N_MOVE = 48
-FRAME_MS = 85
+N_REST = 4
+N_MOVE = 42
+FRAME_MS = 100
 PAUSE_MS = 800
-PALETTE_COLORS = 112
+PALETTE_COLORS = 128
 
 BG = (7, 11, 20)
 ENGINE_FILL = (11, 17, 31)
@@ -45,22 +45,23 @@ INPUT = (78, 230)
 CONTEXT = (340, 230)
 REASONING = (560, 124)
 TOOL = (780, 230)
-OBSERVATION = (560, 336)
-WALL = (920, 336)
+OBSERVATION = (560, 324)
+WALL = (920, 324)
 RESULT = (1188, 230)
 
 # Quatro indicadores na base: acendem com contexto, raciocínio, ferramenta e observação.
-DOTS = ((455, 376), (525, 376), (595, 376), (665, 376))
+DOTS = ((455, 382), (525, 382), (595, 382), (665, 382))
 
 PATH = [INPUT, CONTEXT, REASONING, TOOL, OBSERVATION, WALL, RESULT]
 RETURN = (OBSERVATION, CONTEXT)
+# gap na saída e na chegada; o ponto da borda não é nó, então a linha atravessa o motor.
 EDGES = (
-    (INPUT, CONTEXT),
-    (CONTEXT, REASONING),
-    (REASONING, TOOL),
-    (TOOL, OBSERVATION),
-    (OBSERVATION, WALL),
-    (WALL, RESULT),
+    (INPUT, CONTEXT, INSET, INSET, True),
+    (CONTEXT, REASONING, INSET, INSET, True),
+    (REASONING, TOOL, INSET, INSET, True),
+    (TOOL, OBSERVATION, INSET, INSET, True),
+    (OBSERVATION, WALL, INSET, 0, False),
+    (WALL, RESULT, 0, INSET, True),
 )
 
 
@@ -78,13 +79,21 @@ def dist(a: tuple[float, float], b: tuple[float, float]) -> float:
 
 
 def inset_segment(
-    a: tuple[float, float], b: tuple[float, float], gap: float
+    a: tuple[float, float],
+    b: tuple[float, float],
+    gap_a: float,
+    gap_b: float,
 ) -> tuple[tuple[float, float], tuple[float, float]]:
     length = dist(a, b)
-    if length <= gap * 2:
+    if length < 1:
         return a, b
+    if gap_a + gap_b >= length:
+        gap_a = length * 0.2
+        gap_b = length * 0.2
     ux, uy = (b[0] - a[0]) / length, (b[1] - a[1]) / length
-    return (a[0] + ux * gap, a[1] + uy * gap), (b[0] - ux * gap, b[1] - uy * gap)
+    start = (a[0] + ux * gap_a, a[1] + uy * gap_a)
+    end = (b[0] - ux * gap_b, b[1] - uy * gap_b)
+    return start, end
 
 
 def build_samples(step: float = 7.0) -> list[tuple[float, float, int, float]]:
@@ -131,13 +140,16 @@ def draw_edge(
     fill: tuple[int, int, int],
     progress: float,
     width: int,
+    gap_a: float = INSET,
+    gap_b: float = INSET,
+    arrow: bool = True,
 ) -> None:
     if progress <= 0.02:
         return
-    start, end = inset_segment(a, b, INSET)
+    start, end = inset_segment(a, b, gap_a, gap_b)
     tip = lerp(start, end, min(1.0, progress))
     draw.line([sc(start), sc(tip)], fill=fill, width=width)
-    if progress >= 0.96:
+    if arrow and progress >= 0.96:
         draw_arrow(draw, start, end, fill)
 
 
@@ -161,6 +173,14 @@ def add_glow(
     sigma = max(1.0, radius * 0.7)
     glow = np.exp(-((yy - cy) ** 2 + (xx - cx) ** 2) / (2 * sigma * sigma)) * strength
     img[y0:y1, x0:x1] += glow[..., None] * color
+
+
+def _amber(seg: int, local: float) -> float:
+    if seg == 2:
+        return min(1.0, max(0.0, (local - 0.28) / 0.32))
+    if seg == 3:
+        return min(1.0, max(0.0, 1.0 - max(0.0, local - 0.05) / 0.5))
+    return 0.0
 
 
 def arrival(seg: int, local: float, gate: int) -> float:
@@ -215,16 +235,12 @@ def render(sample: tuple[float, float, int, float] | None, samples_behind: list[
     else:
         seg, local = sample[2], sample[3]
         packet = (sample[0], sample[1])
-        amber = 0.0
-        if seg == 2:
-            amber = min(1.0, max(0.0, (local - 0.45) / 0.4))
-        elif seg == 3:
-            amber = min(1.0, max(0.0, 1.0 - local / 0.42))
+        amber = _amber(seg, local)
 
-    for index, (a, b) in enumerate(EDGES):
-        draw_edge(draw, a, b, EDGE_DIM, 1.0, 4)
+    for index, (a, b, gap_a, gap_b, arrow) in enumerate(EDGES):
+        draw_edge(draw, a, b, EDGE_DIM, 1.0, 4, gap_a, gap_b, arrow)
         lit = edge_progress(seg, local, index)
-        draw_edge(draw, a, b, EDGE_LIT, lit, 4)
+        draw_edge(draw, a, b, EDGE_LIT, lit, 4, gap_a, gap_b, arrow)
 
     ret = 1.0 if arrival(seg, local, 3) > 0.85 else 0.0
     draw_edge(draw, RETURN[0], RETURN[1], EDGE_DIM, 1.0, 4)
@@ -289,8 +305,8 @@ def render(sample: tuple[float, float, int, float] | None, samples_behind: list[
     if packet is not None:
         tone = PACKET * (1 - amber) + PACKET_AMBER * amber
         for index, point in enumerate(samples_behind):
-            fade = 0.16 * (1 - index / max(1, len(samples_behind)))
-            add_glow(img, point[0], point[1], 9, fade, tone)
+            fade = (0.3, 0.16, 0.07)[index] if index < 3 else 0.05
+            add_glow(img, point[0], point[1], 8, fade, tone)
         add_glow(img, packet[0], packet[1], 15, 0.42, tone)
         add_glow(img, packet[0], packet[1], 4.5, 0.85, np.array([245, 250, 255], dtype=np.float32))
 
@@ -317,10 +333,12 @@ def main() -> None:
         frame.resize((GIF_W, gif_h), Image.Resampling.LANCZOS) for frame in frames
     ]
     sheet = Image.new("RGB", (GIF_W, gif_h * 4))
-    picks = (0, len(gif_frames) // 3, (2 * len(gif_frames)) // 3, len(gif_frames) - 1)
+    peak = max(range(len(samples)), key=lambda i: _amber(samples[i][2], samples[i][3]))
+    amber_frame = N_REST + int(round(peak / (len(samples) - 1) * (N_MOVE - 1)))
+    picks = (0, max(0, amber_frame - 8), amber_frame, len(gif_frames) - 1)
     for row, index in enumerate(picks):
         sheet.paste(gif_frames[index], (0, row * gif_h))
-    palette = sheet.quantize(colors=PALETTE_COLORS, method=Image.Quantize.MEDIANCUT)
+    palette = sheet.quantize(colors=PALETTE_COLORS, method=Image.Quantize.FASTOCTREE)
     quantized = [
         frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in gif_frames
     ]

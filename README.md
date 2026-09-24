@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/perfil-topo.gif" width="100%" alt="Agentic AI graph animation" />
+  <img src="./assets/perfil-topo.gif" width="100%" alt="An agent run inside the engine" />
 </p>
 
 <h1 align="center">Vinícius Berto</h1>
