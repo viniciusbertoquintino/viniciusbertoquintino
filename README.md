@@ -1,113 +1,57 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" alt="animated" />
-</p>
-<h1 align="center">Hello world, I'm Vinícius!</h1>
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=viniciusbertoquintino&label=Profile%20views&color=0e75b6&style=flat" alt="viniciusbertoquintino" /> </p>
+# Vinícius Berto Quintino
 
-![Badge nascido no Brasil](https://img.shields.io/badge/MADE%20IN-BRAZIL-green.svg)
+Formado em Análise e Desenvolvimento de Sistemas. Trabalho com IA aplicada: RAG, agentes e modelos de decisão.
 
-## Sobre mim
+- E-mail: viniciusbertoquintino@gmail.com
+- LinkedIn: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
 
-- [x] Formado em Análise e Desenvolvimento de Sistemas.
-- [x] Como me contatar: viniciusbertoquintino@gmail.com
-- [x] Linkedin: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
+## Em destaque
 
-## Projetos
-
-Bem-vindo(a) ao meu playground de Inteligência Artificial!
-
-**Neste repositório no GitHub** a árvore é a mesma do clone local: `production-rag/`, `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`, `meu-caderno-ia/`, `projetos-nao-iniciados/` (índice em [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md)) e [`.cursor/rules/`](.cursor/rules/). O `.gitignore` deixa de fora só ambientes, cache e `.env`.
-
-`production-rag` também tem repositório próprio: [production-rag](https://github.com/viniciusbertoquintino/production-rag).
-
-Cada projeto vive em um repositório independente, com desenvolvimento assistido incremental:
-
-- `ROADMAP.md` — o que fazer agora e quando está pronto
-- `README.md` — o que o projeto **é hoje** (contrato público honesto)
-- `.cursor/rules/` — como o agente deve trabalhar (1 tarefa por vez)
-- `SETUP.md` — prompts recomendados para iniciar
-
-Regra central: **uma microetapa concluída = uma validação = um commit lógico** (commit só quando eu pedir).
-
-Organização no clone deste repositório (caminhos relativos à raiz):
-
-- `production-rag/` — em andamento
-- `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` — desafios GenAI
-- `projetos-nao-iniciados/` — backlog (índice em [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md))
-- `meu-caderno-ia/` — caderno de estudos
-
-Essas pastas estão neste repositório. `production-rag` também segue no repositório próprio.
-
-Neste repositório (perfil), o agente segue [`.cursor/rules/`](.cursor/rules/) — corpo de commit em bloco PT e bloco EN; commit somente quando eu pedir.
-
-### Em andamento
-
-| Projeto | Repositório | Descrição |
+| Projeto | Onde | O que é hoje |
 |---|---|---|
-| Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | RAG corporativo com retrieval, avaliação, observabilidade e caminho para deploy |
+| Jev Self-Driving Sim | [`jev-testes/jev-carro-autonomo/`](jev-testes/jev-carro-autonomo/) | Carro 2D no browser. O Jev responde quatro perguntas tipadas e o código aplica o gating de confiança. O modo Compare roda o mesmo percurso contra um LLM. |
+| Pix Race | [`jev-testes/jev-pix-falso/`](jev-testes/jev-pix-falso/) | Demo em tela dividida (Rust + Jev e Python + DeepSeek) que classifica golpe de Pix e rastreia o caminho do dinheiro num grafo. Os dados são simulados. |
+| Production RAG | [`production-rag/`](production-rag/) · [repositório](https://github.com/viniciusbertoquintino/production-rag) | RAG com qualidade de retrieval, avaliação e observabilidade. Em desenvolvimento. |
+| AI Assistant Platform | [`ai-assistant-platform2/`](ai-assistant-platform2/) | Plataforma funcional de LLMs, RAG e agentes (React, Supabase e FastAPI opcional). A evolução segue o roadmap do projeto. |
 
-### Neste repositório
+## Também neste repositório
 
-| Projeto | Pasta | Descrição |
+| Projeto | Pasta |
+|---|---|
+| Desafios GenAI (KPMG) | [`KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`](KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/) |
+| Caderno de estudos | [`meu-caderno-ia/`](meu-caderno-ia/) |
+| Backlog | [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) |
+
+A árvore deste repositório no GitHub é a mesma da pasta local. `production-rag` também tem repositório próprio.
+
+Cada projeto traz o próprio `README.md` e, quando existe, `ROADMAP.md`. O agente desta raiz segue [`.cursor/rules/`](.cursor/rules/): uma microetapa por vez, commit só quando eu pedir.
+
+---
+
+# Vinícius Berto Quintino
+
+Graduated in Systems Analysis and Development. I work on applied AI: RAG, agents, and decision models.
+
+- Email: viniciusbertoquintino@gmail.com
+- LinkedIn: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
+
+## Featured
+
+| Project | Where | What it is today |
 |---|---|---|
-| Desafios GenAI (KPMG) | `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` | Agente de reembolso, multi-agentes e simulação de fluxo |
-| Caderno de estudos | `meu-caderno-ia/` | Anotações e experimentos |
+| Jev Self-Driving Sim | [`jev-testes/jev-carro-autonomo/`](jev-testes/jev-carro-autonomo/) | A 2D car in the browser. Jev answers four typed questions and the code applies confidence gating. Compare mode runs the same course against an LLM. |
+| Pix Race | [`jev-testes/jev-pix-falso/`](jev-testes/jev-pix-falso/) | Split-screen demo (Rust + Jev and Python + DeepSeek) that classifies Pix scams and traces the money through a graph. The data is simulated. |
+| Production RAG | [`production-rag/`](production-rag/) · [repository](https://github.com/viniciusbertoquintino/production-rag) | RAG with retrieval quality, evaluation, and observability. In progress. |
+| AI Assistant Platform | [`ai-assistant-platform2/`](ai-assistant-platform2/) | A working LLMs, RAG, and agents platform (React, Supabase, and an optional FastAPI backend). It moves forward on its own roadmap. |
 
-### Backlog (não iniciados / pausados)
+## Also in this repository
 
-Índice das pastas no clone: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
+| Project | Folder |
+|---|---|
+| GenAI challenges (KPMG) | [`KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`](KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/) |
+| Study notebook | [`meu-caderno-ia/`](meu-caderno-ia/) |
+| Backlog | [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) |
 
-**Explore à vontade!** Se encontrar algo interessante ou quiser trocar ideias sobre IA, não hesite em me chamar.
+The GitHub tree matches the local folder. `production-rag` also has its own repository.
 
-## About me
-
-- [x] Graduated in Systems Analysis and Development.
-- [x] How to reach me: viniciusbertoquintino@gmail.com
-- [x] Linkedin: https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/
-
-## Projects
-
-Welcome to my Artificial Intelligence playground!
-
-**In this GitHub repository** the tree matches a local clone: `production-rag/`, `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`, `meu-caderno-ia/`, `projetos-nao-iniciados/` ([index](projetos-nao-iniciados/README.md)), and [`.cursor/rules/`](.cursor/rules/). `.gitignore` only skips environments, caches, and `.env` files.
-
-`production-rag` also has its own repository: [production-rag](https://github.com/viniciusbertoquintino/production-rag).
-
-Each project lives in its own repository with incremental assisted development:
-
-- `ROADMAP.md` — what to do now and when it's done
-- `README.md` — what the project **is today** (honest public contract)
-- `.cursor/rules/` — how the agent should work (1 task at a time)
-- `SETUP.md` — recommended prompts to get started
-
-Central rule: **one completed micro-step = one validation = one logical commit** (commit only when I ask).
-
-Layout in a clone of this repository (paths relative to the repo root):
-
-- `production-rag/` — in progress
-- `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` — GenAI challenges
-- `projetos-nao-iniciados/` — backlog ([index](projetos-nao-iniciados/README.md))
-- `meu-caderno-ia/` — study notebook
-
-These folders live in this repository. `production-rag` also stays in its own repository.
-
-In this profile repository, the agent follows [`.cursor/rules/`](.cursor/rules/) — commit body as a PT block then an EN block; commits only when I ask.
-
-### In progress
-
-| Project | Repository | Description |
-|---|---|---|
-| Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | Production-style RAG with retrieval quality, evaluation, observability, and a path to deploy |
-
-### In this repository
-
-| Project | Folder | Description |
-|---|---|---|
-| GenAI Challenges (KPMG) | `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` | Reimbursement agent, multi-agent system, and flow simulation |
-| Study notebook | `meu-caderno-ia/` | Notes and experiments |
-
-### Backlog (not started / paused)
-
-Folder index in a local clone: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md).
-
-**Feel free to explore!** If you find something interesting or want to chat about AI, don't hesitate to reach out.
+Each project has its own `README.md` and, when one exists, a `ROADMAP.md`. The agent for this root follows [`.cursor/rules/`](.cursor/rules/): one micro-step at a time, and a commit only when I ask.
