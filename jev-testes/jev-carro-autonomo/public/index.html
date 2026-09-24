@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jev Self-Driving Sim</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232f7cf6'/%3E%3Crect x='10' y='5' width='12' height='22' rx='3' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="layout">
+    <section class="stage">
+      <div class="tracks">
+        <div class="track" id="trackJev">
+          <div class="caption jev" id="captionJev">Jev</div>
+          <canvas id="simJev" width="600" height="840" aria-label="Track driven by Jev"></canvas>
+        </div>
+        <div class="track" id="trackLlm" hidden>
+          <div class="caption llm" id="captionLlm">LLM</div>
+          <canvas id="simLlm" width="600" height="840" aria-label="Track driven by an LLM"></canvas>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="tools">
+          <span class="muted">Click the road to add:</span>
+          <button data-tool="cone" class="active" title="1">🟠 Cone</button>
+          <button data-tool="barrier" title="2">🚧 Barrier</button>
+          <button data-tool="parked_car" title="3">🚗 Parked car</button>
+          <button data-tool="car" title="4">🚙 Traffic car</button>
+          <button data-tool="truck" title="5">🚚 Truck</button>
+          <button data-tool="pedestrian" title="6">🚶 Pedestrian</button>
+          <button data-tool="remove" title="7">✖ Remove</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <header>
+        <h1>Jev Self-Driving Sim</h1>
+        <div id="modeBadge" class="badge warn">checking…</div>
+        <p class="muted small">Every ~200 ms the car sends its perception state to <a href="https://docs.typesafe.ai" target="_blank" rel="noreferrer">TypeSafe Jev</a> and asks four typed questions. Jev decides, code drives.</p>
+      </header>
+
+      <div class="modes">
+        <label><input type="radio" name="mode" id="modeSingle" checked> Jev only</label>
+        <label><input type="radio" name="mode" id="modeCompare"> Compare Jev vs LLM (DeepSeek via OpenRouter)</label>
+        <span id="modeHint" class="muted small"></span>
+      </div>
+
+      <div class="controls">
+        <button id="restart" class="primary">↻ Restart (R)</button>
+        <button id="pause">Pause</button>
+        <button id="spawn">＋ Random object</button>
+        <label class="inline">seed <input id="seed" type="text" placeholder="random" size="8"></label>
+      </div>
+
+      <div class="settings">
+        <label>Course <select id="course"></select></label>
+        <div id="courseInfo" class="muted small"></div>
+        <label><input type="checkbox" id="autoTraffic" checked> Spawn course objects (traffic / obstacles)</label>
+        <label>Density <input type="range" id="density" min="0.2" max="3" step="0.1" value="1"> <span id="densityVal">1×</span> <span class="muted small">(random courses only)</span></label>
+        <label>Max speed <input type="range" id="maxSpeed" min="15" max="70" step="5" value="45"> <span id="maxSpeedVal">45 km/h</span></label>
+        <label title="Minimum time between two decisions. Raise it to compare both brains at the same cadence (cost per hour then reflects price per decision, not speed).">Decision interval <input type="range" id="decisionMs" min="200" max="2000" step="100" value="200"> <span id="decisionMsVal">200 ms</span></label>
+        <label><input type="checkbox" id="reflex" checked> Safety reflex (emergency brake in code)</label>
+        <label><input type="checkbox" id="rays" checked> Show sensor rays</label>
+        <label><input type="checkbox" id="answers" checked> Show answers overlay on the track</label>
+      </div>
+
+      <h2>Live stats <span id="stTime" class="muted"></span></h2>
+      <table id="statsTable" class="statsTable"></table>
+      <div id="totals" class="muted small totals"></div>
+
+      <h2>Details</h2>
+      <div id="tabs" class="tabs"></div>
+      <details>
+        <summary>Perception state sent to the selected model</summary>
+        <pre id="stateJson" class="json"></pre>
+      </details>
+      <details>
+        <summary>Questions (choice / score / noul)</summary>
+        <pre id="questionsJson" class="json"></pre>
+      </details>
+
+      <h2>Log</h2>
+      <div id="log" class="log"></div>
+    </aside>
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
