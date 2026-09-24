@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/perfil-topo.png" alt="Grafo de decisão: IA aplicada" width="100%" />
+  <img src="assets/perfil-topo.gif" alt="Grafo de decisão animado: IA aplicada" width="100%" />
 </p>
 
 # Vinícius Berto Quintino
