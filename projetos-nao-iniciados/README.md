@@ -2,13 +2,7 @@
 
 Pastas locais com kit de desenvolvimento assistido (`ROADMAP.md`, `SETUP.md`, `.cursor/rules/`), mas **sem foco ativo** e **sem repositório no GitHub**.
 
-**Em andamento (GitHub):** [production-rag](https://github.com/viniciusbertoquintino/production-rag). No clone local: pasta `production-rag/` na raiz deste repo (ver [README do perfil](../README.md)).
-
-**Backlog:** pastas `projetos-nao-iniciados/<nome>/` neste mesmo repositório (a árvore do GitHub segue a pasta local). Os remotes antigos desses projetos foram removidos da conta GitHub.
-
 Desenvolvimento incremental: ver `ROADMAP.md` em cada pasta antes de retomar.
-
-**Fora deste backlog:** Plataforma de Assistentes com IA (**English:** AI Assistants Platform) está na raiz, em [`plataforma-assistentes-ia/`](../plataforma-assistentes-ia/).
 
 ---
 
