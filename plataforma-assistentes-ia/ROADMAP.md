@@ -1,4 +1,6 @@
-# Projeto AP — AI Assistant Platform
+# Projeto AP — Plataforma de Assistentes com IA
+
+**English:** Project AP — AI Assistants Platform
 
 ## Objetivo
 

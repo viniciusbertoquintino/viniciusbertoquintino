@@ -8,13 +8,14 @@ Pastas locais com kit de desenvolvimento assistido (`ROADMAP.md`, `SETUP.md`, `.
 
 Desenvolvimento incremental: ver `ROADMAP.md` em cada pasta antes de retomar.
 
+**Fora deste backlog:** Plataforma de Assistentes com IA (**English:** AI Assistants Platform) está na raiz, em [`plataforma-assistentes-ia/`](../plataforma-assistentes-ia/).
+
 ---
 
 ## Repositórios principais (somente local)
 
 | Projeto | Pasta no clone local | Descrição |
 |---|---|---|
-| AI Assistant Platform | `projetos-nao-iniciados/ai-assistant-platform/` | Plataforma full-stack de LLMs, RAG e Agents (React + Supabase + FastAPI) |
 | Assistente de Viagens | `projetos-nao-iniciados/assistente-viagens-langchain/` | Chat de viagens com LangChain |
 | Context-Aware AI Assistant | `projetos-nao-iniciados/context-aware-ai-assistant/` | Copilot sensível ao contexto de UI |
 | Newsletter Financeira | `projetos-nao-iniciados/newsletter-financeira-agno/` | Newsletter automatizada financeira com Agno |
@@ -48,11 +49,12 @@ Local folders with an assisted-development kit (`ROADMAP.md`, `SETUP.md`, `.curs
 
 Incremental work: read each folder's `ROADMAP.md` before resuming.
 
+**Not in this backlog:** AI Assistants Platform (**PT:** Plataforma de Assistentes com IA) lives at the repo root, in [`plataforma-assistentes-ia/`](../plataforma-assistentes-ia/).
+
 ## Main projects (local only)
 
 | Project | Folder in local clone | Description |
 |---|---|---|
-| AI Assistant Platform | `projetos-nao-iniciados/ai-assistant-platform/` | Full-stack LLMs, RAG, and Agents platform (React + Supabase + FastAPI) |
 | Travel Assistant | `projetos-nao-iniciados/assistente-viagens-langchain/` | Travel chat with LangChain |
 | Context-Aware AI Assistant | `projetos-nao-iniciados/context-aware-ai-assistant/` | UI context-aware copilot |
 | Finance Newsletter | `projetos-nao-iniciados/newsletter-financeira-agno/` | Automated finance newsletter with Agno |

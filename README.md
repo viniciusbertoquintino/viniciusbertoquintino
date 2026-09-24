@@ -12,7 +12,7 @@ Formado em Análise e Desenvolvimento de Sistemas. Trabalho com IA aplicada: RAG
 | Jev Self-Driving Sim | [`jev-testes/jev-carro-autonomo/`](jev-testes/jev-carro-autonomo/) | Carro 2D no browser. O Jev responde quatro perguntas tipadas e o código aplica o gating de confiança. O modo Compare roda o mesmo percurso contra um LLM. |
 | Pix Race | [`jev-testes/jev-pix-falso/`](jev-testes/jev-pix-falso/) | Demo em tela dividida (Rust + Jev e Python + DeepSeek) que classifica golpe de Pix e rastreia o caminho do dinheiro num grafo. Os dados são simulados. |
 | Production RAG | [`production-rag/`](production-rag/) · [repositório](https://github.com/viniciusbertoquintino/production-rag) | RAG com qualidade de retrieval, avaliação e observabilidade. Em desenvolvimento. |
-| AI Assistant Platform | [`ai-assistant-platform2/`](ai-assistant-platform2/) | Plataforma funcional de LLMs, RAG e agentes (React, Supabase e FastAPI opcional). A evolução segue o roadmap do projeto. |
+| Plataforma de Assistentes com IA | [`plataforma-assistentes-ia/`](plataforma-assistentes-ia/) | Plataforma funcional de LLMs, RAG e agentes (React, Supabase e FastAPI opcional). A evolução segue o roadmap do projeto. |
 
 ## Também neste repositório
 
@@ -42,7 +42,7 @@ Graduated in Systems Analysis and Development. I work on applied AI: RAG, agents
 | Jev Self-Driving Sim | [`jev-testes/jev-carro-autonomo/`](jev-testes/jev-carro-autonomo/) | A 2D car in the browser. Jev answers four typed questions and the code applies confidence gating. Compare mode runs the same course against an LLM. |
 | Pix Race | [`jev-testes/jev-pix-falso/`](jev-testes/jev-pix-falso/) | Split-screen demo (Rust + Jev and Python + DeepSeek) that classifies Pix scams and traces the money through a graph. The data is simulated. |
 | Production RAG | [`production-rag/`](production-rag/) · [repository](https://github.com/viniciusbertoquintino/production-rag) | RAG with retrieval quality, evaluation, and observability. In progress. |
-| AI Assistant Platform | [`ai-assistant-platform2/`](ai-assistant-platform2/) | A working LLMs, RAG, and agents platform (React, Supabase, and an optional FastAPI backend). It moves forward on its own roadmap. |
+| AI Assistants Platform | [`plataforma-assistentes-ia/`](plataforma-assistentes-ia/) | A working LLMs, RAG, and agents platform (React, Supabase, and an optional FastAPI backend). It moves forward on its own roadmap. |
 
 ## Also in this repository
 

@@ -1,4 +1,6 @@
-# AI Assistant Platform — LLMs, RAG & Agents
+# Plataforma de Assistentes com IA — LLMs, RAG e Agentes
+
+**English:** AI Assistants Platform — LLMs, RAG & Agents
 
 Plataforma de IA Generativa que simula como empresas utilizam LLMs para automatizar processos, analisar documentos e apoiar operações internas.
 
@@ -22,7 +24,8 @@ Plataforma de IA Generativa que simula como empresas utilizam LLMs para automati
 
 | Item | Valor |
 |---|---|
-| Projeto | AI Assistant Platform |
+| Projeto (PT) | Plataforma de Assistentes com IA |
+| Projeto (EN) | AI Assistants Platform |
 | ID prefixo | AP |
 | Status | Funcional (em evolução) |
 | Última etapa concluída | AP.03 — frontend + Supabase + backend |

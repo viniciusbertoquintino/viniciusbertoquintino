@@ -12,7 +12,7 @@ Repositório Git **desta raiz** = perfil público no GitHub (`viniciusbertoquint
 A raiz deste Git espelha a pasta local:
 
 - `README.md`, `.gitignore`, `.cursor/rules/`
-- `ai-assistant-platform2/`
+- `plataforma-assistentes-ia/`
 - `jev-testes/`
 - `production-rag/`
 - `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`

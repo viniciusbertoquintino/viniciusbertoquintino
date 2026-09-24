@@ -1,4 +1,6 @@
-# Configuração do Cursor — AI Assistant Platform
+# Configuração do Cursor — Plataforma de Assistentes com IA
+
+**English:** Cursor setup — AI Assistants Platform
 
 ## Prompt inicial recomendado
 

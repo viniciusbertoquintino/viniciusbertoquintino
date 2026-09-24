@@ -1,9 +1,11 @@
 ---
-description: Contexto global e padrões de engenharia da AI Assistant Platform
+description: Contexto global e padrões de engenharia da Plataforma de Assistentes com IA (AI Assistants Platform)
 alwaysApply: true
 ---
 
-# AI Assistant Platform — Contexto do Projeto
+# Plataforma de Assistentes com IA — Contexto do Projeto
+
+**English:** AI Assistants Platform — Project context
 
 Este repositório é um projeto de portfólio em plataformas de IA generativa. Trate como software orientado a produção, não como tutorial.
 
