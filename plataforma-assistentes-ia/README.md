@@ -31,8 +31,8 @@ Plataforma de portfólio que simula o uso de LLMs para consultar documentos, ana
 | Projeto (EN) | AI Assistants Platform |
 | ID prefixo | AP |
 | Status | Funcional no caminho Supabase (em evolução) |
-| Última etapa concluída | AP.07 — testes frontend (Vitest) |
-| Próxima etapa | AP.08 — testes backend (Pytest) |
+| Última etapa concluída | AP.08 — testes backend (Pytest) |
+| Próxima etapa | AP.09 — testes das edge functions (mocks) |
 | Caminho usado pela UI | React → Supabase (Auth, Postgres, Storage, Edge Functions) → OpenAI |
 | Backend | FastAPI presente, não ligado ao frontend |
 
@@ -144,6 +144,8 @@ npm run dev
 Abra `http://localhost:5173`, crie uma conta na tela de login e use o dashboard. O `config.toml` deixa o cadastro local sem confirmação de e-mail.
 
 `npm test` cobre a rota protegida, a autenticação, o chat e os agentes, com os hooks mockados.
+
+No backend opcional, `python -m pytest` (a partir de `backend/`, com as dependências de `requirements.txt`) cobre saúde, auth, documentos, chat e agentes. Banco e OpenAI ficam substituídos por dobles de teste: Postgres e chave da API não entram nessa suíte.
 
 O `docker compose up` sobe outro Postgres e o FastAPI. A interface não usa esse caminho.
 

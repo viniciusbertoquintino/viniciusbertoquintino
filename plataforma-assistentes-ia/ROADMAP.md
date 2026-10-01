@@ -36,7 +36,7 @@ Manter e evoluir a plataforma full-stack de LLMs, RAG e Agents (React + Supabase
 
 - [x] **AP.07** Expandir testes frontend (Vitest).
   - Pronto quando: componentes críticos cobertos.
-- [ ] **AP.08** Adicionar testes backend (Pytest).
+- [x] **AP.08** Adicionar testes backend (Pytest).
   - Pronto quando: rotas principais testadas.
 - [ ] **AP.09** Testes para edge functions (mocks).
   - Pronto quando: chunker e RAG query testados.

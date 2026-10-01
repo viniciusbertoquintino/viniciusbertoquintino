@@ -4,7 +4,7 @@ Quadro local em que um card de demanda atravessa papéis de agente no Cursor: an
 
 O processo não espera o agente dentro do clique. Ele manda o texto, anota a sessão, pergunta de tempos em tempos se a run acabou e só move o card quando o JSON combinado é válido.
 
-> Status: kit de desenvolvimento. O código da aplicação ainda não existe. A execução segue o [`ROADMAP.md`](./ROADMAP.md), uma microetapa por vez.
+> Status: em desenvolvimento. Há runner de testes (TypeScript e Vitest). A aplicação do quadro ainda não existe. A execução segue o [`ROADMAP.md`](./ROADMAP.md), uma microetapa por vez.
 
 ## Objetivos técnicos
 
@@ -89,14 +89,14 @@ A regra é: **uma microetapa concluída = uma validação**. Commit só quando f
 | Item | Valor |
 |---|---|
 | Projeto | Quadro de agentes |
-| Status | Kit de desenvolvimento; aplicação ainda não existe |
-| Última etapa concluída | nenhuma |
-| Próxima etapa | QA.00 — `package.json`, TypeScript e Vitest |
+| Status | Runner de testes no ar; aplicação do quadro ainda não existe |
+| Última etapa concluída | QA.00 — `package.json`, TypeScript e Vitest |
+| Próxima etapa | QA.01 — `.env.example` |
 | Roadmap | `ROADMAP.md` |
 | Estratégia | Uma microetapa por vez |
 | Commits | Só sob pedido; Conventional Commits; corpo em português e inglês |
 | Git | Raiz do perfil, não um repositório dentro desta pasta |
-| Stack | Planejada; ainda sem `package.json` |
+| Stack | Node.js, TypeScript e Vitest. SQLite e Zod ainda não instalados |
 | Configuração | `.env.example` ainda não existe (QA.01) |
 | API Cursor | Ainda não ligada |
 
@@ -104,9 +104,7 @@ A regra é: **uma microetapa concluída = uma validação**. Commit só quando f
 
 ## Como executar
 
-Ainda não há aplicação para executar. Não existe `package.json`.
-
-Quando a QA.00 estiver concluída, a instalação prevista é:
+Requisito: Node.js com npm. Não há servidor nesta etapa.
 
 ```bash
 cd quadro-agentes
@@ -114,9 +112,9 @@ npm install
 npm test
 ```
 
-Esses comandos ainda não fazem parte deste estado. Não os use como se o projeto já rodasse.
+`npm test` typecheca o TypeScript e roda o Vitest. O teste atual só prova que o runner sobe.
 
-Modo mock e modo live, variáveis e a URL local entram no README só quando os passos correspondentes existirem no código.
+Modo mock, modo live, variáveis e a URL local entram no README só quando os passos correspondentes existirem no código.
 
 ## API
 
@@ -137,8 +135,6 @@ Nenhum endpoint está implementado.
 
 ## Estrutura do projeto
 
-Estado atual, só o kit:
-
 ```text
 quadro-agentes/
 ├── .cursor/
@@ -146,13 +142,19 @@ quadro-agentes/
 │       ├── 00-project-context.mdc
 │       ├── 10-roadmap-executor.mdc
 │       └── 20-git-commit.mdc
+├── tests/
+│   └── runner.test.ts
 ├── .gitignore
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+├── vitest.config.ts
 ├── README.md
 ├── ROADMAP.md
 └── SETUP.md
 ```
 
-Código, testes, prompts, página e `.env.example` aparecem aqui quando as microetapas os criarem.
+Prompts, página, banco e `.env.example` aparecem aqui quando as microetapas os criarem.
 
 ## Princípios
 

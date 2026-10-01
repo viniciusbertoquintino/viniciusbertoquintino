@@ -19,7 +19,7 @@ Construir um quadro local, clonável, em que um card atravessa papéis de agente
 
 ### Fase 0 — Base
 
-- [ ] **QA.00** Criar `package.json`, TypeScript e Vitest.
+- [x] **QA.00** Criar `package.json`, TypeScript e Vitest.
   - Pronto quando: `npm install` e `npm test` passam num clone limpo, mesmo que o teste só prove que o runner sobe.
 - [ ] **QA.01** Criar `.env.example`.
   - Pronto quando: o exemplo lista `CURSOR_API_KEY`, `AGENT_MODE`, repositório padrão, modelos e `PORT`, sem valor real e sem segredo versionado.
