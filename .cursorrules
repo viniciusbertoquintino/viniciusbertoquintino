@@ -13,10 +13,20 @@ alwaysApply: true
 
 ## Qual repositório
 
-1. A árvore publicada do perfil é a pasta local inteira. Alterações em `README.md`, `.cursor/`, `production-rag/`, `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`, `meu-caderno-ia/` ou `projetos-nao-iniciados/` entram no Git da **raiz**, salvo pedido de commit só no remote de `production-rag`.
-2. Se o pedido for publicar em `production-rag` no GitHub próprio, usar `git -C production-rag`.
+O perfil versiona só `README.md`, `.gitignore`, `.cursor/`, `assets/` e `projetos-nao-iniciados/`.
 
-Antes do commit na raiz: não stagear `.git` interno, `.env`, `.venv/` nem `node_modules/`.
+Estes projetos têm Git próprio. O commit deles é `git -C <pasta>`, nunca na raiz:
+
+- `jev-testes`
+- `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino`
+- `meu-caderno-ia`
+- `plataforma-assistentes-ia`
+- `production-rag`
+- `quadro-agentes`
+
+Não stagear essas pastas no perfil e não gravá-las como submodule.
+
+Antes do commit na raiz: não stagear `.env`, `.venv/` nem `node_modules/`.
 
 ## Stage
 

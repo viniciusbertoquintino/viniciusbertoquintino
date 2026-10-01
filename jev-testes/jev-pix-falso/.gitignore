@@ -1,7 +1,0 @@
-.env
-target/
-.reversa/
-_reversa_forward/
-output/
-__pycache__/
-data/transacoes.bin

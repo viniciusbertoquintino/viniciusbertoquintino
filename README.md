@@ -17,23 +17,28 @@
 
 ## Projetos de engenharia selecionados
 
-| Projeto | Onde | O que é hoje |
+| Projeto | Repositório | O que é hoje |
 |---|---|---|
-| Pix Race | [`jev-testes/jev-pix-falso/`](jev-testes/jev-pix-falso/) | Demo em tela dividida (Rust + Jev e Python + DeepSeek) que classifica golpe de Pix e rastreia o caminho do dinheiro num grafo. Os dados são simulados. |
-| Jev Self-Driving Sim | [`jev-testes/jev-carro-autonomo/`](jev-testes/jev-carro-autonomo/) | Carro 2D no browser. O Jev responde quatro perguntas tipadas e o código aplica o gating de confiança. O modo Compare roda o mesmo percurso contra um LLM. |
-| Production RAG | [`production-rag/`](production-rag/) · [repositório](https://github.com/viniciusbertoquintino/production-rag) | RAG com qualidade de retrieval, avaliação e observabilidade. Em desenvolvimento. |
-| Plataforma de Assistentes com IA | [`plataforma-assistentes-ia/`](plataforma-assistentes-ia/) | Plataforma funcional de LLMs, RAG e agentes (React, Supabase e FastAPI opcional). A evolução segue o roadmap do projeto. |
+| Pix Race | [jev-testes/jev-pix-falso](https://github.com/viniciusbertoquintino/jev-testes/tree/main/jev-pix-falso) | Demo em tela dividida (Rust + Jev e Python + DeepSeek) que classifica golpe de Pix e rastreia o caminho do dinheiro num grafo. Os dados são simulados. |
+| Jev Self-Driving Sim | [jev-testes/jev-carro-autonomo](https://github.com/viniciusbertoquintino/jev-testes/tree/main/jev-carro-autonomo) | Carro 2D no browser. O Jev responde quatro perguntas tipadas e o código aplica o gating de confiança. O modo Compare roda o mesmo percurso contra um LLM. |
+| Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | RAG com qualidade de retrieval, avaliação e observabilidade. Em desenvolvimento. |
+| Plataforma de Assistentes com IA | [plataforma-assistentes-ia](https://github.com/viniciusbertoquintino/plataforma-assistentes-ia) | Plataforma funcional de LLMs, RAG e agentes (React, Supabase e FastAPI opcional). A evolução segue o roadmap do projeto. |
 
-## Também neste repositório
+## Outros repositórios
 
-| Projeto | Pasta |
+| Projeto | Repositório |
 |---|---|
-| Desafios GenAI (KPMG) | [`KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`](KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/) |
-| Caderno de estudos | [`meu-caderno-ia/`](meu-caderno-ia/) |
-| Quadro de agentes | [`quadro-agentes/`](quadro-agentes/) — desenvolvimento incremental; o app ainda não existe |
+| Desafios GenAI (KPMG) | [KPMG-Desafios-GenAI-Vinicius-Berto-Quintino](https://github.com/viniciusbertoquintino/KPMG-Desafios-GenAI-Vinicius-Berto-Quintino) |
+| Caderno de estudos | [meu-caderno-ia](https://github.com/viniciusbertoquintino/meu-caderno-ia) |
+| Quadro de agentes | [quadro-agentes](https://github.com/viniciusbertoquintino/quadro-agentes) — desenvolvimento incremental; o app ainda não existe |
+
+## Neste repositório
+
+| | |
+|---|---|
 | Backlog | [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) |
 
-Cada projeto traz o próprio `README.md` e, quando existe, `ROADMAP.md`. O agente desta raiz segue [`.cursor/rules/`](.cursor/rules/): uma microetapa por vez, commit só quando eu pedir.
+Cada projeto tem o próprio repositório, com `README.md` e, quando existe, `ROADMAP.md`. O agente desta raiz segue [`.cursor/rules/`](.cursor/rules/): uma microetapa por vez, commit só quando eu pedir.
 
 ---
 
@@ -52,20 +57,25 @@ Cada projeto traz o próprio `README.md` e, quando existe, `ROADMAP.md`. O agent
 
 ## Selected engineering projects
 
-| Project | Where | What it is today |
+| Project | Repository | What it is today |
 |---|---|---|
-| Pix Race | [`jev-testes/jev-pix-falso/`](jev-testes/jev-pix-falso/) | Split-screen demo (Rust + Jev and Python + DeepSeek) that classifies Pix scams and traces the money through a graph. The data is simulated. |
-| Jev Self-Driving Sim | [`jev-testes/jev-carro-autonomo/`](jev-testes/jev-carro-autonomo/) | A 2D car in the browser. Jev answers four typed questions and the code applies confidence gating. Compare mode runs the same course against an LLM. |
-| Production RAG | [`production-rag/`](production-rag/) · [repository](https://github.com/viniciusbertoquintino/production-rag) | RAG with retrieval quality, evaluation, and observability. In progress. |
-| AI Assistants Platform | [`plataforma-assistentes-ia/`](plataforma-assistentes-ia/) | A working LLMs, RAG, and agents platform (React, Supabase, and an optional FastAPI backend). It moves forward on its own roadmap. |
+| Pix Race | [jev-testes/jev-pix-falso](https://github.com/viniciusbertoquintino/jev-testes/tree/main/jev-pix-falso) | Split-screen demo (Rust + Jev and Python + DeepSeek) that classifies Pix scams and traces the money through a graph. The data is simulated. |
+| Jev Self-Driving Sim | [jev-testes/jev-carro-autonomo](https://github.com/viniciusbertoquintino/jev-testes/tree/main/jev-carro-autonomo) | A 2D car in the browser. Jev answers four typed questions and the code applies confidence gating. Compare mode runs the same course against an LLM. |
+| Production RAG | [production-rag](https://github.com/viniciusbertoquintino/production-rag) | RAG with retrieval quality, evaluation, and observability. In progress. |
+| AI Assistants Platform | [plataforma-assistentes-ia](https://github.com/viniciusbertoquintino/plataforma-assistentes-ia) | A working LLMs, RAG, and agents platform (React, Supabase, and an optional FastAPI backend). It moves forward on its own roadmap. |
 
-## Also in this repository
+## Other repositories
 
-| Project | Folder |
+| Project | Repository |
 |---|---|
-| GenAI challenges (KPMG) | [`KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`](KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/) |
-| Study notebook | [`meu-caderno-ia/`](meu-caderno-ia/) |
-| Agent board | [`quadro-agentes/`](quadro-agentes/) — incremental development; the app does not exist yet |
+| GenAI challenges (KPMG) | [KPMG-Desafios-GenAI-Vinicius-Berto-Quintino](https://github.com/viniciusbertoquintino/KPMG-Desafios-GenAI-Vinicius-Berto-Quintino) |
+| Study notebook | [meu-caderno-ia](https://github.com/viniciusbertoquintino/meu-caderno-ia) |
+| Agent board | [quadro-agentes](https://github.com/viniciusbertoquintino/quadro-agentes) — incremental development; the app does not exist yet |
+
+## In this repository
+
+| | |
+|---|---|
 | Backlog | [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) |
 
-Each project has its own `README.md` and, when one exists, a `ROADMAP.md`. The agent for this root follows [`.cursor/rules/`](.cursor/rules/): one micro-step at a time, and a commit only when I ask.
+Each project has its own repository, with a `README.md` and, when one exists, a `ROADMAP.md`. The agent for this root follows [`.cursor/rules/`](.cursor/rules/): one micro-step at a time, and a commit only when I ask.

@@ -1,5 +1,5 @@
 ---
-description: Contexto do workspace viniciusbertoquintino (perfil GitHub + pastas de projetos aninhados)
+description: Contexto do workspace viniciusbertoquintino (perfil GitHub + projetos em repositórios próprios)
 alwaysApply: true
 ---
 
@@ -9,32 +9,36 @@ Repositório Git **desta raiz** = perfil público no GitHub (`viniciusbertoquint
 
 ## O que versionar aqui
 
-A raiz deste Git espelha a pasta local:
+O perfil versiona só o que é dele:
 
-- `README.md`, `.gitignore`, `.cursor/rules/`
-- `plataforma-assistentes-ia/`
-- `jev-testes/`
-- `production-rag/`
-- `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`
-- `meu-caderno-ia/`
+- `README.md`, `.gitignore`, `.cursor/rules/`, `assets/`
 - `projetos-nao-iniciados/` (índice + pastas dos projetos)
 
 Não versionar `.env`, `.venv/`, `node_modules/` nem `__pycache__/`.
 
+Estas pastas têm Git próprio. Não entram no índice do perfil e não viram submodule:
+
+- `jev-testes/` → `viniciusbertoquintino/jev-testes`
+- `KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/` → `viniciusbertoquintino/KPMG-Desafios-GenAI-Vinicius-Berto-Quintino`
+- `meu-caderno-ia/` → `viniciusbertoquintino/meu-caderno-ia`
+- `plataforma-assistentes-ia/` → `viniciusbertoquintino/plataforma-assistentes-ia`
+- `production-rag/` → `viniciusbertoquintino/production-rag`
+- `quadro-agentes/` → `viniciusbertoquintino/quadro-agentes`
+
 ## Remotes
 
 - Perfil (esta árvore): `viniciusbertoquintino/viniciusbertoquintino`
-- `production-rag` também tem remote próprio: `viniciusbertoquintino/production-rag`
+- Cada projeto da lista acima: o remote de mesmo nome, com `git -C <pasta>`
 
-Pastas com `.git` interno continuam sendo repositórios locais. Ao incluir arquivos no perfil, não gravar o `.git` interno como submodule. Não recriar no GitHub os remotes já apagados sem pedido explícito.
+Não recriar no GitHub um remote já apagado sem pedido explícito.
 
-Commits que mudam só o perfil vão na raiz. Commits que devem ir ao remote de `production-rag` vão com `git -C production-rag`.
+Commits do perfil vão na raiz. Commits de um projeto vão dentro da pasta dele.
 
 ## Fontes de verdade
 
 - `@README.md` — visão pública e links (arquivo exigido pelo perfil GitHub)
 - `@projetos-nao-iniciados/README.md` — índice do backlog (caminhos relativos ao repo)
-- Cada projeto aninhado: `@ROADMAP.md` e `@README.md` **dentro da pasta do projeto**
+- Cada projeto: `@README.md` e, quando existe, `@ROADMAP.md` dentro da pasta, no Git daquele projeto
 
 ## Segurança
 

@@ -1,4 +1,12 @@
-# Artefatos locais — a estrutura de pastas dos projetos entra no Git do perfil
+# Projetos com Git próprio — ficam no disco, fora do perfil
+/jev-testes/
+/KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/
+/meu-caderno-ia/
+/plataforma-assistentes-ia/
+/production-rag/
+/quadro-agentes/
+
+# Artefatos locais
 **/.venv/
 **/venv/
 **/node_modules/
