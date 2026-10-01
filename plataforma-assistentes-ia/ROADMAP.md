@@ -34,7 +34,7 @@ Manter e evoluir a plataforma full-stack de LLMs, RAG e Agents (React + Supabase
 
 ### Fase 2 — Testes
 
-- [ ] **AP.07** Expandir testes frontend (Vitest).
+- [x] **AP.07** Expandir testes frontend (Vitest).
   - Pronto quando: componentes críticos cobertos.
 - [ ] **AP.08** Adicionar testes backend (Pytest).
   - Pronto quando: rotas principais testadas.
