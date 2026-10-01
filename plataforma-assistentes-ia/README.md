@@ -31,8 +31,8 @@ Plataforma de portfólio que simula o uso de LLMs para consultar documentos, ana
 | Projeto (EN) | AI Assistants Platform |
 | ID prefixo | AP |
 | Status | Funcional no caminho Supabase (em evolução) |
-| Última etapa concluída | AP.05 — setup local com Supabase |
-| Próxima etapa | AP.06 — validar `.env.example` |
+| Última etapa concluída | AP.06 — variáveis de ambiente no exemplo |
+| Próxima etapa | AP.07 — expandir testes frontend |
 | Caminho usado pela UI | React → Supabase (Auth, Postgres, Storage, Edge Functions) → OpenAI |
 | Backend | FastAPI presente, não ligado ao frontend |
 
@@ -128,7 +128,7 @@ cp .env.example .env
 cp supabase/functions/.env.example supabase/functions/.env
 ```
 
-Preencha `OPENAI_API_KEY` nos dois arquivos com a mesma chave. Chat e agentes leem só `supabase/functions/.env`. A chave salva em Configurações continua valendo apenas para o upload (`process-document`).
+Preencha três valores: `OPENAI_API_KEY` nos dois arquivos (a mesma chave) e, depois do `supabase status`, `VITE_SUPABASE_ANON_KEY`. O restante do `.env.example` é opcional, com o padrão do FastAPI, ou injetado pelo CLI (`SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY`). Chat e agentes leem só `supabase/functions/.env`. A chave salva em Configurações continua valendo apenas para o upload (`process-document`).
 
 ```bash
 supabase start

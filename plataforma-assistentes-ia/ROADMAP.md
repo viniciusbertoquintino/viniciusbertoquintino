@@ -29,7 +29,7 @@ Manter e evoluir a plataforma full-stack de LLMs, RAG e Agents (React + Supabase
   - Pronto quando: README não afirma features inexistentes.
 - [x] **AP.05** Documentar setup local completo (Supabase + frontend).
   - Pronto quando: desenvolvedor consegue subir stack do zero.
-- [ ] **AP.06** Validar `.env.example` cobre todas as variáveis.
+- [x] **AP.06** Validar `.env.example` cobre todas as variáveis.
   - Pronto quando: nenhum segredo necessário está faltando na doc.
 
 ### Fase 2 — Testes
