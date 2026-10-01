@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import jwt
 import pytest
@@ -97,7 +97,7 @@ def test_me_rejects_expired_token(client):
         {
             "sub": "admin@acme.com",
             "role": "admin",
-            "exp": datetime.utcnow() - timedelta(minutes=5),
+            "exp": datetime.now(timezone.utc) - timedelta(minutes=5),
         },
         settings.SECRET_KEY,
         algorithm=settings.ALGORITHM,
