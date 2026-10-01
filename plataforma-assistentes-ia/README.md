@@ -31,15 +31,15 @@ Plataforma de portfólio que simula o uso de LLMs para consultar documentos, ana
 | Projeto (EN) | AI Assistants Platform |
 | ID prefixo | AP |
 | Status | Funcional no caminho Supabase (em evolução) |
-| Última etapa concluída | AP.04 — README alinhado ao código |
-| Próxima etapa | AP.05 — documentar setup local completo |
+| Última etapa concluída | AP.05 — setup local com Supabase |
+| Próxima etapa | AP.06 — validar `.env.example` |
 | Caminho usado pela UI | React → Supabase (Auth, Postgres, Storage, Edge Functions) → OpenAI |
 | Backend | FastAPI presente, não ligado ao frontend |
 
 ## Limitações reais
 
-- O cliente em `src/integrations/supabase/client.ts` aponta para um projeto Supabase hospedado. `supabase start` e o `.env.example` não redirecionam a interface para uma stack local.
-- O `.env.example` lista variáveis do backend FastAPI (`OPENAI_API_KEY`, `DATABASE_URL`, modelos e chunking). O frontend não lê essas variáveis.
+- O cliente lê `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`. Sem as duas, o Vite interrompe na inicialização e pede o `.env`.
+- O `.env.example` também lista variáveis do FastAPI (`DATABASE_URL`, modelos, chunking). A interface não lê essas variáveis.
 - Chat (`rag-query`) e agentes (`run-agent`) usam `OPENAI_API_KEY` no ambiente da Edge Function. A chave salva em Configurações vai só no corpo de `process-document`.
 - TXT e MD são lidos como texto. PDF, DOCX e XLSX passam por um fallback que decodifica o arquivo e remove bytes não textuais — não há parser de layout.
 - O chunking agrupa parágrafos e sentenças até uma meta de tokens, com sobreposição. Não usa embeddings para cortar o texto.
@@ -47,8 +47,6 @@ Plataforma de portfólio que simula o uso de LLMs para consultar documentos, ana
 - Ticket Assistant e Workflow Planner consultam chunks indexados. Document Analyst analisa só o texto enviado, sem busca.
 - `docker-compose.yml` sobe Postgres (pgvector), a API FastAPI e o Vite. A interface continua no cliente Supabase e ignora `VITE_API_URL`.
 - Dados de demonstração em `src/lib/mockData.ts` definem os cartões dos agentes. Métricas, documentos, chat e logs da interface vêm do Supabase. `mockMetrics`, `initialMessages`, `mockAgentResult` e `mockLogs` não são usados pelas páginas.
-
-O passo a passo para subir a stack do zero fica na etapa AP.05.
 
 ## Roadmap
 
@@ -121,16 +119,31 @@ Gravado no banco para chat e execuções de agente:
 - OpenAI (`gpt-4o-mini`, `text-embedding-3-small`)
 - FastAPI e Docker Compose no backend opcional, fora do fluxo da interface
 
-## Como executar o frontend
+## Como executar
+
+Pré-requisitos: Docker, Node.js, [Supabase CLI](https://supabase.com/docs/guides/cli) e uma chave da OpenAI.
+
+```bash
+cp .env.example .env
+cp supabase/functions/.env.example supabase/functions/.env
+```
+
+Preencha `OPENAI_API_KEY` nos dois arquivos com a mesma chave. Chat e agentes leem só `supabase/functions/.env`. A chave salva em Configurações continua valendo apenas para o upload (`process-document`).
+
+```bash
+supabase start
+```
+
+Copie a API URL e a anon key de `supabase status` para `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` no `.env` da raiz. A URL local padrão é `http://127.0.0.1:54321`.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Isso sobe o Vite. Auth, dados e funções dependem do projeto Supabase já referenciado no cliente, com `OPENAI_API_KEY` nas Edge Functions para chat e agentes. Sem essa chave, o upload ainda pode enviar a chave salva em Configurações; o chat e os agentes não usam essa chave.
+Abra `http://localhost:5173`, crie uma conta na tela de login e use o dashboard. O `config.toml` deixa o cadastro local sem confirmação de e-mail.
 
-Subir Supabase local, ligar o frontend a ele e usar o Compose como stack da interface não está documentado aqui — é a etapa AP.05. O Compose atual não substitui esse projeto hospedado.
+O `docker compose up` sobe outro Postgres e o FastAPI. A interface não usa esse caminho.
 
 ## What this project demonstrates
 

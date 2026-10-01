@@ -27,7 +27,7 @@ Manter e evoluir a plataforma full-stack de LLMs, RAG e Agents (React + Supabase
 
 - [x] **AP.04** Auditar README vs código real.
   - Pronto quando: README não afirma features inexistentes.
-- [ ] **AP.05** Documentar setup local completo (Supabase + frontend).
+- [x] **AP.05** Documentar setup local completo (Supabase + frontend).
   - Pronto quando: desenvolvedor consegue subir stack do zero.
 - [ ] **AP.06** Validar `.env.example` cobre todas as variáveis.
   - Pronto quando: nenhum segredo necessário está faltando na doc.
