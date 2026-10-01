@@ -25,7 +25,7 @@ Manter e evoluir a plataforma full-stack de LLMs, RAG e Agents (React + Supabase
 
 ### Fase 1 — Alinhamento documentação
 
-- [ ] **AP.04** Auditar README vs código real.
+- [x] **AP.04** Auditar README vs código real.
   - Pronto quando: README não afirma features inexistentes.
 - [ ] **AP.05** Documentar setup local completo (Supabase + frontend).
   - Pronto quando: desenvolvedor consegue subir stack do zero.
