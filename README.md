@@ -30,6 +30,7 @@
 |---|---|
 | Desafios GenAI (KPMG) | [`KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`](KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/) |
 | Caderno de estudos | [`meu-caderno-ia/`](meu-caderno-ia/) |
+| Quadro de agentes | [`quadro-agentes/`](quadro-agentes/) — desenvolvimento incremental; o app ainda não existe |
 | Backlog | [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) |
 
 Cada projeto traz o próprio `README.md` e, quando existe, `ROADMAP.md`. O agente desta raiz segue [`.cursor/rules/`](.cursor/rules/): uma microetapa por vez, commit só quando eu pedir.
@@ -64,6 +65,7 @@ Cada projeto traz o próprio `README.md` e, quando existe, `ROADMAP.md`. O agent
 |---|---|
 | GenAI challenges (KPMG) | [`KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/`](KPMG-Desafios-GenAI-Vinicius-Berto-Quintino/) |
 | Study notebook | [`meu-caderno-ia/`](meu-caderno-ia/) |
+| Agent board | [`quadro-agentes/`](quadro-agentes/) — incremental development; the app does not exist yet |
 | Backlog | [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md) |
 
 Each project has its own `README.md` and, when one exists, a `ROADMAP.md`. The agent for this root follows [`.cursor/rules/`](.cursor/rules/): one micro-step at a time, and a commit only when I ask.

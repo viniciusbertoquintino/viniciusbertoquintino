@@ -1,0 +1,80 @@
+---
+description: Contexto global e padrões de engenharia do Quadro de agentes
+alwaysApply: true
+---
+
+# Quadro de agentes — Contexto do projeto
+
+Este diretório é um projeto de portfólio de AI Engineering. Trate como software orientado a produção, não como tutorial.
+
+O Git desta pasta é o da raiz do perfil (`viniciusbertoquintino`). Não há repositório aninhado.
+
+## Fontes de verdade
+
+- Leia `@ROADMAP.md` antes de implementar trabalho de roadmap.
+- Leia `@README.md` antes de mudar setup, arquitetura, comportamento público ou documentação.
+- A definição da tarefa e o "Pronto quando" são autoritários para o escopo.
+- O README é a descrição pública e não pode afirmar feature que o código não tem.
+- Não amplie o escopo além da microetapa atual.
+
+## Stack
+
+Prefira:
+
+- Node.js com TypeScript
+- SQLite via `better-sqlite3`
+- Zod para o JSON de cada rodada
+- Vitest
+- módulos pequenos e testáveis
+- interface única na borda do Cursor (`createAgent`, `createRun`, `getAgent`, `getRun`), com mock e HTTP live por trás dela
+- testes determinísticos, sem chamada real à API
+
+Evite:
+
+- abstração prematura
+- framework de UI
+- estado global escondido
+- segredo no código
+- o cliente HTTP decidir coluna, prompt ou modelo
+- implementar tarefa futura do roadmap "já que está aqui"
+- interpretar texto livre quando o JSON combinado não veio
+
+## Domínio
+
+Há um card e um agente fora deste processo. O processo não espera o agente dentro do clique.
+
+1. O serviço manda o texto e grava o id da sessão.
+2. O worker pergunta, de tempos em tempos, se a run acabou.
+3. Só com JSON válido o card muda de coluna.
+
+O cliente é só o telefone: liga, manda, pergunta o status e desliga. Quem escolhe coluna, prompt e modelo é o serviço de demanda. Quem pergunta "já acabou?" é o worker de consulta.
+
+Situação do card: `queued` → `dispatching` → `analyzing` → `done` ou `failed`. A passagem para `dispatching` só vale se o card ainda estiver `queued`.
+
+O estado de verdade da execução está na run (`latestRunId`), não no status do agente. O agente continua ativo depois de terminar. Branch e PR vêm de `git.branches` da run, não do texto.
+
+Papéis só de leitura usam `mode: "plan"` e não abrem PR. Desenvolvedor e correção usam `mode: "agent"` com `autoCreatePR: true`.
+
+Colunas de pacote e homologação estão fora do roadmap. A fila de implantação só mostra a branch e o PR já gravados no card.
+
+## Segurança
+
+Nunca commitar:
+
+- `.env`
+- chaves de API
+- senhas
+- tokens
+- credenciais de cloud
+- bancos locais (`data/*.db` e arquivos laterais do SQLite)
+
+Segredos ficam em variável de ambiente. `.env.example` só quando o roadmap chegar nessa etapa, e sem valor real.
+
+## Relatório ao concluir uma microetapa
+
+1. tarefa do roadmap concluída
+2. arquivos alterados
+3. README atualizado, ou por que não precisou
+4. validações e testes executados
+5. commit não criado — só se o usuário pedir
+6. próxima `- [ ]`, sem implementá-la

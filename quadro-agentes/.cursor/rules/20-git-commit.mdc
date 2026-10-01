@@ -1,0 +1,75 @@
+---
+description: Commit do Quadro de agentes só sob pedido explícito, no Git da raiz do perfil, com corpo bilíngue
+alwaysApply: true
+---
+
+# Commit Git (somente sob pedido)
+
+Não criar commit ao terminar uma microetapa. Commit só depois de pedido explícito e de validação (`git status`, diff revisado).
+
+O Git é o da raiz do perfil, não um repositório dentro de `quadro-agentes/`. Não copie o commit automático do `production-rag`.
+
+## Antes de stagear
+
+1. Rode `git status --short`.
+2. Revise `git diff` e, se houver, `git diff --cached`.
+3. Confirme que a mudança é da tarefa concluída.
+4. Confirme que não entram `.env`, chave, token, `node_modules/`, `dist/` nem `data/*.db`.
+5. Confirme que a validação da tarefa passou.
+6. Não commite se a implementação estiver incompleta ou quebrada.
+7. Não commite arquivo alheio. A raiz pode ter mudanças em outras pastas.
+
+## Stage
+
+- Só arquivos da tarefa.
+- Prefira `git add -- <paths>`.
+- Paths dentro de `quadro-agentes/`.
+- Inclua `quadro-agentes/ROADMAP.md` quando o checkbox dessa tarefa mudou.
+- Inclua `quadro-agentes/README.md` quando a tarefa o atualizou.
+- O `README.md` da raiz do perfil só entra se a tarefa pedir essa linha. Não o altere numa microetapa de código.
+- Nunca `git add .` na raiz do perfil.
+
+## Mensagem
+
+Conventional Commits. Assunto em português ou inglês, imperativo, até 72 caracteres, sem ponto final.
+
+Corpo bilíngue, nesta ordem:
+
+1. linha em branco depois do assunto
+2. `PT:` e o porquê, em português
+3. linha em branco
+4. `EN:` e o mesmo conteúdo, em inglês
+5. linha em branco e `Roadmap: QA.xx` quando a tarefa tiver ID
+
+Um commit = uma unidade lógica. Sem trailer `Co-authored-by` do Cursor.
+
+Tipos: `feat`, `fix`, `test`, `refactor`, `docs`, `chore`, `perf`, `ci`.
+
+Escopos comuns: `board`, `client`, `worker`, `contract`, `prompts`, `db`, `config`, `ui`, `readme`, `roadmap`, `setup`.
+
+Exemplo:
+
+```
+docs(quadro-agentes): adicionar kit de roadmap
+
+PT:
+Documenta o desenvolvimento incremental do quadro sem afirmar que o app já roda.
+O commit fica no Git do perfil, não num repositório aninhado.
+
+EN:
+Documents incremental board development without claiming the app already runs.
+The commit lands in the profile repository, not in a nested repo.
+
+Roadmap: QA.00
+```
+
+## Proibições sem pedido explícito
+
+- `git push`, `push --force`, `commit --amend`, `--no-verify`
+- `git reset --hard`, rebase ou reescrita de histórico
+- commit vazio
+- commit de segredo ou de outra pasta por engano
+
+## Depois do commit
+
+Rode `git status --short` e `git log -1 --oneline`. Mostre o hash e a mensagem. Lembre que push só ocorre se o usuário pedir.
