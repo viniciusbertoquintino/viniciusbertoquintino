@@ -12,9 +12,9 @@
 </div>
 
 <p align="center">
-  <a href="mailto:viniciusbertoquintino@gmail.com">viniciusbertoquintino@gmail.com</a>
-  ·
-  <a href="https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/">LinkedIn</a>
+  <a href="mailto:viniciusbertoquintino@gmail.com"><img alt="E-mail viniciusbertoquintino@gmail.com" src="https://img.shields.io/badge/e--mail-viniciusbertoquintino%40gmail.com-070B14?style=for-the-badge&logo=gmail&logoColor=56A8E8" /></a>
+  &nbsp;
+  <a href="https://www.linkedin.com/in/vin%C3%ADcius-berto-5b1425139/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Vin%C3%ADcius%20Berto-070B14?style=for-the-badge&logo=linkedin&logoColor=56A8E8" /></a>
 </p>
 
 ## Projetos
