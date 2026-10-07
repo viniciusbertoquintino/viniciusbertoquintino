@@ -1,6 +1,15 @@
-<p align="center">
-  <img src="./assets/perfil-topo.gif" width="100%" alt="An agent run inside the engine" />
-</p>
+<div align="center">
+  <h3><code>vinicius@github ~ $ ./contributions.sh</code></h3>
+  <img src="./contrib-heatmap.svg" width="860" alt="Contribuições no último ano" />
+  <br><br>
+  <h3><code>vinicius@github ~ $ whoami</code></h3>
+  <table>
+    <tr>
+      <td valign="top"><img src="./ascii.svg" width="370" alt="Retrato ASCII" /></td>
+      <td valign="top"><img src="./info-card.svg" width="490" alt="Cartão do perfil" /></td>
+    </tr>
+  </table>
+</div>
 
 <h1 align="center">Vinícius Berto</h1>
 

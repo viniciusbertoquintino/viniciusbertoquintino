@@ -1,0 +1,5 @@
+# Só na máquina, quando a foto muda. O Action diário não instala isto.
+pillow>=10.4
+numpy>=1.26
+opencv-python-headless>=4.10
+rembg>=2.0.57

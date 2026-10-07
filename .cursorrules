@@ -13,7 +13,7 @@ alwaysApply: true
 
 ## Qual repositório
 
-O perfil versiona só `README.md`, `.gitignore`, `.cursor/`, `assets/` e `projetos-nao-iniciados/`.
+O perfil versiona só `README.md`, `.gitignore`, `.cursor/`, `assets/`, `projetos-nao-iniciados/`, `scripts/`, `data/contributions.json`, `ascii.svg`, `info-card.svg`, `contrib-heatmap.svg` e `.github/workflows/update-profile-art.yml`.
 
 Estes projetos têm Git próprio. O commit deles é `git -C <pasta>`, nunca na raiz:
 

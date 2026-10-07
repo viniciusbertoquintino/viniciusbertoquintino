@@ -12,6 +12,8 @@ Repositório Git **desta raiz** = perfil público no GitHub (`viniciusbertoquint
 O perfil versiona só o que é dele:
 
 - `README.md`, `.gitignore`, `.cursor/rules/`, `assets/`
+- `scripts/`, `data/contributions.json`, `ascii.svg`, `info-card.svg`, `contrib-heatmap.svg`
+- `.github/workflows/update-profile-art.yml`
 - `projetos-nao-iniciados/` (índice + pastas dos projetos)
 
 Não versionar `.env`, `.venv/`, `node_modules/` nem `__pycache__/`.

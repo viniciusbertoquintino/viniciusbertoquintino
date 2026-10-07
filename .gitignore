@@ -6,6 +6,13 @@
 /production-rag/
 /quadro-agentes/
 
+# Foto do retrato ASCII — o que entra no Git é o ascii.svg
+/assets/source-photo.jpg
+/assets/source-photo.jpeg
+/assets/source-photo.png
+/assets/perfil_image.jpg
+/assets/source-prepped.png
+
 # Artefatos locais
 **/.venv/
 **/venv/
