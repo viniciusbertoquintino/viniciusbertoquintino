@@ -30,10 +30,11 @@ Também: [Desafios GenAI (KPMG)](https://github.com/viniciusbertoquintino/KPMG-D
 
 Backlog: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md)
 
-<details>
-<summary>English</summary>
+---
 
-## Projects
+## English
+
+### Projects
 
 | Project | What it is today |
 |---|---|
@@ -45,5 +46,3 @@ Backlog: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md)
 Also: [GenAI challenges (KPMG)](https://github.com/viniciusbertoquintino/KPMG-Desafios-GenAI-Vinicius-Berto-Quintino), [study notebook](https://github.com/viniciusbertoquintino/meu-caderno-ia) and [agent board](https://github.com/viniciusbertoquintino/quadro-agentes) — incremental development; the app does not exist yet.
 
 Backlog: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md)
-
-</details>
