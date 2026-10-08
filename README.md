@@ -25,6 +25,7 @@
 | [Jev Self-Driving Sim](https://github.com/viniciusbertoquintino/jev-testes/tree/main/jev-carro-autonomo) | Carro 2D no browser. O Jev responde quatro perguntas tipadas e o código aplica o gating de confiança. O modo Compare roda o mesmo percurso contra um LLM. |
 | [Production RAG](https://github.com/viniciusbertoquintino/production-rag) | RAG com qualidade de retrieval, avaliação e observabilidade. Em desenvolvimento. |
 | [Plataforma de Assistentes com IA](https://github.com/viniciusbertoquintino/plataforma-assistentes-ia) | Plataforma funcional de LLMs, RAG e agentes (React, Supabase e FastAPI opcional). A evolução segue o roadmap do projeto. |
+| [AI Project Kit](https://github.com/viniciusbertoquintino/ai-project-kit) | Kit de documentação e contexto para projetos com IA, agentes e desenvolvimento assistido por LLMs. |
 
 Também: [Desafios GenAI (KPMG)](https://github.com/viniciusbertoquintino/KPMG-Desafios-GenAI-Vinicius-Berto-Quintino), [caderno de estudos](https://github.com/viniciusbertoquintino/meu-caderno-ia) e [quadro de agentes](https://github.com/viniciusbertoquintino/quadro-agentes) — desenvolvimento incremental; o app ainda não existe.
 
@@ -42,6 +43,7 @@ Backlog: [projetos-nao-iniciados/README.md](projetos-nao-iniciados/README.md)
 | [Jev Self-Driving Sim](https://github.com/viniciusbertoquintino/jev-testes/tree/main/jev-carro-autonomo) | A 2D car in the browser. Jev answers four typed questions and the code applies confidence gating. Compare mode runs the same course against an LLM. |
 | [Production RAG](https://github.com/viniciusbertoquintino/production-rag) | RAG with retrieval quality, evaluation, and observability. In progress. |
 | [AI Assistants Platform](https://github.com/viniciusbertoquintino/plataforma-assistentes-ia) | A working LLMs, RAG, and agents platform (React, Supabase, and an optional FastAPI backend). It moves forward on its own roadmap. |
+| [AI Project Kit](https://github.com/viniciusbertoquintino/ai-project-kit) | A documentation and context kit for projects that use AI, agents, and LLM-assisted development. |
 
 Also: [GenAI challenges (KPMG)](https://github.com/viniciusbertoquintino/KPMG-Desafios-GenAI-Vinicius-Berto-Quintino), [study notebook](https://github.com/viniciusbertoquintino/meu-caderno-ia) and [agent board](https://github.com/viniciusbertoquintino/quadro-agentes) — incremental development; the app does not exist yet.
 
